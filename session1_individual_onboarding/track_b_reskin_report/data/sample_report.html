@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Sample Variant Prioritisation Report</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 20px; }
+  table { border-collapse: collapse; width: 100%; margin-bottom: 30px; }
+  th, td { border: 1px solid #ccc; padding: 6px 10px; text-align: left; font-size: 13px; }
+  th { background: #eee; }
+  h2 { margin-top: 40px; }
+</style>
+</head>
+<body>
+<h1>Variant Prioritisation Report (synthetic demo data)</h1>
+
+<h2>Patient A — CASE-0001</h2>
+<p>Phenotype terms: Seizure; Global developmental delay; Hepatomegaly; Adrenal insufficiency; Microcephaly</p>
+<table>
+<tr><th>Rank</th><th>Gene</th><th>HGVS</th><th>Inheritance</th><th>Zygosity</th><th>ACMG class</th><th>Phenotype match</th></tr>
+<tr><td>2</td><td>ABCD1</td><td>c.1415_1416del</td><td>X-linked</td><td>hemizygous</td><td>Likely pathogenic</td><td>8/12</td></tr>
+<tr><td>5</td><td>PEX1</td><td>c.2528G>A</td><td>AR</td><td>heterozygous</td><td>VUS</td><td>4/12</td></tr>
+</table>
+
+<h2>Patient B — CASE-0002</h2>
+<p>Phenotype terms: Atrial septal defect; Coronary artery anomaly; Short stature; Coarse facial features</p>
+<table>
+<tr><th>Rank</th><th>Gene</th><th>HGVS</th><th>Inheritance</th><th>Zygosity</th><th>ACMG class</th><th>Phenotype match</th></tr>
+<tr><td>1</td><td>PTPN11</td><td>c.922A>G</td><td>AD</td><td>heterozygous</td><td>Pathogenic</td><td>4/4</td></tr>
+<tr><td>3</td><td>MYH7</td><td>c.1988G>A</td><td>AD</td><td>heterozygous</td><td>Likely pathogenic</td><td>1/4</td></tr>
+</table>
+
+<h2>Patient C — CASE-0003</h2>
+<p>Phenotype terms: Seizure; Specific learning disability; Delayed speech and language development</p>
+<table>
+<tr><th>Rank</th><th>Gene</th><th>HGVS</th><th>Inheritance</th><th>Zygosity</th><th>ACMG class</th><th>Phenotype match</th></tr>
+<tr><td>1</td><td>SCN1A</td><td>c.4933C>T</td><td>AD</td><td>heterozygous</td><td>Pathogenic</td><td>3/3</td></tr>
+</table>
+
+</body>
+</html>

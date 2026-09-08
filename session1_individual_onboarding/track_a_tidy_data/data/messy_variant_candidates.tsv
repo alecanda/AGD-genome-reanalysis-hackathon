@@ -1,0 +1,6 @@
+patient id	Gene	hgvs	zyg	class	panel	notes
+pt-001	abcd1	NM_000033.4:c.1415_1416del	hemi	Likely Pathogenic 	Leukodystrophy	phenotype match 8/12 !!
+PT-002	PTPN11	NM_002834.5:c.922A>G	het	pathogenic	RASopathies	de novo confirmed
+pt-002	MYH7	NM_000257.4:c.1988G>A	Het	Likely pathogenic	cardiomyopathy	possible incidental?
+Pt-003	SCN1A	NM_001165963.4:c.4933C>T	HET	Pathogenic	epilepsy	
+pt-001	PEX1	NM_000466.3:c.2528G>A	het	VUS	peroxisomal disorders	second allele NOT found
