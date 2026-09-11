@@ -1,0 +1,6 @@
+case_id	last_analysis	current_analysis	candidate_count	new_candidates	new_gene_evidence	new_clinvar_evidence	phenotype_changes	new_high_priority_candidates	prior_analysis_complete	note
+CASE_001	2024-01-15	2026-09-01	12	1	0	0	0	0	1	routine
+CASE_002	2025-10-01	2026-09-01	4	0	1	1	0	0	1	new_gene_evidence
+CASE_003	2023-02-12	2026-09-01	28	0	0	0	2	1	1	phenotype_updated
+CASE_004	2026-08-20	2026-09-01	2	0	0	0	0	0	1	recent_analysis
+CASE_005	2021-04-05	2026-09-01	17	0	0	1	1	0	0	new_variant_evidence

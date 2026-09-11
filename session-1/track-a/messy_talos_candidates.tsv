@@ -1,0 +1,2 @@
+sample_id	gene_id	gene_symbol	chromosome	position	REF	ALT	Talos_category_1	Talos_category_2	Talos_category_3	Talos_category_4	inheritance_reason	consequence	MANE_HGVSc	MANE_HGVSp	gnomAD_AF	ClinVar	ClinVar_stars	CADD	REVEL	SIFT	PolyPhen	warnings	extra_technical_field
+SAMPLE_1	ENSG00000205413	SAMD9	7	93105286	T	A	TRUE	FALSE	FALSE	SAMPLE_1	Autosomal Dominant	missense_variant	ENST00000379958.3:c.812A>T	ENSP00000369292.2:p.Tyr271Phe	0	missing	0	22.6	0.053	deleterious(0.050)	benign(0.406)		ENST00000379958|ENSP00000369292|protein_coding|3/3

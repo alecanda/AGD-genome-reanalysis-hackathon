@@ -1,32 +1,34 @@
-# Genome Reanalysis Hackathon
+# AI × Genomics Hackathon — Talos
 
-AI-assisted hackathon on genome reanalysis for rare disease diagnostics, centred on **Talos**-style variant prioritisation.
+A workshop package for an AI-assisted coding hackathon centred on Talos, rare-disease variant prioritisation and genome reanalysis.
 
-## Itinerary
+## Core idea
 
-| Time | Block |
-|---|---|
-| 16:15–16:45 | Individual onboarding exercise (choose Track A or B) |
-| 16:45–17:00 | Q&A on the exercise |
-| 17:00–17:10 | Group formation: 2 clinician scientists + 2 bioinformaticians per group, mixed by prior programming experience, plus a one-sentence topic pitch |
-| 17:10–18:10 | Group hackathon (60 min) |
-| 18:10–19:00 | Group pitch & demo, judged live |
+The workshop is not primarily about teaching people to code.
 
-## Repo map
+It is about demonstrating that an AI coding agent can let clinical scientists and bioinformaticians build useful software in a short time that they would previously not have attempted.
 
-- [`docs/claude_agentic_workflow_cheatsheet.md`](docs/claude_agentic_workflow_cheatsheet.md) — one-pager, hand out at 16:15
-- [`docs/judging_rubric_and_scoring_sheet.md`](docs/judging_rubric_and_scoring_sheet.md) — for judges, 18:10
-- [`session1_individual_onboarding/`](session1_individual_onboarding/) — Track A & B exercises
-- [`session2_group_hackathon/`](session2_group_hackathon/) — Tracks 1–5
-- [`shared_data/`](shared_data/) — synthetic Talos-style candidate data used across multiple group tracks
+## Session 1 — Individual onboarding
 
-## Environment
+Two tracks:
 
-Participants can use **Claude.ai (web chat)** or **Claude Code** — their choice. Nothing here requires a specific setup beyond a browser or a terminal with Claude Code installed. All data in this repo is **synthetic**; no real patient or BAVGEN data is included. Teams are free to pull in genuinely public reference data (e.g. ClinVar, gnomAD, PanelApp, GIAB) if it strengthens their solution.
+- Track A: tidy/reformat Talos-derived candidate data
+- Track B: modify the real Talos HTML report
 
-## Status
+## Session 2 — Team hackathon
 
-- [x] Rubric & scoring sheet
-- [x] Agentic workflow cheat sheet
-- [x] Repo skeleton + shared mock data
-- [ ] Full worked example/starter script per track (add before event if desired)
+1. Talos Case Review
+2. Why is this candidate interesting?
+3. Natural-language Talos
+4. Reanalysis triage
+5. Open pitch
+
+## Source material
+
+The workshop deliberately uses the public Talos project and its test fixtures as the foundation. The upstream repository contains small VCF/pedigree/test JSON fixtures and the HTML report is assembled by Python/Jinja code.
+
+This workshop repository should reference a pinned Talos release for the event rather than tracking `main` during the workshop.
+
+## Data policy
+
+No patient data is provided. Use synthetic/public data only.
