@@ -2,17 +2,15 @@
 
 ## Choose the setup that matches your experience
 
-**TODO: add Friday Q&A session info for Path A only**
-
 We deliberately support two ways of working. You do **not** need to install a full programming environment just to participate. Due to time constraints, unfortunately it won't be feasible to help with technical challenges on the day. We strongly recommend to choose the right path below based on you experience and skill level.
 
 ### Path A — Users with no programming experience: Claude Platform / Claude App
 
-**Recommended if you have little or no programming experience, or do not already use VS Code/a similar editor.**
+**Recommended if you have little or no programming experience, or do not already use VS Code/another IDE.**
 
 Participants are recommended to participate using the Claude Console (https://platform.claude.com/). You do not need to install Claude Code, VS Code, Git, or a terminal environment for the introductory exercises.
 
-**Note:** Claude Chat (https://claude.ai/) is a separate system to Claude Platform even with the same email. The Claude credits supplied for the hackathon (details below) are for Console, given as API credit. It does not top up a Clause Chat Pro/Max subscription. Therefore, we suggest setting up an account with the Console even if you already use Clause Chat.
+**Note:** Claude Chat (https://claude.ai/) is a separate system to Claude Platform even with the same email. The Claude credits supplied for the hackathon (details below) are for Console, given as API credit. It does not top up a Claude Chat Pro/Max subscription. Therefore, we suggest setting up an account with the Console even if you already use Claude Chat.
 
 ### Path B — Users with programming and Claude Code experience
 
@@ -99,17 +97,16 @@ After the hackathon, run `/login` again to switch back to your normal subscripti
 
 # Working with your team
 
-The workshop is designed for teams of approximately four people, combining clinical scientists and bioinformaticians.
+The workshop is designed for teams of approximately four people, combining clinical scientists and bioinformaticians. We suggest that one experienced bioinformatician takes the role of technical steward, handling the final project repository, data, and files.
 
 ## Shared project workspace
 
 The workshop GitHub repository is the main shared workspace for team projects.
 
 **Workshop GitHub repository:**  
-[TO BE ADDED — WORKSHOP GITHUB REPOSITORY](https://github.com/example/talos-ai-hackathon)
+[WORKSHOP GITHUB REPOSITORY](https://github.com/drewjbeh/AGD-genome-reanalysis-hackathon/tree/main)
 
-**Team project folder:**  
-[TO BE ADDED — TEAM PROJECT](https://github.com/example/talos-ai-hackathon/tree/main/projects/team-example)
+Please fork the repo, make a subdirectory for your team with a creative (and unlikely to be duplicated) name under `session-2/projects`. Please push your work here, including your final presentation and working prototype.
 
 ---
 

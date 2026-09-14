@@ -27,6 +27,12 @@ In Session 2, work with your team on a small, working prototype that could make 
 4. **Reanalysis triage** — help a laboratory decide which unresolved cases to review first after a reanalysis cycle. You could use signals such as new candidates, updated gene-disease or ClinVar evidence, phenotype changes, and time since analysis. Show why each case was prioritised rather than presenting an unexplained score.
 5. **Open pitch** — propose and prototype another improvement to Talos, rare-disease diagnostics, or genome reanalysis. Start with a real user problem, make sure your idea meaningfully interacts with Talos or its outputs, and demonstrate a working proof of concept. It does not need to contain AI.
 
+### Working with your team
+**Workshop GitHub repository:**  
+[WORKSHOP GITHUB REPOSITORY](https://github.com/drewjbeh/AGD-genome-reanalysis-hackathon/tree/main)
+
+Please fork the repo, make a subdirectory for your team with a creative (and unlikely to be duplicated) name under `session-2/projects`. Please push your work here, including your final presentation and working prototype.
+
 ## Source material
 
 The workshop deliberately uses the public Talos project and its test fixtures as the foundation. The upstream repository contains small VCF/pedigree/test JSON fixtures and the HTML report is assembled by Python/Jinja code.
