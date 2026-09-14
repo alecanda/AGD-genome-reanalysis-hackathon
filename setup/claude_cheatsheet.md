@@ -13,7 +13,7 @@ See the [Anthropic guide](https://platform.claude.com/docs/en/about-claude/model
 - Use a cheaper model for routine first passes, then reserve a stronger model for the difficult cases or a final review.
 - See the [current model descriptions and pricing](https://platform.claude.com/docs/en/about-claude/pricing) in the Console. A stronger model may produce better reasoning, but it does not replace checking the output or validating scientific claims.
 
-### A quick decision rule
+### Choosing the right tool: A quick decision rule
 
 - Choose **Claude chat** for a one-off question, document, or small file task with no coding.
 - Choose **Claude Console** when you want to test an API prompt, process many inputs consistently, or build an application or tool-using agent.
