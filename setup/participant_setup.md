@@ -2,9 +2,11 @@
 
 ## Choose the setup that matches your experience
 
-We deliberately support two ways of working. You do **not** need to install a full programming environment just to participate.
+**TODO: add Friday Q&A session info for Path A only**
 
-### Path A — Claude Platform / Claude App
+We deliberately support two ways of working. You do **not** need to install a full programming environment just to participate. Due to time constraints, unfortunately it won't be feasible to help with technical challenges on the day. We strongly recommend to choose the right path below based on you experience and skill level.
+
+### Path A — Users with no programming experience: Claude Platform / Claude App
 
 **Recommended if you have little or no programming experience, or do not already use VS Code/a similar editor.**
 
@@ -12,9 +14,7 @@ Participants are recommended to participate using the Claude Console (https://pl
 
 **Note:** Claude Chat (https://claude.ai/) is a separate system to Claude Platform even with the same email. The Claude credits supplied for the hackathon (details below) are for Console, given as API credit. It does not top up a Clause Chat Pro/Max subscription. Therefore, we suggest setting up an account with the Console even if you already use Clause Chat.
 
-**[Screenshot placeholder — account/sign-in]**
-
-### Path B — Claude Code
+### Path B — Users with programming and Claude Code experience
 
 **Recommended if you already have coding experience and use VS Code or a similar editor.**
 
@@ -27,8 +27,6 @@ Recommended software:
 - GitHub account
 
 You do **not** need to install this path just because you are attending. However, participants following this path should still have a Claude Console login and should redeem hackathon credits on this platform.
-
-**[Screenshot placeholder — Claude Code installation]**
 
 ---
 
@@ -52,12 +50,15 @@ You can use an existing account. If you have never used Claude Console before, t
 
 1. Follow the claim link.
 2. Sign in to your Anthropic account.
+![image](/img/console_signin.png)
 3. Select "Individual" on the screen "How will you use the Claude API?"
+![image](/img/type.png)
 4. Skip the initial buy credits step.
+![image](/img/skip_credits.png)
 5. Fill in the application page for "AGD 2026 Rare-Disease Reanalysis Hackathon (Uni Bonn / TUM) Credits"
+![image](/img/agd_credits.png)
 6. Wait for you $100 credit to appear in you dashboard (can take up to 2 hours)
-
-**[Screenshot placeholder — active Console organisation]**
+![image](/img/credits_in_profile.png)
 
 > **Important:** The event credit is **API credit in Claude Console**. It is not a credit/top-up for a Claude Pro or Max subscription.
 
@@ -75,15 +76,14 @@ Follow detailed instructions for installation for your system here: https://code
 After installation and claiming the event credit:
 
 ### via a terminal
-1. In Claude Code (terminal), run `/login`.
+1. In Claude Code (run `claude` in a terminal), run `/login`.
 2. Select **Anthropic Console account (API usage billing)** then **Sign in with your Console account**.
+![image](/img/code_terminal_login.png)
+![image](/img/code_terminal_login2.png)
 3. **Do NOT select:** “Claude account with subscription”.
 4. Select **default** workspace and authorise this when the browser opens for login.
+![image](/img/default_workspace.png)
 5. Run `/status` to check which account/billing method is active.
-
-**[Screenshot placeholder — Claude Code /login]**
-
-**[Screenshot placeholder — Claude Code /status]**
 
 If you select the subscription option, Claude Code can continue using your personal Claude plan and **will not use the hackathon API credits**.
 
@@ -91,6 +91,7 @@ After the hackathon, run `/login` again to switch back to your normal subscripti
 
 ### via VS Code
 1. Click the Claude Code icon in the top right tool bar, or type `/login` in the already open Claude Code side panel.
+![image](/img/vs_login.png)
 2. Choose **Anthropic Console**.
 3. Allow opening of the external link.
 4. Follow prompts for login and authorisation.
