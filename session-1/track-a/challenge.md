@@ -4,7 +4,7 @@
 
 Turn `messy_talos_candidates.tsv` into a concise, clinician-readable summary.
 
-You do not need to understand every field. Use Claude to inspect the data and help you decide what information is useful.
+You do not need to understand every field. Use Claude to inspect the data and help you decide what information is useful. For this challenge we suggest using [Claude chat](https://claude.ai/)
 
 ### Minimum goal
 

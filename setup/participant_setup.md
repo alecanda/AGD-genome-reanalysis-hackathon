@@ -112,11 +112,14 @@ Please fork the repo, make a subdirectory for your team with a creative (and unl
 
 # Talos setup
 
-The hackathon uses a **pinned Talos 11.0.x environment**.
+The hackathon uses a **pinned Talos 11.0.1 environment**.
 
-The organisers will provide prepared Talos 11.0.2 outputs and workshop data so participants do not need to spend the hackathon setting up the complete Talos pipeline.
+The organisers will provide prepared Talos 11.0.1 outputs and workshop data so participants do not need to spend the hackathon setting up the complete Talos pipeline.
 
-More technically experienced participants who want to work directly with Talos source code can use the following Talos 11.0.1 release: https://github.com/populationgenomics/talos/releases/tag/v11.0.1.
+More technically experienced participants who want to work directly with Talos source code can use the following Talos 11.0.1 release: https://github.com/populationgenomics/talos/releases/tag/v11.0.1. This can be done using the following command, for example:
+```
+git clone git@github.com:populationgenomics/talos.git --branch v11.0.1
+```
 
 **Docker/Nextflow and a complete local Talos pipeline are **optional**, not prerequisites.**
 

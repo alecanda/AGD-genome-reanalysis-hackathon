@@ -6,7 +6,7 @@ Anthropic provides several ways to work with Claude. Start with the least techni
 
 Each participant has **$100 in credits** for this workshop. More capable models can use those credits surprisingly quickly, especially with large files, long conversations, repeated retries, or agent tasks that make many tool calls. A complex model is also often overengineered for a simple task.
 
-See the [Anthropic guide](https://platform.claude.com/docs/en/about-claude/models/choosing-a-model) to selecting a model Helpful rules of thumb:
+See the [Anthropic guide](https://platform.claude.com/docs/en/about-claude/models/choosing-a-model) to selecting a model. Here are some helpful rules of thumb:
 - Start with the fastest or most economical suitable model for summarising, reformatting, extracting fields, straightforward questions, and small code changes.
 - Use a more capable model when the task involves ambiguous requirements, difficult reasoning, a large or unfamiliar codebase, multi-step planning, or debugging that simpler models cannot resolve.
 - Test your prompt on a small representative sample before sending a full dataset or running a long agent workflow.
@@ -15,11 +15,11 @@ See the [Anthropic guide](https://platform.claude.com/docs/en/about-claude/model
 
 ### Choosing the right tool: A quick decision rule
 
-- Choose **Claude chat** for a one-off question, document, or small file task with no coding.
-- Choose **Claude Console** when you want to test an API prompt, process many inputs consistently, or build an application or tool-using agent.
+- Choose **[Claude chat](https://claude.ai/)** for a one-off question, document, or small file task with no coding (ideal for Session 1).
+- Choose **[Claude Console](https://platform.claude.com/)** when you want to test an API prompt, process many inputs consistently, or build an application or tool-using agent.
 - Choose **Claude Code** when the work involves a local codebase, terminal commands, tests, or editing files.
 
-You can combine them: use chat to clarify a problem, Console to prototype a repeatable prompt or API workflow, and Claude Code to integrate that workflow into a tested project.
+You can combine them: use chat to clarify a problem, Console to prototype a repeatable prompt or API workflow, and Claude Code to integrate that workflow into a tested project. **Note that the credits supplied here do not cover chat Pro/Max subscriptions. The use of chat in the workshop is therefore limited to free daily allowances unless you have your own subscription.**
 
 
 | Tool | Best for | What it can do |

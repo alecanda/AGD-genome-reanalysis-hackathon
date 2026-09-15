@@ -2,9 +2,14 @@
 
 ## Mission
 
-Clone the current Talos release and make one useful change to its HTML report.
+Clone [Talos](https://github.com/populationgenomics/talos) v11.0.1 release and make one useful change to its HTML report.
 
-Start with the real Talos codebase. Do not build a mock application.
+Start with the real Talos codebase. Do not build a mock application. Use the example JSON file in `/data/`
+
+To clone the specific release, use:
+```
+git clone git@github.com:populationgenomics/talos.git --branch v11.0.1
+```
 
 ### Good first targets
 
