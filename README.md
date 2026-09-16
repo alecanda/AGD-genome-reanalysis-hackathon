@@ -1,4 +1,4 @@
-# AI × Genomics Hackathon — Talos
+# AI × Genomics Hackathon
 
 A workshop package for an AI-assisted coding hackathon centred on Talos, rare-disease variant prioritisation and genome reanalysis.
 
@@ -13,7 +13,7 @@ It is about demonstrating that an AI coding agent can let clinical scientists an
 In Session 1, you will get a short, contained experience of using an AI coding agent. Both tracks use synthetic or public Talos-derived material, so you can focus on the workflow rather than on handling patient data.
 
 - **Track A: Tidy the Talos data** — inspect a messy candidate table and turn it into a concise, clinician-readable summary. You will practise understanding unfamiliar data, choosing useful fields, and iterating on a practical output rather than trying to write perfect code.
-- **Track B: Reskin the Talos report** — work with the real Talos codebase and make one useful presentation change to its HTML report. You will practise navigating an existing repository, finding the relevant Python and Jinja files, and testing a small change without altering the underlying variant interpretation.
+- **Track B: Reskin the Talos report** — work with the real Talos output and make one useful presentation change to its HTML report. You will practise using Claude to analyse a file, identify areas fit for improvement, and testing a small change without altering the underlying variant interpretation.
 
 Choose the track that suits your starting point: Track A begins with a data transformation task, while Track B takes you into repository-level changes in a real software project.
 
@@ -29,8 +29,6 @@ In Session 2, work with your team on a small, working prototype that could make 
 
 ### Working with your team
 **Workshop GitHub repository:**  
-[WORKSHOP GITHUB REPOSITORY](https://github.com/drewjbeh/AGD-genome-reanalysis-hackathon/tree/main)
-
 Please fork the repo, make a subdirectory for your team with a creative (and unlikely to be duplicated) name under `session-2/projects`. Please push your work here, including your final presentation and working prototype.
 
 ## Source material
@@ -42,3 +40,7 @@ This workshop repository should reference a pinned Talos release for the event r
 ## Data policy
 
 No patient data is provided. Use synthetic/public data only.
+
+## Funding and support
+The AI x Genomics Hackathon at the Arbeitsgemeinschaft für Gen-Diagnostik e.V. Jahrestagung 2026 was supported by the following institutions, companies, and projects:
+![image](/img/GHGA_full_Logo_orange.png)![image](/img/Anthropic%20Logo%20-%20Colored%20-%20zonalogo.com.svg)

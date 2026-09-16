@@ -1,8 +1,8 @@
 # Workshop data
 
-## `talos_upstream_aip_output_example.json`
+## `example_report.html`
 
-This is the small public Talos test fixture used as the starting point for the onboarding material.
+This is the small public Talos output html report used as the starting point for the onboarding material in session 1. This is also the example data that can be regenerated with the instructions in the repository [README](https://github.com/populationgenomics/talos/blob/main/README.md)
 
 ## `synthetic_reanalysis_cases.tsv`
 

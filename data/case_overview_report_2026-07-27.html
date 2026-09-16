@@ -1,0 +1,2667 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Talos Report: </title>
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <!-- Include DataTables CSS and JS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+
+    <script type="text/javascript" charset="utf8"
+        src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+
+    <link href="https://cdn.datatables.net/rowgroup/1.0.2/css/rowGroup.dataTables.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.datatables.net/rowgroup/1.0.2/js/dataTables.rowGroup.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+        a {
+            text-decoration: none;
+        }
+
+        .child-row-content {
+            max-width: 1200px;
+            margin-left: 0;
+            margin-right: auto;
+            text-align: left;
+        }
+
+        /*Source https://stackoverflow.com/a/29682843*/
+        table.dataTable thead .sorting_asc {
+          background: url("http://cdn.datatables.net/1.10.0/images/sort_asc.png") no-repeat center left;
+        }
+        table.dataTable thead .sorting_desc {
+          background: url("http://cdn.datatables.net/1.10.0/images/sort_desc.png") no-repeat center left;
+        }
+        table.dataTable thead .sorting {
+          background: url("http://cdn.datatables.net/1.10.0/images/sort_both.png") no-repeat center left;
+        }
+
+        /* ============================================================
+           Case overview header
+           Ink and status tokens are held locally so the block is written
+           against roles rather than raw hex.
+           ============================================================ */
+        .case-header,
+        .case-sticky {
+            --surface-1: #fcfcfb;
+            --plane: #f9f9f7;
+            --ink-1: #0b0b0b;
+            --ink-2: #52514e;
+            --ink-3: #898781;
+            --hair: rgba(11, 11, 11, 0.10);
+            --rule: #e1e0d9;
+            --accent: #2a78d6;
+            --status-warning: #fab219;
+            font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+        }
+
+        .case-header {
+            background: var(--surface-1);
+            border: 1px solid var(--hair);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        /* --- Band 1: identity + provenance --- */
+        .case-header__identity {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 0.25rem 1.5rem;
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--rule);
+        }
+
+        .case-header__who {
+            font-size: 1.0625rem;
+            font-weight: 600;
+            color: var(--ink-1);
+        }
+
+        .case-header__who .case-header__sub {
+            font-weight: 400;
+            color: var(--ink-2);
+        }
+
+        .case-header__provenance {
+            font-size: 0.8125rem;
+            color: var(--ink-3);
+        }
+
+        /* --- Band 2: pedigree | phenotype | scope --- */
+        .case-header__body {
+            display: grid;
+            grid-template-columns: minmax(170px, 0.8fr) minmax(250px, 1.4fr) minmax(210px, 1fr);
+        }
+
+        .case-header__cell {
+            padding: 0.875rem 1rem;
+            border-right: 1px solid var(--rule);
+            min-width: 0;
+        }
+
+        .case-header__cell:last-child {
+            border-right: 0;
+        }
+
+        .case-header__label {
+            font-size: 0.6875rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--ink-3);
+            margin-bottom: 0.5rem;
+        }
+
+        .case-header__note {
+            font-size: 0.75rem;
+            color: var(--ink-3);
+            margin-top: 0.4rem;
+        }
+
+        /* Pedigree - drawn as SVG so the marriage and descent lines land on
+           the glyph centres rather than wherever text flow happens to put
+           them. Fill carries affected status, per pedigree convention. */
+        .case-ped {
+            display: block;
+            overflow: visible;
+        }
+
+        /* Phenotype terms */
+        .case-hpo {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .case-hpo li {
+            font-size: 0.8125rem;
+            color: var(--ink-1);
+            line-height: 1.35;
+        }
+
+        .case-hpo__id {
+            color: var(--ink-3);
+            font-size: 0.75rem;
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* Search scope */
+        .case-scope {
+            font-size: 0.8125rem;
+            color: var(--ink-1);
+            line-height: 1.45;
+            margin: 0;
+        }
+
+        .case-scope dt {
+            font-weight: 400;
+            color: var(--ink-3);
+            font-size: 0.75rem;
+        }
+
+        .case-scope dd {
+            margin: 0 0 0.375rem 0;
+        }
+
+        .case-scope dd:last-child {
+            margin-bottom: 0;
+        }
+
+        .case-scope__more summary {
+            cursor: pointer;
+            font-size: 0.75rem;
+            color: var(--ink-2);
+        }
+
+        .case-scope__more[open] summary {
+            margin-bottom: 0.2rem;
+        }
+
+        .case-scope__more > a {
+            font-size: 0.75rem;
+        }
+
+        /* --- Band 3: triage tiles --- */
+        .case-tiles {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            border-top: 1px solid var(--rule);
+            background: var(--plane);
+        }
+
+        .case-tile {
+            position: relative;
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 0.75rem 1rem 0.8125rem;
+            background: transparent;
+            border: 0;
+            border-right: 1px solid var(--rule);
+            color: inherit;
+        }
+
+        .case-tile:last-child {
+            border-right: 0;
+        }
+
+        button.case-tile {
+            cursor: pointer;
+        }
+
+        button.case-tile:hover {
+            background: rgba(42, 120, 214, 0.06);
+        }
+
+        button.case-tile:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: -2px;
+        }
+
+        /* Active filter state is carried by the underline and the label
+           text, never by colour alone. */
+        button.case-tile[aria-pressed="true"] {
+            background: rgba(42, 120, 214, 0.08);
+        }
+
+        button.case-tile[aria-pressed="true"]::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 2px;
+            background: var(--accent);
+        }
+
+        .case-tile__value {
+            font-size: 1.75rem;
+            font-weight: 600;
+            line-height: 1.05;
+            color: var(--ink-1);
+        }
+
+        .case-tile--hero .case-tile__value {
+            font-size: 2.5rem;
+        }
+
+        .case-tile__label {
+            font-size: 0.75rem;
+            color: var(--ink-2);
+            line-height: 1.3;
+            margin-top: 0.125rem;
+        }
+
+        .case-tile__sub {
+            font-size: 0.6875rem;
+            color: var(--ink-3);
+            line-height: 1.3;
+        }
+
+        /* QC tile: the amber accent bar is a mark, not text. The meaning is
+           carried by the icon plus the word, so the value stays readable ink. */
+        .case-tile--warning {
+            box-shadow: inset 3px 0 0 0 var(--status-warning);
+        }
+
+        .case-tile__icon {
+            margin-right: 0.25rem;
+            color: var(--ink-2);
+        }
+
+        /* --- Sticky condensed bar --- */
+        .case-sticky {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1035;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.25rem 1rem;
+            padding: 0.5rem 1rem;
+            background: var(--surface-1);
+            border-bottom: 1px solid var(--hair);
+            box-shadow: 0 1px 4px rgba(11, 11, 11, 0.10);
+            font-size: 0.8125rem;
+            color: var(--ink-1);
+            transform: translateY(-100%);
+            transition: transform 0.15s ease-out;
+        }
+
+        .case-sticky.is-visible {
+            transform: translateY(0);
+        }
+
+        .case-sticky__who {
+            font-weight: 600;
+        }
+
+        .case-sticky__facts {
+            color: var(--ink-2);
+        }
+
+        .case-sticky__sep {
+            color: var(--ink-3);
+            margin: 0 0.375rem;
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 991.98px) {
+            .case-header__body {
+                grid-template-columns: 1fr;
+            }
+
+            .case-header__cell {
+                border-right: 0;
+                border-bottom: 1px solid var(--rule);
+            }
+
+            .case-header__cell:last-child {
+                border-bottom: 0;
+            }
+
+            .case-tiles {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .case-tile {
+                border-bottom: 1px solid var(--rule);
+            }
+        }
+
+        /* --- Print: the header has to survive a paper copy or a screenshot
+               pasted into MDT slides, so nothing in it is hover-only. --- */
+        @media print {
+            .case-sticky {
+                display: none !important;
+            }
+
+            .case-header {
+                break-inside: avoid;
+                border: 1px solid #999;
+            }
+
+            .case-header__body {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .case-tiles {
+                grid-template-columns: repeat(5, 1fr);
+            }
+
+            button.case-tile[aria-pressed="true"]::after {
+                display: none;
+            }
+        }
+
+    </style>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-dark bg-dark justify-content-start">
+      <a class="navbar-brand p-1" href="#"> Talos Report: </a>
+      <span class="navbar-text">
+        Generated: 2026-07-27
+      </span>
+    </nav>
+
+    <!-- Condensed case context, pinned below the top of the viewport once the
+         full header scrolls out of view. Populated by buildCaseOverview(). -->
+    <div class="case-sticky" id="case-sticky" role="complementary" aria-label="Case summary"></div>
+
+    <div class="container-fluid py-4 px-3 px-lg-4">
+        <!-- Case overview: identity, pedigree, phenotype, search scope and
+             triage counts. Built from the table's own data-* attributes on
+             load, so it stays correct if the report is regenerated. -->
+        <div class="case-header mb-3" id="case-overview"></div>
+
+        <ul class="nav nav-tabs mb-3" id="report-tabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="results-tab" data-bs-toggle="tab" data-bs-target="#results-pane" type="button" role="tab" aria-controls="results-pane" aria-selected="true">Results</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="metadata-tab" data-bs-toggle="tab" data-bs-target="#metadata-pane" type="button" role="tab" aria-controls="metadata-pane" aria-selected="false"> Run Metadata</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="config-tab" data-bs-toggle="tab" data-bs-target="#config-pane" type="button" role="tab" aria-controls="config-pane" aria-selected="false">Run Configuration</button>
+            </li>
+        </ul>
+        <div class="tab-content" id="report-tabs-content">
+            <div class="tab-pane fade show active" id="results-pane" role="tabpanel" aria-labelledby="results-tab">
+                <button class="btn btn-outline-info btn-sm mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#report-help"
+                    aria-expanded="false" aria-controls="report-help">
+                    Help
+                </button>
+                <div class="collapse" id="report-help">
+                    <div class="card card-body mb-3">
+                        <h5>Symbol Legend</h5>
+
+                        <p class="mb-1">
+                        <i class="bi bi-person-check-fill text-success"></i>
+                        Phenotype match (panel-based): One or more patient HPO terms match HPO terms characteristic of a disease-specific gene panel.
+                        </p>
+
+                        <p class="mb-1">
+                        <i class="bi bi-person-check-fill text-info"></i>
+                        Phenotype match (cohort-based): This gene is included in a PanelApp Australia panel configured for this cohort.
+                        </p>
+
+                        <p class="mb-1">
+                        <i class="bi bi-person-check-fill" style="color:#FF5733"></i>
+                        Phenotype match (HPO-based): One or more patient HPO terms match HPO terms associated with this gene.
+                        </p>
+
+                        <p class="mb-1">
+                        <i class="bi bi-star-fill text-warning"></i>
+                        Genes that have recently been added to the
+                        <a href="https://panelapp-aus.org/panels/137/" target="_blank">Mendeliome gene panel</a>.
+                        </p>
+
+                        <p class="mb-2">
+                        <i class="bi bi-star-fill text-primary"></i>
+                        Genes that have recently been added to a panel matched to this patient’s HPO terms.
+                        </p>
+
+                        <h5>ClinvArbitration</h5>
+                        <p class="mb-2">
+                        ClinVar classifications are aggregated from individual ClinVar submissions using
+                        <a href="https://github.com/populationgenomics/ClinvArbitration" target="_blank">ClinvArbitration</a>.
+                        The tool favours clear assignment of pathogenic or benign ratings rather than defaulting to ‘conflicting’.
+                        </p>
+                        <h5>Flags</h5>
+                        <p class="mb-1">
+                            <span class="badge text-bg-warning">AB Ratio</span>  allele balance falls outside the expected ranges (≤0.15 overall, outside 0.25–0.75 for hets, or ≤0.85 for homs)
+                        </p>
+                        <p class="mb-1">
+                            <span class="badge text-bg-warning">Low Read Depth</span> read depth (AD) for the sample is below the minimum threshold (default: 10)
+                        </p>
+                        <p class="mb-1">
+                            <span class="badge text-bg-warning">Ambiguous Cat.1 MOI</span> applied to AD Talos candidates that are P/LP in ClinVar but the gene is associated with both dominant and recessive disorders inheritance in PanelApp.
+                        </p>
+                        <p class="mb-1">
+                            <span class="badge text-bg-warning">Affected female with heterozygous variant in XLR gene</span> for females, we evaluate biallelic genes under a pseudo-dominant model, to detect plausible variants in the event of skewed x-inactivation.
+                        </p>
+
+                        <h5>Confidence</h5>
+                        <p class="mb-1">
+                            Talos can include non-green PanelApp genes, depending on configuration.
+                            See <a href="https://panelapp-aus.org/#!Guidelines" target="_blank">PanelApp Guidelines</a> for the full meaning of each confidence level.
+                        </p>
+                        <p class="mb-1">
+                            Hovering over a gene symbol shows all panels that match this participant, with the RAG confidence for the gene on each panel.
+                        </p>
+                        <p class="mb-0">
+                            The coloured button next to the gene symbol shows the highest confidence level across matched panels, and can be filtered using the checkboxes above the table.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="d-flex flex-wrap gap-4 mb-3">
+                    <div>
+                        <label for="phenotype-filter" class="form-label">Phenotype match filter</label>
+                        <select id="phenotype-filter" class="form-select form-select-sm" style="max-width: 240px;">
+                            <option value="all" selected>All variants</option>
+                            <option value="has">With phenotype match</option>
+                            <option value="none">Without phenotype match</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="form-label">Panel confidence</label>
+                        <div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input conf-filter" type="checkbox" id="conf-3" value="3" checked>
+                                <label class="form-check-label" for="conf-3">🟢 Green</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input conf-filter" type="checkbox" id="conf-2" value="2" checked>
+                                <label class="form-check-label" for="conf-2">🟡 Amber</label>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input conf-filter" type="checkbox" id="conf-1" value="1" checked>
+                                <label class="form-check-label" for="conf-1">🔴 Red</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input conf-filter" type="checkbox" id="conf-0" value="0" checked>
+                                <label class="form-check-label" for="conf-0">⚪ Unknown</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <table class="display" id="variant-table">
+
+                    <thead>
+                        <tr>
+                            <th class="group-separator">Individual</th>
+                            <th>Variant</th>
+                            <th>Gene (MOI)</th>
+                            <th>Categories</th>
+                            <th>First Tagged</th>
+                            <th>MANE CSQ</th>
+                            <th>ClinvArbitration</th>
+                            <th>Flags</th>
+                        </tr>
+                        <tr>
+                            <th><input type="text" placeholder="Search Individual"></th>
+                            <th><input type="text" placeholder="Search Variant"></th>
+                            <th><input type="text" placeholder="Search Gene (MOI)"></th>
+                            <th><input type="text" placeholder="Search Categories"></th>
+                            <th><input type="text" placeholder="Search First Tagged"></th>
+                            <th><input type="text" placeholder="Search MANE CSQ"></th>
+                            <th><input type="text" placeholder="Search ClinVar"></th>
+                            <th><input type="text" placeholder="Search Flags"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+<tr
+    data-variant-type="SmallVariant"
+    data-sample-name="proband"
+    data-sample-ext-id="proband"
+    data-family-id="1"
+    data-variant-coords="16:89279566"
+    data-variant-change="CCTTCGGGG-&gt;C"
+    data-genes="ENSG00000167522:ANKRD11:🟢 Mendeliome"
+    data-variant-data='{"coordinates": {"alt": "C", "chrom": "16", "pos": 89279566, "ref": "CCTTCGGGG"}, "ignored_categories": ["SpliceVarDB", "Exomiser", "exomiser", "svdb"], "info": {"ac": 1, "af": 0.5, "alpha_missense_max": "missing", "am_score": -2147480064.0, "an": 2, "categorybooleanalphamissense": false, "categorybooleanavi": false, "categorybooleanclinvar0star": false, "categorybooleanclinvar0starnewgene": false, "categorybooleanclinvarplp": true, "categorybooleanhighimpact": true, "categorybooleanpm5": false, "categorybooleanspliceai": false, "categorybooleansvdb": 0, "categorysampledenovo": ["proband"], "categorysampleexomiser": [], "clinvar_allele": 536920, "clinvar_significance": "Pathogenic/Likely Pathogenic", "clinvar_stars": 1, "clinvar_talos": 1, "exomiser": [], "gene_id": "ENSG00000167522", "gnomad_af": 0.0, "svdb_doi": [], "svdb_location": "missing", "svdb_method": "missing", "var_link": "16-89279566-CCTTCGGGG-C"}, "support_categories": ["alphamissense", "ClinVar 0-star", "clinvar0star", "AlphaMissense"], "transcript_consequences": [{"am_class": "", "am_pathogenicity": "", "amino_acid_change": "p.Ala2323Glyfs*205", "biotype": "protein_coding", "codon": "2323", "consequence": "frameshift", "dna_change": "89279566CCTTCGGGG\u003eC", "ensp": "", "gene": "ANKRD11", "gene_id": "ENSG00000167522", "mane": "", "mane_id": "", "transcript": "ENST00000642600"}, {"am_class": "", "am_pathogenicity": "", "amino_acid_change": "p.Ala2323Glyfs*205", "biotype": "protein_coding", "codon": "2323", "consequence": "frameshift", "dna_change": "89279566CCTTCGGGG\u003eC", "ensp": "", "gene": "ANKRD11", "gene_id": "ENSG00000167522", "mane": "", "mane_id": "", "transcript": "ENST00000378330"}, {"am_class": "", "am_pathogenicity": "", "amino_acid_change": "p.Ala2323Glyfs*205", "biotype": "protein_coding", "codon": "2323", "consequence": "frameshift", "dna_change": "89279566CCTTCGGGG\u003eC", "ensp": "", "gene": "ANKRD11", "gene_id": "ENSG00000167522", "mane": "", "mane_id": "", "transcript": "ENST00001133007"}, {"am_class": "", "am_pathogenicity": "", "amino_acid_change": "p.Ala2323Glyfs*205", "biotype": "protein_coding", "codon": "2323", "consequence": "frameshift", "dna_change": "89279566CCTTCGGGG\u003eC", "ensp": "ENSP00000301030", "gene": "ANKRD11", "gene_id": "ENSG00000167522", "mane": "", "mane_id": "NM_013275", "transcript": "ENST00000301030"}]}'
+    data-genotypes='{"father": "WT", "mother": "WT", "proband": "Het"}'
+    data-phenotypes='[{"id": "HP:0004322", "label": "Short stature"}, {"id": "HP:0009145", "label": "Abnormal cerebral artery morphology"}, {"id": "HP:0002779", "label": "Tracheomalacia"}]'
+    data-panel-details='{"137": {"id": 137, "name": "Mendeliome", "version": "2.278"}, "144": {"id": 144, "name": "Proteinuria", "version": "1.0"}, "239": {"id": 239, "name": "Immunological disorders_SuperPanel", "version": "15.286"}, "300": {"id": 300, "name": "Vascular Malformations_Germline", "version": "2.0"}, "3144": {"id": 3144, "name": "Cerebral vascular malformations", "version": "2.0"}, "3181": {"id": 3181, "name": "Vascular Malformations_Somatic", "version": "2.0"}, "3731": {"id": 3731, "name": "Vascular Malformations SuperPanel", "version": "1.97"}}'
+    data-family-members='{"father": {"affected": false, "sex": "male"}, "mother": {"affected": false, "sex": "female"}, "proband": {"affected": true, "sex": "male"}}'
+    data-family-display='{"father": "father ", "mother": "mother ", "proband": "proband "}'
+    data-support-vars='[]'
+    data-transcript-consequences='[{"am_class": "", "am_pathogenicity": "", "amino_acid_change": "p.Ala2323Glyfs*205", "biotype": "protein_coding", "codon": "2323", "consequence": "frameshift", "dna_change": "89279566CCTTCGGGG\u003eC", "ensp": "", "gene": "ANKRD11", "gene_id": "ENSG00000167522", "mane": "", "mane_id": "", "transcript": "ENST00000642600"}, {"am_class": "", "am_pathogenicity": "", "amino_acid_change": "p.Ala2323Glyfs*205", "biotype": "protein_coding", "codon": "2323", "consequence": "frameshift", "dna_change": "89279566CCTTCGGGG\u003eC", "ensp": "", "gene": "ANKRD11", "gene_id": "ENSG00000167522", "mane": "", "mane_id": "", "transcript": "ENST00000378330"}, {"am_class": "", "am_pathogenicity": "", "amino_acid_change": "p.Ala2323Glyfs*205", "biotype": "protein_coding", "codon": "2323", "consequence": "frameshift", "dna_change": "89279566CCTTCGGGG\u003eC", "ensp": "", "gene": "ANKRD11", "gene_id": "ENSG00000167522", "mane": "", "mane_id": "", "transcript": "ENST00001133007"}, {"am_class": "", "am_pathogenicity": "", "amino_acid_change": "p.Ala2323Glyfs*205", "biotype": "protein_coding", "codon": "2323", "consequence": "frameshift", "dna_change": "89279566CCTTCGGGG\u003eC", "ensp": "ENSP00000301030", "gene": "ANKRD11", "gene_id": "ENSG00000167522", "mane": "", "mane_id": "NM_013275", "transcript": "ENST00000301030"}]'
+    data-has-phenotype="1"
+    data-max-confidence="3"
+>
+    <td style="white-space: nowrap" class="details-control">
+        <button type="button" class="btn btn-link btn-sm p-0 details-toggle" aria-label="Toggle details"><i class="bi-plus-square"></i></button>
+
+            proband
+            <br><span class="text-muted">Family: 1</span>
+    </td>
+    <td>
+            16:89279566
+        <br>
+        CCTTCGGGG&gt;C
+        <br>
+        <small class="text-muted">
+            gnomAD v4 AC: <a href="https://gnomad.broadinstitute.org/variant/16-89279566-CCTTCGGGG-C?dataset=gnomad_r4" target="_blank"></a>
+            | AF: <a href="https://gnomad.broadinstitute.org/variant/16-89279566-CCTTCGGGG-C?dataset=gnomad_r4" target="_blank">0.0</a>
+        </small>
+    </td>
+    <td>
+        🟢        <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-html="true" data-bs-title="🟢 Mendeliome">
+            <a href="https://panelapp-aus.org/panels/entities/ANKRD11" target="_blank">ANKRD11</a>
+        </span>
+        <i class="bi-person-check-fill ms-1" style="color: #FF5733" data-bs-toggle="tooltip" data-bs-placement="top"
+            data-bs-title="Gene-Phenotype match: HP:0004322: Short stature"></i>
+        <br>
+        <span class="text-muted">
+        AD
+        </span>
+    </td>
+    <td>
+        ClinVar P/LP, De Novo, High Impact
+    </td>
+    <td>
+        2026-07-27
+    </td>
+    <td>
+            frameshift
+            <br>
+            p.Ala2323Glyfs*205
+    </td>
+    <td>
+            <a href="http://www.ncbi.nlm.nih.gov/clinvar?term=536920[alleleid]" target="_blank">(Likely) Pathogenic</a>
+<i class="bi-star"></i>    </td>
+    <td>
+    </td>
+</tr><tr
+    data-variant-type="SmallVariant"
+    data-sample-name="proband"
+    data-sample-ext-id="proband"
+    data-family-id="1"
+    data-variant-coords="6:52043102"
+    data-variant-change="C-&gt;G"
+    data-genes="ENSG00000170927:PKHD1:🟢 Mendeliome"
+    data-variant-data='{"coordinates": {"alt": "G", "chrom": "6", "pos": 52043102, "ref": "C"}, "ignored_categories": ["SpliceVarDB", "Exomiser", "exomiser", "svdb"], "info": {"ac": 2, "af": 0.33333298563957214, "alpha_missense_max": 0.8996, "am_class": "likely_pathogenic", "am_score": 0.8996000289916992, "am_transcript": "ENST00000371117", "an": 6, "categorybooleanalphamissense": true, "categorybooleanavi": false, "categorybooleanclinvar0star": false, "categorybooleanclinvar0starnewgene": false, "categorybooleanclinvarplp": true, "categorybooleanhighimpact": false, "categorybooleanpm5": false, "categorybooleanspliceai": false, "categorybooleansvdb": 0, "categorysampledenovo": [], "categorysampleexomiser": [], "clinvar_allele": 544235, "clinvar_significance": "Pathogenic/Likely Pathogenic", "clinvar_stars": 1, "clinvar_talos": 1, "exomiser": [], "gene_id": "ENSG00000170927", "gnomad_af": 0.0, "svdb_doi": [], "svdb_location": "missing", "svdb_method": "missing", "var_link": "6-52043102-C-G"}, "support_categories": ["alphamissense", "ClinVar 0-star", "clinvar0star", "AlphaMissense"], "transcript_consequences": [{"am_class": "likely_pathogenic", "am_pathogenicity": 0.8996, "amino_acid_change": "p.Gly952Arg", "biotype": "protein_coding", "codon": "952", "consequence": "missense", "dna_change": "52043102C\u003eG", "ensp": "ENSP00000360158", "gene": "PKHD1", "gene_id": "ENSG00000170927", "mane": "", "mane_id": "NM_138694", "transcript": "ENST00000371117"}, {"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.Gly952Arg", "biotype": "protein_coding", "codon": "952", "consequence": "missense", "dna_change": "52043102C\u003eG", "ensp": "", "gene": "PKHD1", "gene_id": "ENSG00000170927", "mane": "", "mane_id": "", "transcript": "ENST00001140737"}, {"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.Gly952Arg", "biotype": "protein_coding", "codon": "952", "consequence": "missense", "dna_change": "52043102C\u003eG", "ensp": "", "gene": "PKHD1", "gene_id": "ENSG00000170927", "mane": "", "mane_id": "", "transcript": "ENST00000340994"}]}'
+    data-genotypes='{"father": "WT", "mother": "Het", "proband": "Het"}'
+    data-phenotypes='[{"id": "HP:0004322", "label": "Short stature"}, {"id": "HP:0009145", "label": "Abnormal cerebral artery morphology"}, {"id": "HP:0002779", "label": "Tracheomalacia"}]'
+    data-panel-details='{"137": {"id": 137, "name": "Mendeliome", "version": "2.278"}, "144": {"id": 144, "name": "Proteinuria", "version": "1.0"}, "239": {"id": 239, "name": "Immunological disorders_SuperPanel", "version": "15.286"}, "300": {"id": 300, "name": "Vascular Malformations_Germline", "version": "2.0"}, "3144": {"id": 3144, "name": "Cerebral vascular malformations", "version": "2.0"}, "3181": {"id": 3181, "name": "Vascular Malformations_Somatic", "version": "2.0"}, "3731": {"id": 3731, "name": "Vascular Malformations SuperPanel", "version": "1.97"}}'
+    data-family-members='{"father": {"affected": false, "sex": "male"}, "mother": {"affected": false, "sex": "female"}, "proband": {"affected": true, "sex": "male"}}'
+    data-family-display='{"father": "father ", "mother": "mother ", "proband": "proband "}'
+    data-support-vars='[]'
+    data-transcript-consequences='[{"am_class": "likely_pathogenic", "am_pathogenicity": 0.8996, "amino_acid_change": "p.Gly952Arg", "biotype": "protein_coding", "codon": "952", "consequence": "missense", "dna_change": "52043102C\u003eG", "ensp": "ENSP00000360158", "gene": "PKHD1", "gene_id": "ENSG00000170927", "mane": "", "mane_id": "NM_138694", "transcript": "ENST00000371117"}, {"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.Gly952Arg", "biotype": "protein_coding", "codon": "952", "consequence": "missense", "dna_change": "52043102C\u003eG", "ensp": "", "gene": "PKHD1", "gene_id": "ENSG00000170927", "mane": "", "mane_id": "", "transcript": "ENST00001140737"}, {"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.Gly952Arg", "biotype": "protein_coding", "codon": "952", "consequence": "missense", "dna_change": "52043102C\u003eG", "ensp": "", "gene": "PKHD1", "gene_id": "ENSG00000170927", "mane": "", "mane_id": "", "transcript": "ENST00000340994"}]'
+    data-has-phenotype="0"
+    data-max-confidence="3"
+>
+    <td style="white-space: nowrap" class="details-control">
+        <button type="button" class="btn btn-link btn-sm p-0 details-toggle" aria-label="Toggle details"><i class="bi-plus-square"></i></button>
+
+            proband
+            <br><span class="text-muted">Family: 1</span>
+    </td>
+    <td>
+            6:52043102
+        <br>
+        C&gt;G
+        <br>
+        <small class="text-muted">
+            gnomAD v4 AC: <a href="https://gnomad.broadinstitute.org/variant/6-52043102-C-G?dataset=gnomad_r4" target="_blank"></a>
+            | AF: <a href="https://gnomad.broadinstitute.org/variant/6-52043102-C-G?dataset=gnomad_r4" target="_blank">0.0</a>
+        </small>
+    </td>
+    <td>
+        🟢        <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-html="true" data-bs-title="🟢 Mendeliome">
+            <a href="https://panelapp-aus.org/panels/entities/PKHD1" target="_blank">PKHD1</a>
+        </span>
+        <br>
+        <span class="text-muted">
+        AD
+        </span>
+    </td>
+    <td>
+        ClinVar P/LP, AlphaMissense
+    </td>
+    <td>
+        2026-07-27
+    </td>
+    <td>
+            missense
+            <br>
+            p.Gly952Arg
+    </td>
+    <td>
+            <a href="http://www.ncbi.nlm.nih.gov/clinvar?term=544235[alleleid]" target="_blank">(Likely) Pathogenic</a>
+<i class="bi-star"></i>    </td>
+    <td>
+        <span class="badge text-bg-warning">
+            Ambiguous Cat.1 MOI
+        </span><br>
+    </td>
+</tr><tr
+    data-variant-type="SmallVariant"
+    data-sample-name="proband"
+    data-sample-ext-id="proband"
+    data-family-id="1"
+    data-variant-coords="6:52043102"
+    data-variant-change="C-&gt;G"
+    data-genes="ENSG00000170927:PKHD1:🟢 Mendeliome"
+    data-variant-data='{"coordinates": {"alt": "G", "chrom": "6", "pos": 52043102, "ref": "C"}, "ignored_categories": ["SpliceVarDB", "Exomiser", "exomiser", "svdb"], "info": {"ac": 2, "af": 0.33333298563957214, "alpha_missense_max": 0.8996, "am_class": "likely_pathogenic", "am_score": 0.8996000289916992, "am_transcript": "ENST00000371117", "an": 6, "categorybooleanalphamissense": true, "categorybooleanavi": false, "categorybooleanclinvar0star": false, "categorybooleanclinvar0starnewgene": false, "categorybooleanclinvarplp": true, "categorybooleanhighimpact": false, "categorybooleanpm5": false, "categorybooleanspliceai": false, "categorybooleansvdb": 0, "categorysampledenovo": [], "categorysampleexomiser": [], "clinvar_allele": 544235, "clinvar_significance": "Pathogenic/Likely Pathogenic", "clinvar_stars": 1, "clinvar_talos": 1, "exomiser": [], "gene_id": "ENSG00000170927", "gnomad_af": 0.0, "svdb_doi": [], "svdb_location": "missing", "svdb_method": "missing", "var_link": "6-52043102-C-G"}, "support_categories": ["alphamissense", "ClinVar 0-star", "clinvar0star", "AlphaMissense"], "transcript_consequences": [{"am_class": "likely_pathogenic", "am_pathogenicity": 0.8996, "amino_acid_change": "p.Gly952Arg", "biotype": "protein_coding", "codon": "952", "consequence": "missense", "dna_change": "52043102C\u003eG", "ensp": "ENSP00000360158", "gene": "PKHD1", "gene_id": "ENSG00000170927", "mane": "", "mane_id": "NM_138694", "transcript": "ENST00000371117"}, {"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.Gly952Arg", "biotype": "protein_coding", "codon": "952", "consequence": "missense", "dna_change": "52043102C\u003eG", "ensp": "", "gene": "PKHD1", "gene_id": "ENSG00000170927", "mane": "", "mane_id": "", "transcript": "ENST00001140737"}, {"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.Gly952Arg", "biotype": "protein_coding", "codon": "952", "consequence": "missense", "dna_change": "52043102C\u003eG", "ensp": "", "gene": "PKHD1", "gene_id": "ENSG00000170927", "mane": "", "mane_id": "", "transcript": "ENST00000340994"}]}'
+    data-genotypes='{"father": "WT", "mother": "Het", "proband": "Het"}'
+    data-phenotypes='[{"id": "HP:0004322", "label": "Short stature"}, {"id": "HP:0009145", "label": "Abnormal cerebral artery morphology"}, {"id": "HP:0002779", "label": "Tracheomalacia"}]'
+    data-panel-details='{"137": {"id": 137, "name": "Mendeliome", "version": "2.278"}, "144": {"id": 144, "name": "Proteinuria", "version": "1.0"}, "239": {"id": 239, "name": "Immunological disorders_SuperPanel", "version": "15.286"}, "300": {"id": 300, "name": "Vascular Malformations_Germline", "version": "2.0"}, "3144": {"id": 3144, "name": "Cerebral vascular malformations", "version": "2.0"}, "3181": {"id": 3181, "name": "Vascular Malformations_Somatic", "version": "2.0"}, "3731": {"id": 3731, "name": "Vascular Malformations SuperPanel", "version": "1.97"}}'
+    data-family-members='{"father": {"affected": false, "sex": "male"}, "mother": {"affected": false, "sex": "female"}, "proband": {"affected": true, "sex": "male"}}'
+    data-family-display='{"father": "father ", "mother": "mother ", "proband": "proband "}'
+    data-support-vars='[{"url": null, "var_string": "6-52043699-T-A"}]'
+    data-transcript-consequences='[{"am_class": "likely_pathogenic", "am_pathogenicity": 0.8996, "amino_acid_change": "p.Gly952Arg", "biotype": "protein_coding", "codon": "952", "consequence": "missense", "dna_change": "52043102C\u003eG", "ensp": "ENSP00000360158", "gene": "PKHD1", "gene_id": "ENSG00000170927", "mane": "", "mane_id": "NM_138694", "transcript": "ENST00000371117"}, {"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.Gly952Arg", "biotype": "protein_coding", "codon": "952", "consequence": "missense", "dna_change": "52043102C\u003eG", "ensp": "", "gene": "PKHD1", "gene_id": "ENSG00000170927", "mane": "", "mane_id": "", "transcript": "ENST00001140737"}, {"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.Gly952Arg", "biotype": "protein_coding", "codon": "952", "consequence": "missense", "dna_change": "52043102C\u003eG", "ensp": "", "gene": "PKHD1", "gene_id": "ENSG00000170927", "mane": "", "mane_id": "", "transcript": "ENST00000340994"}]'
+    data-has-phenotype="0"
+    data-max-confidence="3"
+>
+    <td style="white-space: nowrap" class="details-control">
+        <button type="button" class="btn btn-link btn-sm p-0 details-toggle" aria-label="Toggle details"><i class="bi-plus-square"></i></button>
+
+            proband
+            <br><span class="text-muted">Family: 1</span>
+    </td>
+    <td>
+            6:52043102
+        <br>
+        C&gt;G
+        <br>
+        <small class="text-muted">
+            gnomAD v4 AC: <a href="https://gnomad.broadinstitute.org/variant/6-52043102-C-G?dataset=gnomad_r4" target="_blank"></a>
+            | AF: <a href="https://gnomad.broadinstitute.org/variant/6-52043102-C-G?dataset=gnomad_r4" target="_blank">0.0</a>
+        </small>
+    </td>
+    <td>
+        🟢        <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-html="true" data-bs-title="🟢 Mendeliome">
+            <a href="https://panelapp-aus.org/panels/entities/PKHD1" target="_blank">PKHD1</a>
+        </span>
+        <br>
+        <span class="text-muted">
+        AR (Comp-Het)
+        </span>
+    </td>
+    <td>
+        ClinVar P/LP, AlphaMissense
+    </td>
+    <td>
+        2026-07-27
+    </td>
+    <td>
+            missense
+            <br>
+            p.Gly952Arg
+    </td>
+    <td>
+            <a href="http://www.ncbi.nlm.nih.gov/clinvar?term=544235[alleleid]" target="_blank">(Likely) Pathogenic</a>
+<i class="bi-star"></i>    </td>
+    <td>
+    </td>
+</tr><tr
+    data-variant-type="SmallVariant"
+    data-sample-name="proband"
+    data-sample-ext-id="proband"
+    data-family-id="1"
+    data-variant-coords="6:52043699"
+    data-variant-change="T-&gt;A"
+    data-genes="ENSG00000170927:PKHD1:🟢 Mendeliome"
+    data-variant-data='{"coordinates": {"alt": "A", "chrom": "6", "pos": 52043699, "ref": "T"}, "ignored_categories": ["SpliceVarDB", "Exomiser", "exomiser", "svdb"], "info": {"ac": 1, "af": 0.16666699945926666, "alpha_missense_max": 0.0834, "am_class": "likely_benign", "am_score": 0.08340000361204147, "am_transcript": "ENST00000371117", "an": 6, "categorybooleanalphamissense": false, "categorybooleanavi": false, "categorybooleanclinvar0star": false, "categorybooleanclinvar0starnewgene": false, "categorybooleanclinvarplp": false, "categorybooleanhighimpact": false, "categorybooleanpm5": true, "categorybooleanspliceai": false, "categorybooleansvdb": 0, "categorysampledenovo": ["proband"], "categorysampleexomiser": [], "clinvar_allele": 0, "clinvar_significance": "missing", "clinvar_stars": 0, "clinvar_talos": 0, "exomiser": [], "gene_id": "ENSG00000170927", "gnomad_af": 0.0, "pm5_data": {"966872": "1"}, "svdb_doi": [], "svdb_location": "missing", "svdb_method": "missing", "var_link": "6-52043699-T-A"}, "support_categories": ["alphamissense", "ClinVar 0-star", "clinvar0star", "AlphaMissense"], "transcript_consequences": [{"am_class": "likely_benign", "am_pathogenicity": 0.0834, "amino_acid_change": "p.His916Leu", "biotype": "protein_coding", "codon": "916", "consequence": "missense", "dna_change": "52043699T\u003eA", "ensp": "ENSP00000360158", "gene": "PKHD1", "gene_id": "ENSG00000170927", "mane": "", "mane_id": "NM_138694", "transcript": "ENST00000371117"}, {"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.His916Leu", "biotype": "protein_coding", "codon": "916", "consequence": "missense", "dna_change": "52043699T\u003eA", "ensp": "", "gene": "PKHD1", "gene_id": "ENSG00000170927", "mane": "", "mane_id": "", "transcript": "ENST00001140737"}, {"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.His916Leu", "biotype": "protein_coding", "codon": "916", "consequence": "missense", "dna_change": "52043699T\u003eA", "ensp": "", "gene": "PKHD1", "gene_id": "ENSG00000170927", "mane": "", "mane_id": "", "transcript": "ENST00000340994"}]}'
+    data-genotypes='{"father": "WT", "mother": "WT", "proband": "Het"}'
+    data-phenotypes='[{"id": "HP:0004322", "label": "Short stature"}, {"id": "HP:0009145", "label": "Abnormal cerebral artery morphology"}, {"id": "HP:0002779", "label": "Tracheomalacia"}]'
+    data-panel-details='{"137": {"id": 137, "name": "Mendeliome", "version": "2.278"}, "144": {"id": 144, "name": "Proteinuria", "version": "1.0"}, "239": {"id": 239, "name": "Immunological disorders_SuperPanel", "version": "15.286"}, "300": {"id": 300, "name": "Vascular Malformations_Germline", "version": "2.0"}, "3144": {"id": 3144, "name": "Cerebral vascular malformations", "version": "2.0"}, "3181": {"id": 3181, "name": "Vascular Malformations_Somatic", "version": "2.0"}, "3731": {"id": 3731, "name": "Vascular Malformations SuperPanel", "version": "1.97"}}'
+    data-family-members='{"father": {"affected": false, "sex": "male"}, "mother": {"affected": false, "sex": "female"}, "proband": {"affected": true, "sex": "male"}}'
+    data-family-display='{"father": "father ", "mother": "mother ", "proband": "proband "}'
+    data-support-vars='[]'
+    data-transcript-consequences='[{"am_class": "likely_benign", "am_pathogenicity": 0.0834, "amino_acid_change": "p.His916Leu", "biotype": "protein_coding", "codon": "916", "consequence": "missense", "dna_change": "52043699T\u003eA", "ensp": "ENSP00000360158", "gene": "PKHD1", "gene_id": "ENSG00000170927", "mane": "", "mane_id": "NM_138694", "transcript": "ENST00000371117"}, {"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.His916Leu", "biotype": "protein_coding", "codon": "916", "consequence": "missense", "dna_change": "52043699T\u003eA", "ensp": "", "gene": "PKHD1", "gene_id": "ENSG00000170927", "mane": "", "mane_id": "", "transcript": "ENST00001140737"}, {"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.His916Leu", "biotype": "protein_coding", "codon": "916", "consequence": "missense", "dna_change": "52043699T\u003eA", "ensp": "", "gene": "PKHD1", "gene_id": "ENSG00000170927", "mane": "", "mane_id": "", "transcript": "ENST00000340994"}]'
+    data-has-phenotype="0"
+    data-max-confidence="3"
+>
+    <td style="white-space: nowrap" class="details-control">
+        <button type="button" class="btn btn-link btn-sm p-0 details-toggle" aria-label="Toggle details"><i class="bi-plus-square"></i></button>
+
+            proband
+            <br><span class="text-muted">Family: 1</span>
+    </td>
+    <td>
+            6:52043699
+        <br>
+        T&gt;A
+        <br>
+        <small class="text-muted">
+            gnomAD v4 AC: <a href="https://gnomad.broadinstitute.org/variant/6-52043699-T-A?dataset=gnomad_r4" target="_blank"></a>
+            | AF: <a href="https://gnomad.broadinstitute.org/variant/6-52043699-T-A?dataset=gnomad_r4" target="_blank">0.0</a>
+        </small>
+    </td>
+    <td>
+        🟢        <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-html="true" data-bs-title="🟢 Mendeliome">
+            <a href="https://panelapp-aus.org/panels/entities/PKHD1" target="_blank">PKHD1</a>
+        </span>
+        <br>
+        <span class="text-muted">
+        AD
+        </span>
+    </td>
+    <td>
+        De Novo, PM5
+    </td>
+    <td>
+        2026-07-27
+    </td>
+    <td>
+            missense
+            <br>
+            p.His916Leu
+    </td>
+    <td>
+            <br>
+            <small class="text-muted">PM5 Variants:</small><br>
+                <a href="http://www.ncbi.nlm.nih.gov/clinvar?term=966872[alleleid]"
+                    target="_blank">
+                    966872
+                </a>
+    </td>
+    <td>
+    </td>
+</tr><tr
+    data-variant-type="SmallVariant"
+    data-sample-name="proband"
+    data-sample-ext-id="proband"
+    data-family-id="1"
+    data-variant-coords="6:52043699"
+    data-variant-change="T-&gt;A"
+    data-genes="ENSG00000170927:PKHD1:🟢 Mendeliome"
+    data-variant-data='{"coordinates": {"alt": "A", "chrom": "6", "pos": 52043699, "ref": "T"}, "ignored_categories": ["SpliceVarDB", "Exomiser", "exomiser", "svdb"], "info": {"ac": 1, "af": 0.16666699945926666, "alpha_missense_max": 0.0834, "am_class": "likely_benign", "am_score": 0.08340000361204147, "am_transcript": "ENST00000371117", "an": 6, "categorybooleanalphamissense": false, "categorybooleanavi": false, "categorybooleanclinvar0star": false, "categorybooleanclinvar0starnewgene": false, "categorybooleanclinvarplp": false, "categorybooleanhighimpact": false, "categorybooleanpm5": true, "categorybooleanspliceai": false, "categorybooleansvdb": 0, "categorysampledenovo": ["proband"], "categorysampleexomiser": [], "clinvar_allele": 0, "clinvar_significance": "missing", "clinvar_stars": 0, "clinvar_talos": 0, "exomiser": [], "gene_id": "ENSG00000170927", "gnomad_af": 0.0, "pm5_data": {"966872": "1"}, "svdb_doi": [], "svdb_location": "missing", "svdb_method": "missing", "var_link": "6-52043699-T-A"}, "support_categories": ["alphamissense", "ClinVar 0-star", "clinvar0star", "AlphaMissense"], "transcript_consequences": [{"am_class": "likely_benign", "am_pathogenicity": 0.0834, "amino_acid_change": "p.His916Leu", "biotype": "protein_coding", "codon": "916", "consequence": "missense", "dna_change": "52043699T\u003eA", "ensp": "ENSP00000360158", "gene": "PKHD1", "gene_id": "ENSG00000170927", "mane": "", "mane_id": "NM_138694", "transcript": "ENST00000371117"}, {"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.His916Leu", "biotype": "protein_coding", "codon": "916", "consequence": "missense", "dna_change": "52043699T\u003eA", "ensp": "", "gene": "PKHD1", "gene_id": "ENSG00000170927", "mane": "", "mane_id": "", "transcript": "ENST00001140737"}, {"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.His916Leu", "biotype": "protein_coding", "codon": "916", "consequence": "missense", "dna_change": "52043699T\u003eA", "ensp": "", "gene": "PKHD1", "gene_id": "ENSG00000170927", "mane": "", "mane_id": "", "transcript": "ENST00000340994"}]}'
+    data-genotypes='{"father": "WT", "mother": "WT", "proband": "Het"}'
+    data-phenotypes='[{"id": "HP:0004322", "label": "Short stature"}, {"id": "HP:0009145", "label": "Abnormal cerebral artery morphology"}, {"id": "HP:0002779", "label": "Tracheomalacia"}]'
+    data-panel-details='{"137": {"id": 137, "name": "Mendeliome", "version": "2.278"}, "144": {"id": 144, "name": "Proteinuria", "version": "1.0"}, "239": {"id": 239, "name": "Immunological disorders_SuperPanel", "version": "15.286"}, "300": {"id": 300, "name": "Vascular Malformations_Germline", "version": "2.0"}, "3144": {"id": 3144, "name": "Cerebral vascular malformations", "version": "2.0"}, "3181": {"id": 3181, "name": "Vascular Malformations_Somatic", "version": "2.0"}, "3731": {"id": 3731, "name": "Vascular Malformations SuperPanel", "version": "1.97"}}'
+    data-family-members='{"father": {"affected": false, "sex": "male"}, "mother": {"affected": false, "sex": "female"}, "proband": {"affected": true, "sex": "male"}}'
+    data-family-display='{"father": "father ", "mother": "mother ", "proband": "proband "}'
+    data-support-vars='[{"url": null, "var_string": "6-52043102-C-G"}]'
+    data-transcript-consequences='[{"am_class": "likely_benign", "am_pathogenicity": 0.0834, "amino_acid_change": "p.His916Leu", "biotype": "protein_coding", "codon": "916", "consequence": "missense", "dna_change": "52043699T\u003eA", "ensp": "ENSP00000360158", "gene": "PKHD1", "gene_id": "ENSG00000170927", "mane": "", "mane_id": "NM_138694", "transcript": "ENST00000371117"}, {"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.His916Leu", "biotype": "protein_coding", "codon": "916", "consequence": "missense", "dna_change": "52043699T\u003eA", "ensp": "", "gene": "PKHD1", "gene_id": "ENSG00000170927", "mane": "", "mane_id": "", "transcript": "ENST00001140737"}, {"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.His916Leu", "biotype": "protein_coding", "codon": "916", "consequence": "missense", "dna_change": "52043699T\u003eA", "ensp": "", "gene": "PKHD1", "gene_id": "ENSG00000170927", "mane": "", "mane_id": "", "transcript": "ENST00000340994"}]'
+    data-has-phenotype="0"
+    data-max-confidence="3"
+>
+    <td style="white-space: nowrap" class="details-control">
+        <button type="button" class="btn btn-link btn-sm p-0 details-toggle" aria-label="Toggle details"><i class="bi-plus-square"></i></button>
+
+            proband
+            <br><span class="text-muted">Family: 1</span>
+    </td>
+    <td>
+            6:52043699
+        <br>
+        T&gt;A
+        <br>
+        <small class="text-muted">
+            gnomAD v4 AC: <a href="https://gnomad.broadinstitute.org/variant/6-52043699-T-A?dataset=gnomad_r4" target="_blank"></a>
+            | AF: <a href="https://gnomad.broadinstitute.org/variant/6-52043699-T-A?dataset=gnomad_r4" target="_blank">0.0</a>
+        </small>
+    </td>
+    <td>
+        🟢        <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-html="true" data-bs-title="🟢 Mendeliome">
+            <a href="https://panelapp-aus.org/panels/entities/PKHD1" target="_blank">PKHD1</a>
+        </span>
+        <br>
+        <span class="text-muted">
+        AR (Comp-Het)
+        </span>
+    </td>
+    <td>
+        De Novo, PM5
+    </td>
+    <td>
+        2026-07-27
+    </td>
+    <td>
+            missense
+            <br>
+            p.His916Leu
+    </td>
+    <td>
+            <br>
+            <small class="text-muted">PM5 Variants:</small><br>
+                <a href="http://www.ncbi.nlm.nih.gov/clinvar?term=966872[alleleid]"
+                    target="_blank">
+                    966872
+                </a>
+    </td>
+    <td>
+    </td>
+</tr><tr
+    data-variant-type="SmallVariant"
+    data-sample-name="proband"
+    data-sample-ext-id="proband"
+    data-family-id="1"
+    data-variant-coords="12:89470359"
+    data-variant-change="A-&gt;C"
+    data-genes="ENSG00000139323:POC1B:🟢 Mendeliome"
+    data-variant-data='{"coordinates": {"alt": "C", "chrom": "12", "pos": 89470359, "ref": "A"}, "ignored_categories": ["SpliceVarDB", "Exomiser", "exomiser", "svdb"], "info": {"ac": 4, "af": 0.6666669845581055, "alpha_missense_max": "missing", "am_score": -2147480064.0, "an": 6, "categorybooleanalphamissense": false, "categorybooleanavi": false, "categorybooleanclinvar0star": false, "categorybooleanclinvar0starnewgene": false, "categorybooleanclinvarplp": true, "categorybooleanhighimpact": true, "categorybooleanpm5": false, "categorybooleanspliceai": false, "categorybooleansvdb": 0, "categorysampledenovo": [], "categorysampleexomiser": [], "clinvar_allele": 2021818, "clinvar_significance": "Pathogenic/Likely Pathogenic", "clinvar_stars": 1, "clinvar_talos": 1, "exomiser": [], "gene_id": "ENSG00000139323", "gnomad_ac": 1, "gnomad_ac_xy": 1, "gnomad_af": 4.999999987376214e-07, "gnomad_homalt": 0, "svdb_doi": [], "svdb_location": "missing", "svdb_method": "missing", "var_link": "12-89470359-A-C"}, "support_categories": ["alphamissense", "ClinVar 0-star", "clinvar0star", "AlphaMissense"], "transcript_consequences": [{"am_class": "", "am_pathogenicity": "", "amino_acid_change": "", "biotype": "protein_coding", "codon": "", "consequence": "splice_donor", "dna_change": "", "ensp": "", "gene": "POC1B", "gene_id": "ENSG00000139323", "mane": "", "mane_id": "", "transcript": "ENST00000549035"}, {"am_class": "", "am_pathogenicity": "", "amino_acid_change": "", "biotype": "protein_coding", "codon": "", "consequence": "splice_donor", "dna_change": "", "ensp": "", "gene": "POC1B", "gene_id": "ENSG00000139323", "mane": "", "mane_id": "", "transcript": "ENST00000393179"}, {"am_class": "", "am_pathogenicity": "", "amino_acid_change": "", "biotype": "protein_coding", "codon": "", "consequence": "splice_donor", "dna_change": "", "ensp": "ENSP00000323302", "gene": "POC1B", "gene_id": "ENSG00000139323", "mane": "", "mane_id": "NM_172240", "transcript": "ENST00000313546"}, {"am_class": "", "am_pathogenicity": "", "amino_acid_change": "", "biotype": "protein_coding", "codon": "", "consequence": "splice_donor", "dna_change": "", "ensp": "", "gene": "POC1B", "gene_id": "ENSG00000139323", "mane": "", "mane_id": "", "transcript": "ENST00000867691"}, {"am_class": "", "am_pathogenicity": "", "amino_acid_change": "", "biotype": "protein_coding", "codon": "", "consequence": "splice_donor", "dna_change": "", "ensp": "", "gene": "POC1B", "gene_id": "ENSG00000139323", "mane": "", "mane_id": "", "transcript": "ENST00000867692"}, {"am_class": "", "am_pathogenicity": "", "amino_acid_change": "", "biotype": "protein_coding", "codon": "", "consequence": "splice_donor", "dna_change": "", "ensp": "", "gene": "POC1B", "gene_id": "ENSG00000139323", "mane": "", "mane_id": "", "transcript": "ENST00000867693"}, {"am_class": "", "am_pathogenicity": "", "amino_acid_change": "", "biotype": "protein_coding", "codon": "", "consequence": "splice_donor", "dna_change": "", "ensp": "", "gene": "POC1B", "gene_id": "ENSG00000139323", "mane": "", "mane_id": "", "transcript": "ENST00000867694"}, {"am_class": "", "am_pathogenicity": "", "amino_acid_change": "", "biotype": "protein_coding", "codon": "", "consequence": "splice_donor", "dna_change": "", "ensp": "", "gene": "POC1B", "gene_id": "ENSG00000139323", "mane": "", "mane_id": "", "transcript": "ENST00000867695"}, {"am_class": "", "am_pathogenicity": "", "amino_acid_change": "", "biotype": "protein_coding", "codon": "", "consequence": "splice_donor", "dna_change": "", "ensp": "", "gene": "POC1B", "gene_id": "ENSG00000139323", "mane": "", "mane_id": "", "transcript": "ENST00000867696"}, {"am_class": "", "am_pathogenicity": "", "amino_acid_change": "", "biotype": "protein_coding", "codon": "", "consequence": "splice_donor", "dna_change": "", "ensp": "", "gene": "POC1B", "gene_id": "ENSG00000139323", "mane": "", "mane_id": "", "transcript": "ENST00000928753"}, {"am_class": "", "am_pathogenicity": "", "amino_acid_change": "", "biotype": "protein_coding", "codon": "", "consequence": "splice_donor", "dna_change": "", "ensp": "", "gene": "POC1B", "gene_id": "ENSG00000139323", "mane": "", "mane_id": "", "transcript": "ENST00001136504"}, {"am_class": "", "am_pathogenicity": "", "amino_acid_change": "", "biotype": "protein_coding", "codon": "", "consequence": "splice_donor", "dna_change": "", "ensp": "", "gene": "POC1B", "gene_id": "ENSG00000139323", "mane": "", "mane_id": "", "transcript": "ENST00000928752"}, {"am_class": "", "am_pathogenicity": "", "amino_acid_change": "", "biotype": "protein_coding", "codon": "", "consequence": "splice_donor", "dna_change": "", "ensp": "", "gene": "POC1B", "gene_id": "ENSG00000139323", "mane": "", "mane_id": "", "transcript": "ENST00000928754"}]}'
+    data-genotypes='{"father": "Het", "mother": "Het", "proband": "Hom"}'
+    data-phenotypes='[{"id": "HP:0004322", "label": "Short stature"}, {"id": "HP:0009145", "label": "Abnormal cerebral artery morphology"}, {"id": "HP:0002779", "label": "Tracheomalacia"}]'
+    data-panel-details='{"137": {"id": 137, "name": "Mendeliome", "version": "2.278"}, "144": {"id": 144, "name": "Proteinuria", "version": "1.0"}, "239": {"id": 239, "name": "Immunological disorders_SuperPanel", "version": "15.286"}, "300": {"id": 300, "name": "Vascular Malformations_Germline", "version": "2.0"}, "3144": {"id": 3144, "name": "Cerebral vascular malformations", "version": "2.0"}, "3181": {"id": 3181, "name": "Vascular Malformations_Somatic", "version": "2.0"}, "3731": {"id": 3731, "name": "Vascular Malformations SuperPanel", "version": "1.97"}}'
+    data-family-members='{"father": {"affected": false, "sex": "male"}, "mother": {"affected": false, "sex": "female"}, "proband": {"affected": true, "sex": "male"}}'
+    data-family-display='{"father": "father ", "mother": "mother ", "proband": "proband "}'
+    data-support-vars='[]'
+    data-transcript-consequences='[{"am_class": "", "am_pathogenicity": "", "amino_acid_change": "", "biotype": "protein_coding", "codon": "", "consequence": "splice_donor", "dna_change": "", "ensp": "", "gene": "POC1B", "gene_id": "ENSG00000139323", "mane": "", "mane_id": "", "transcript": "ENST00000549035"}, {"am_class": "", "am_pathogenicity": "", "amino_acid_change": "", "biotype": "protein_coding", "codon": "", "consequence": "splice_donor", "dna_change": "", "ensp": "", "gene": "POC1B", "gene_id": "ENSG00000139323", "mane": "", "mane_id": "", "transcript": "ENST00000393179"}, {"am_class": "", "am_pathogenicity": "", "amino_acid_change": "", "biotype": "protein_coding", "codon": "", "consequence": "splice_donor", "dna_change": "", "ensp": "ENSP00000323302", "gene": "POC1B", "gene_id": "ENSG00000139323", "mane": "", "mane_id": "NM_172240", "transcript": "ENST00000313546"}, {"am_class": "", "am_pathogenicity": "", "amino_acid_change": "", "biotype": "protein_coding", "codon": "", "consequence": "splice_donor", "dna_change": "", "ensp": "", "gene": "POC1B", "gene_id": "ENSG00000139323", "mane": "", "mane_id": "", "transcript": "ENST00000867691"}, {"am_class": "", "am_pathogenicity": "", "amino_acid_change": "", "biotype": "protein_coding", "codon": "", "consequence": "splice_donor", "dna_change": "", "ensp": "", "gene": "POC1B", "gene_id": "ENSG00000139323", "mane": "", "mane_id": "", "transcript": "ENST00000867692"}, {"am_class": "", "am_pathogenicity": "", "amino_acid_change": "", "biotype": "protein_coding", "codon": "", "consequence": "splice_donor", "dna_change": "", "ensp": "", "gene": "POC1B", "gene_id": "ENSG00000139323", "mane": "", "mane_id": "", "transcript": "ENST00000867693"}, {"am_class": "", "am_pathogenicity": "", "amino_acid_change": "", "biotype": "protein_coding", "codon": "", "consequence": "splice_donor", "dna_change": "", "ensp": "", "gene": "POC1B", "gene_id": "ENSG00000139323", "mane": "", "mane_id": "", "transcript": "ENST00000867694"}, {"am_class": "", "am_pathogenicity": "", "amino_acid_change": "", "biotype": "protein_coding", "codon": "", "consequence": "splice_donor", "dna_change": "", "ensp": "", "gene": "POC1B", "gene_id": "ENSG00000139323", "mane": "", "mane_id": "", "transcript": "ENST00000867695"}, {"am_class": "", "am_pathogenicity": "", "amino_acid_change": "", "biotype": "protein_coding", "codon": "", "consequence": "splice_donor", "dna_change": "", "ensp": "", "gene": "POC1B", "gene_id": "ENSG00000139323", "mane": "", "mane_id": "", "transcript": "ENST00000867696"}, {"am_class": "", "am_pathogenicity": "", "amino_acid_change": "", "biotype": "protein_coding", "codon": "", "consequence": "splice_donor", "dna_change": "", "ensp": "", "gene": "POC1B", "gene_id": "ENSG00000139323", "mane": "", "mane_id": "", "transcript": "ENST00000928753"}, {"am_class": "", "am_pathogenicity": "", "amino_acid_change": "", "biotype": "protein_coding", "codon": "", "consequence": "splice_donor", "dna_change": "", "ensp": "", "gene": "POC1B", "gene_id": "ENSG00000139323", "mane": "", "mane_id": "", "transcript": "ENST00001136504"}, {"am_class": "", "am_pathogenicity": "", "amino_acid_change": "", "biotype": "protein_coding", "codon": "", "consequence": "splice_donor", "dna_change": "", "ensp": "", "gene": "POC1B", "gene_id": "ENSG00000139323", "mane": "", "mane_id": "", "transcript": "ENST00000928752"}, {"am_class": "", "am_pathogenicity": "", "amino_acid_change": "", "biotype": "protein_coding", "codon": "", "consequence": "splice_donor", "dna_change": "", "ensp": "", "gene": "POC1B", "gene_id": "ENSG00000139323", "mane": "", "mane_id": "", "transcript": "ENST00000928754"}]'
+    data-has-phenotype="0"
+    data-max-confidence="3"
+>
+    <td style="white-space: nowrap" class="details-control">
+        <button type="button" class="btn btn-link btn-sm p-0 details-toggle" aria-label="Toggle details"><i class="bi-plus-square"></i></button>
+
+            proband
+            <br><span class="text-muted">Family: 1</span>
+    </td>
+    <td>
+            12:89470359
+        <br>
+        A&gt;C
+        <br>
+        <small class="text-muted">
+            gnomAD v4 AC: <a href="https://gnomad.broadinstitute.org/variant/12-89470359-A-C?dataset=gnomad_r4" target="_blank">1</a>
+            | AF: <a href="https://gnomad.broadinstitute.org/variant/12-89470359-A-C?dataset=gnomad_r4" target="_blank">0.0</a>
+        </small>
+    </td>
+    <td>
+        🟢        <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-html="true" data-bs-title="🟢 Mendeliome">
+            <a href="https://panelapp-aus.org/panels/entities/POC1B" target="_blank">POC1B</a>
+        </span>
+        <br>
+        <span class="text-muted">
+        AR (Hom)
+        </span>
+    </td>
+    <td>
+        ClinVar P/LP, High Impact
+    </td>
+    <td>
+        2026-07-27
+    </td>
+    <td>
+            splice donor
+            <br>
+            
+    </td>
+    <td>
+            <a href="http://www.ncbi.nlm.nih.gov/clinvar?term=2021818[alleleid]" target="_blank">(Likely) Pathogenic</a>
+<i class="bi-star"></i>    </td>
+    <td>
+        <span class="badge text-bg-warning">
+            AB Ratio
+        </span><br>
+    </td>
+</tr><tr
+    data-variant-type="SmallVariant"
+    data-sample-name="proband"
+    data-sample-ext-id="proband"
+    data-family-id="1"
+    data-variant-coords="12:120291834"
+    data-variant-change="A-&gt;G"
+    data-genes="ENSG00000202538:RNU4-2:🟢 Mendeliome"
+    data-variant-data='{"coordinates": {"alt": "G", "chrom": "12", "pos": 120291834, "ref": "A"}, "ignored_categories": ["SpliceVarDB", "Exomiser", "exomiser", "svdb"], "info": {"ac": 1, "af": 0.16666699945926666, "alpha_missense_max": "missing", "am_score": -2147480064.0, "an": 6, "categorybooleanalphamissense": false, "categorybooleanavi": false, "categorybooleanclinvar0star": false, "categorybooleanclinvar0starnewgene": false, "categorybooleanclinvarplp": true, "categorybooleanhighimpact": false, "categorybooleanpm5": false, "categorybooleanspliceai": false, "categorybooleansvdb": 0, "categorysampledenovo": ["proband"], "categorysampleexomiser": [], "clinvar_allele": 3882585, "clinvar_significance": "Pathogenic/Likely Pathogenic", "clinvar_stars": 1, "clinvar_talos": 1, "exomiser": [], "gene_id": "ENSG00000202538", "gnomad_af": 0.0, "svdb_doi": [], "svdb_location": "missing", "svdb_method": "missing", "var_link": "12-120291834-A-G"}, "support_categories": ["alphamissense", "ClinVar 0-star", "clinvar0star", "AlphaMissense"], "transcript_consequences": [{"am_class": "", "am_pathogenicity": "", "amino_acid_change": "", "biotype": "snRNA", "codon": "", "consequence": "non_coding", "dna_change": "", "ensp": "", "gene": "RNU4-2", "gene_id": "ENSG00000202538", "mane": "", "mane_id": "", "transcript": ""}]}'
+    data-genotypes='{"father": "WT", "mother": "WT", "proband": "Het"}'
+    data-phenotypes='[{"id": "HP:0004322", "label": "Short stature"}, {"id": "HP:0009145", "label": "Abnormal cerebral artery morphology"}, {"id": "HP:0002779", "label": "Tracheomalacia"}]'
+    data-panel-details='{"137": {"id": 137, "name": "Mendeliome", "version": "2.278"}, "144": {"id": 144, "name": "Proteinuria", "version": "1.0"}, "239": {"id": 239, "name": "Immunological disorders_SuperPanel", "version": "15.286"}, "300": {"id": 300, "name": "Vascular Malformations_Germline", "version": "2.0"}, "3144": {"id": 3144, "name": "Cerebral vascular malformations", "version": "2.0"}, "3181": {"id": 3181, "name": "Vascular Malformations_Somatic", "version": "2.0"}, "3731": {"id": 3731, "name": "Vascular Malformations SuperPanel", "version": "1.97"}}'
+    data-family-members='{"father": {"affected": false, "sex": "male"}, "mother": {"affected": false, "sex": "female"}, "proband": {"affected": true, "sex": "male"}}'
+    data-family-display='{"father": "father ", "mother": "mother ", "proband": "proband "}'
+    data-support-vars='[]'
+    data-transcript-consequences='[{"am_class": "", "am_pathogenicity": "", "amino_acid_change": "", "biotype": "snRNA", "codon": "", "consequence": "non_coding", "dna_change": "", "ensp": "", "gene": "RNU4-2", "gene_id": "ENSG00000202538", "mane": "", "mane_id": "", "transcript": ""}]'
+    data-has-phenotype="1"
+    data-max-confidence="3"
+>
+    <td style="white-space: nowrap" class="details-control">
+        <button type="button" class="btn btn-link btn-sm p-0 details-toggle" aria-label="Toggle details"><i class="bi-plus-square"></i></button>
+
+            proband
+            <br><span class="text-muted">Family: 1</span>
+    </td>
+    <td>
+            12:120291834
+        <br>
+        A&gt;G
+        <br>
+        <small class="text-muted">
+            gnomAD v4 AC: <a href="https://gnomad.broadinstitute.org/variant/12-120291834-A-G?dataset=gnomad_r4" target="_blank"></a>
+            | AF: <a href="https://gnomad.broadinstitute.org/variant/12-120291834-A-G?dataset=gnomad_r4" target="_blank">0.0</a>
+        </small>
+    </td>
+    <td>
+        🟢        <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-html="true" data-bs-title="🟢 Mendeliome">
+            <a href="https://panelapp-aus.org/panels/entities/RNU4-2" target="_blank">RNU4-2</a>
+        </span>
+        <i class="bi-person-check-fill ms-1" style="color: #FF5733" data-bs-toggle="tooltip" data-bs-placement="top"
+            data-bs-title="Gene-Phenotype match: HP:0004322: Short stature, HP:0004938: Tortuous cerebral arteries"></i>
+        <br>
+        <span class="text-muted">
+        AD
+        </span>
+    </td>
+    <td>
+        ClinVar P/LP, De Novo
+    </td>
+    <td>
+        2026-07-27
+    </td>
+    <td>
+            <span class="badge text-bg-warning">Non-canonical transcript only</span>
+    </td>
+    <td>
+            <a href="http://www.ncbi.nlm.nih.gov/clinvar?term=3882585[alleleid]" target="_blank">(Likely) Pathogenic</a>
+<i class="bi-star"></i>    </td>
+    <td>
+    </td>
+</tr><tr
+    data-variant-type="SmallVariant"
+    data-sample-name="proband"
+    data-sample-ext-id="proband"
+    data-family-id="1"
+    data-variant-coords="2:135912503"
+    data-variant-change="G-&gt;A"
+    data-genes="ENSG00000115866:DARS1:🟢 Mendeliome"
+    data-variant-data='{"coordinates": {"alt": "A", "chrom": "2", "pos": 135912503, "ref": "G"}, "ignored_categories": ["SpliceVarDB", "Exomiser", "exomiser", "svdb"], "info": {"ac": 2, "af": 0.33333298563957214, "alpha_missense_max": 0.7738, "am_class": "likely_pathogenic", "am_score": 0.7738000154495239, "am_transcript": "ENST00000264161", "an": 6, "categorybooleanalphamissense": true, "categorybooleanavi": false, "categorybooleanclinvar0star": false, "categorybooleanclinvar0starnewgene": false, "categorybooleanclinvarplp": false, "categorybooleanhighimpact": false, "categorybooleanpm5": false, "categorybooleanspliceai": false, "categorybooleansvdb": 0, "categorysampledenovo": [], "categorysampleexomiser": [], "clinvar_allele": 3963420, "clinvar_significance": "VUS", "clinvar_stars": 0, "clinvar_talos": 0, "exomiser": [], "gene_id": "ENSG00000115866", "gnomad_ac": 2, "gnomad_ac_xy": 1, "gnomad_af": 1.500000053056283e-06, "gnomad_homalt": 0, "svdb_doi": [], "svdb_location": "missing", "svdb_method": "missing", "var_link": "2-135912503-G-A"}, "support_categories": ["alphamissense", "ClinVar 0-star", "clinvar0star", "AlphaMissense"], "transcript_consequences": [{"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.Pro385Ser", "biotype": "protein_coding", "codon": "385", "consequence": "missense", "dna_change": "135912503G\u003eA", "ensp": "", "gene": "DARS1", "gene_id": "ENSG00000115866", "mane": "", "mane_id": "", "transcript": "ENST00000888460"}, {"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.Pro374Ser", "biotype": "protein_coding", "codon": "374", "consequence": "missense", "dna_change": "135912503G\u003eA", "ensp": "", "gene": "DARS1", "gene_id": "ENSG00000115866", "mane": "", "mane_id": "", "transcript": "ENST00000888461"}, {"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.Pro356Ser", "biotype": "protein_coding", "codon": "356", "consequence": "missense", "dna_change": "135912503G\u003eA", "ensp": "", "gene": "DARS1", "gene_id": "ENSG00000115866", "mane": "", "mane_id": "", "transcript": "ENST00000888462"}, {"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.Pro358Ser", "biotype": "protein_coding", "codon": "358", "consequence": "missense", "dna_change": "135912503G\u003eA", "ensp": "", "gene": "DARS1", "gene_id": "ENSG00000115866", "mane": "", "mane_id": "", "transcript": "ENST00000939648"}, {"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.Pro405Ser", "biotype": "protein_coding", "codon": "405", "consequence": "missense", "dna_change": "135912503G\u003eA", "ensp": "", "gene": "DARS1", "gene_id": "ENSG00000115866", "mane": "", "mane_id": "", "transcript": "ENST00000952144"}, {"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.Pro401Ser", "biotype": "protein_coding", "codon": "401", "consequence": "missense", "dna_change": "135912503G\u003eA", "ensp": "", "gene": "DARS1", "gene_id": "ENSG00000115866", "mane": "", "mane_id": "", "transcript": "ENST00000952145"}, {"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.Pro360Ser", "biotype": "protein_coding", "codon": "360", "consequence": "missense", "dna_change": "135912503G\u003eA", "ensp": "", "gene": "DARS1", "gene_id": "ENSG00000115866", "mane": "", "mane_id": "", "transcript": "ENST00000952146"}, {"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.Pro391Ser", "biotype": "protein_coding", "codon": "391", "consequence": "missense", "dna_change": "135912503G\u003eA", "ensp": "", "gene": "DARS1", "gene_id": "ENSG00000115866", "mane": "", "mane_id": "", "transcript": "ENST00000952147"}, {"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.Pro405Ser", "biotype": "protein_coding", "codon": "405", "consequence": "missense", "dna_change": "135912503G\u003eA", "ensp": "", "gene": "DARS1", "gene_id": "ENSG00000115866", "mane": "", "mane_id": "", "transcript": "ENST00001145432"}, {"am_class": "likely_pathogenic", "am_pathogenicity": 0.7738, "amino_acid_change": "p.Pro405Ser", "biotype": "protein_coding", "codon": "405", "consequence": "missense", "dna_change": "135912503G\u003eA", "ensp": "ENSP00000264161", "gene": "DARS1", "gene_id": "ENSG00000115866", "mane": "", "mane_id": "NM_001349", "transcript": "ENST00000264161"}, {"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.Pro405Ser", "biotype": "protein_coding", "codon": "405", "consequence": "missense", "dna_change": "135912503G\u003eA", "ensp": "", "gene": "DARS1", "gene_id": "ENSG00000115866", "mane": "", "mane_id": "", "transcript": "ENST00001010503"}]}'
+    data-genotypes='{"father": "WT", "mother": "Het", "proband": "Het"}'
+    data-phenotypes='[{"id": "HP:0004322", "label": "Short stature"}, {"id": "HP:0009145", "label": "Abnormal cerebral artery morphology"}, {"id": "HP:0002779", "label": "Tracheomalacia"}]'
+    data-panel-details='{"137": {"id": 137, "name": "Mendeliome", "version": "2.278"}, "144": {"id": 144, "name": "Proteinuria", "version": "1.0"}, "239": {"id": 239, "name": "Immunological disorders_SuperPanel", "version": "15.286"}, "300": {"id": 300, "name": "Vascular Malformations_Germline", "version": "2.0"}, "3144": {"id": 3144, "name": "Cerebral vascular malformations", "version": "2.0"}, "3181": {"id": 3181, "name": "Vascular Malformations_Somatic", "version": "2.0"}, "3731": {"id": 3731, "name": "Vascular Malformations SuperPanel", "version": "1.97"}}'
+    data-family-members='{"father": {"affected": false, "sex": "male"}, "mother": {"affected": false, "sex": "female"}, "proband": {"affected": true, "sex": "male"}}'
+    data-family-display='{"father": "father ", "mother": "mother ", "proband": "proband "}'
+    data-support-vars='[{"url": null, "var_string": "2-135920591-G-C"}]'
+    data-transcript-consequences='[{"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.Pro385Ser", "biotype": "protein_coding", "codon": "385", "consequence": "missense", "dna_change": "135912503G\u003eA", "ensp": "", "gene": "DARS1", "gene_id": "ENSG00000115866", "mane": "", "mane_id": "", "transcript": "ENST00000888460"}, {"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.Pro374Ser", "biotype": "protein_coding", "codon": "374", "consequence": "missense", "dna_change": "135912503G\u003eA", "ensp": "", "gene": "DARS1", "gene_id": "ENSG00000115866", "mane": "", "mane_id": "", "transcript": "ENST00000888461"}, {"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.Pro356Ser", "biotype": "protein_coding", "codon": "356", "consequence": "missense", "dna_change": "135912503G\u003eA", "ensp": "", "gene": "DARS1", "gene_id": "ENSG00000115866", "mane": "", "mane_id": "", "transcript": "ENST00000888462"}, {"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.Pro358Ser", "biotype": "protein_coding", "codon": "358", "consequence": "missense", "dna_change": "135912503G\u003eA", "ensp": "", "gene": "DARS1", "gene_id": "ENSG00000115866", "mane": "", "mane_id": "", "transcript": "ENST00000939648"}, {"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.Pro405Ser", "biotype": "protein_coding", "codon": "405", "consequence": "missense", "dna_change": "135912503G\u003eA", "ensp": "", "gene": "DARS1", "gene_id": "ENSG00000115866", "mane": "", "mane_id": "", "transcript": "ENST00000952144"}, {"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.Pro401Ser", "biotype": "protein_coding", "codon": "401", "consequence": "missense", "dna_change": "135912503G\u003eA", "ensp": "", "gene": "DARS1", "gene_id": "ENSG00000115866", "mane": "", "mane_id": "", "transcript": "ENST00000952145"}, {"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.Pro360Ser", "biotype": "protein_coding", "codon": "360", "consequence": "missense", "dna_change": "135912503G\u003eA", "ensp": "", "gene": "DARS1", "gene_id": "ENSG00000115866", "mane": "", "mane_id": "", "transcript": "ENST00000952146"}, {"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.Pro391Ser", "biotype": "protein_coding", "codon": "391", "consequence": "missense", "dna_change": "135912503G\u003eA", "ensp": "", "gene": "DARS1", "gene_id": "ENSG00000115866", "mane": "", "mane_id": "", "transcript": "ENST00000952147"}, {"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.Pro405Ser", "biotype": "protein_coding", "codon": "405", "consequence": "missense", "dna_change": "135912503G\u003eA", "ensp": "", "gene": "DARS1", "gene_id": "ENSG00000115866", "mane": "", "mane_id": "", "transcript": "ENST00001145432"}, {"am_class": "likely_pathogenic", "am_pathogenicity": 0.7738, "amino_acid_change": "p.Pro405Ser", "biotype": "protein_coding", "codon": "405", "consequence": "missense", "dna_change": "135912503G\u003eA", "ensp": "ENSP00000264161", "gene": "DARS1", "gene_id": "ENSG00000115866", "mane": "", "mane_id": "NM_001349", "transcript": "ENST00000264161"}, {"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.Pro405Ser", "biotype": "protein_coding", "codon": "405", "consequence": "missense", "dna_change": "135912503G\u003eA", "ensp": "", "gene": "DARS1", "gene_id": "ENSG00000115866", "mane": "", "mane_id": "", "transcript": "ENST00001010503"}]'
+    data-has-phenotype="0"
+    data-max-confidence="3"
+>
+    <td style="white-space: nowrap" class="details-control">
+        <button type="button" class="btn btn-link btn-sm p-0 details-toggle" aria-label="Toggle details"><i class="bi-plus-square"></i></button>
+
+            proband
+            <br><span class="text-muted">Family: 1</span>
+    </td>
+    <td>
+            2:135912503
+        <br>
+        G&gt;A
+        <br>
+        <small class="text-muted">
+            gnomAD v4 AC: <a href="https://gnomad.broadinstitute.org/variant/2-135912503-G-A?dataset=gnomad_r4" target="_blank">2</a>
+            | AF: <a href="https://gnomad.broadinstitute.org/variant/2-135912503-G-A?dataset=gnomad_r4" target="_blank">0.0</a>
+        </small>
+    </td>
+    <td>
+        🟢        <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-html="true" data-bs-title="🟢 Mendeliome">
+            <a href="https://panelapp-aus.org/panels/entities/DARS1" target="_blank">DARS1</a>
+        </span>
+        <br>
+        <span class="text-muted">
+        AR (Comp-Het)
+        </span>
+    </td>
+    <td>
+        AlphaMissense
+    </td>
+    <td>
+        2026-07-27
+    </td>
+    <td>
+            missense
+            <br>
+            p.Pro405Ser
+    </td>
+    <td>
+            <a href="http://www.ncbi.nlm.nih.gov/clinvar?term=3963420[alleleid]" target="_blank">VUS</a>
+    </td>
+    <td>
+    </td>
+</tr><tr
+    data-variant-type="SmallVariant"
+    data-sample-name="proband"
+    data-sample-ext-id="proband"
+    data-family-id="1"
+    data-variant-coords="2:135920591"
+    data-variant-change="G-&gt;C"
+    data-genes="ENSG00000115866:DARS1:🟢 Mendeliome"
+    data-variant-data='{"coordinates": {"alt": "C", "chrom": "2", "pos": 135920591, "ref": "G"}, "ignored_categories": ["SpliceVarDB", "Exomiser", "exomiser", "svdb"], "info": {"ac": 2, "af": 0.33333298563957214, "alpha_missense_max": 0.895, "am_class": "likely_pathogenic", "am_score": 0.8949999809265137, "am_transcript": "ENST00000264161", "an": 6, "categorybooleanalphamissense": true, "categorybooleanavi": false, "categorybooleanclinvar0star": false, "categorybooleanclinvar0starnewgene": false, "categorybooleanclinvarplp": true, "categorybooleanhighimpact": false, "categorybooleanpm5": true, "categorybooleanspliceai": false, "categorybooleansvdb": 0, "categorysampledenovo": [], "categorysampleexomiser": [], "clinvar_allele": 3143640, "clinvar_significance": "Pathogenic/Likely Pathogenic", "clinvar_stars": 1, "clinvar_talos": 1, "exomiser": [], "gene_id": "ENSG00000115866", "gnomad_ac": 4, "gnomad_ac_xy": 1, "gnomad_af": 2.499999936844688e-06, "gnomad_homalt": 0, "pm5_data": {"65658": "0"}, "svdb_doi": [], "svdb_location": "missing", "svdb_method": "missing", "var_link": "2-135920591-G-C"}, "support_categories": ["alphamissense", "ClinVar 0-star", "clinvar0star", "AlphaMissense"], "transcript_consequences": [{"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.Ala254Gly", "biotype": "protein_coding", "codon": "254", "consequence": "missense", "dna_change": "135920591G\u003eC", "ensp": "", "gene": "DARS1", "gene_id": "ENSG00000115866", "mane": "", "mane_id": "", "transcript": "ENST00000888460"}, {"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.Ala243Gly", "biotype": "protein_coding", "codon": "243", "consequence": "missense", "dna_change": "135920591G\u003eC", "ensp": "", "gene": "DARS1", "gene_id": "ENSG00000115866", "mane": "", "mane_id": "", "transcript": "ENST00000888461"}, {"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.Ala274Gly", "biotype": "protein_coding", "codon": "274", "consequence": "missense", "dna_change": "135920591G\u003eC", "ensp": "", "gene": "DARS1", "gene_id": "ENSG00000115866", "mane": "", "mane_id": "", "transcript": "ENST00000888462"}, {"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.Ala227Gly", "biotype": "protein_coding", "codon": "227", "consequence": "missense", "dna_change": "135920591G\u003eC", "ensp": "", "gene": "DARS1", "gene_id": "ENSG00000115866", "mane": "", "mane_id": "", "transcript": "ENST00000939648"}, {"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.Ala274Gly", "biotype": "protein_coding", "codon": "274", "consequence": "missense", "dna_change": "135920591G\u003eC", "ensp": "", "gene": "DARS1", "gene_id": "ENSG00000115866", "mane": "", "mane_id": "", "transcript": "ENST00000952144"}, {"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.Ala270Gly", "biotype": "protein_coding", "codon": "270", "consequence": "missense", "dna_change": "135920591G\u003eC", "ensp": "", "gene": "DARS1", "gene_id": "ENSG00000115866", "mane": "", "mane_id": "", "transcript": "ENST00000952145"}, {"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.Ala229Gly", "biotype": "protein_coding", "codon": "229", "consequence": "missense", "dna_change": "135920591G\u003eC", "ensp": "", "gene": "DARS1", "gene_id": "ENSG00000115866", "mane": "", "mane_id": "", "transcript": "ENST00000952146"}, {"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.Ala260Gly", "biotype": "protein_coding", "codon": "260", "consequence": "missense", "dna_change": "135920591G\u003eC", "ensp": "", "gene": "DARS1", "gene_id": "ENSG00000115866", "mane": "", "mane_id": "", "transcript": "ENST00000952147"}, {"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.Ala274Gly", "biotype": "protein_coding", "codon": "274", "consequence": "missense", "dna_change": "135920591G\u003eC", "ensp": "", "gene": "DARS1", "gene_id": "ENSG00000115866", "mane": "", "mane_id": "", "transcript": "ENST00001145432"}, {"am_class": "likely_pathogenic", "am_pathogenicity": 0.895, "amino_acid_change": "p.Ala274Gly", "biotype": "protein_coding", "codon": "274", "consequence": "missense", "dna_change": "135920591G\u003eC", "ensp": "ENSP00000264161", "gene": "DARS1", "gene_id": "ENSG00000115866", "mane": "", "mane_id": "NM_001349", "transcript": "ENST00000264161"}, {"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.Ala274Gly", "biotype": "protein_coding", "codon": "274", "consequence": "missense", "dna_change": "135920591G\u003eC", "ensp": "", "gene": "DARS1", "gene_id": "ENSG00000115866", "mane": "", "mane_id": "", "transcript": "ENST00001010503"}]}'
+    data-genotypes='{"father": "Het", "mother": "WT", "proband": "Het"}'
+    data-phenotypes='[{"id": "HP:0004322", "label": "Short stature"}, {"id": "HP:0009145", "label": "Abnormal cerebral artery morphology"}, {"id": "HP:0002779", "label": "Tracheomalacia"}]'
+    data-panel-details='{"137": {"id": 137, "name": "Mendeliome", "version": "2.278"}, "144": {"id": 144, "name": "Proteinuria", "version": "1.0"}, "239": {"id": 239, "name": "Immunological disorders_SuperPanel", "version": "15.286"}, "300": {"id": 300, "name": "Vascular Malformations_Germline", "version": "2.0"}, "3144": {"id": 3144, "name": "Cerebral vascular malformations", "version": "2.0"}, "3181": {"id": 3181, "name": "Vascular Malformations_Somatic", "version": "2.0"}, "3731": {"id": 3731, "name": "Vascular Malformations SuperPanel", "version": "1.97"}}'
+    data-family-members='{"father": {"affected": false, "sex": "male"}, "mother": {"affected": false, "sex": "female"}, "proband": {"affected": true, "sex": "male"}}'
+    data-family-display='{"father": "father ", "mother": "mother ", "proband": "proband "}'
+    data-support-vars='[{"url": null, "var_string": "2-135912503-G-A"}]'
+    data-transcript-consequences='[{"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.Ala254Gly", "biotype": "protein_coding", "codon": "254", "consequence": "missense", "dna_change": "135920591G\u003eC", "ensp": "", "gene": "DARS1", "gene_id": "ENSG00000115866", "mane": "", "mane_id": "", "transcript": "ENST00000888460"}, {"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.Ala243Gly", "biotype": "protein_coding", "codon": "243", "consequence": "missense", "dna_change": "135920591G\u003eC", "ensp": "", "gene": "DARS1", "gene_id": "ENSG00000115866", "mane": "", "mane_id": "", "transcript": "ENST00000888461"}, {"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.Ala274Gly", "biotype": "protein_coding", "codon": "274", "consequence": "missense", "dna_change": "135920591G\u003eC", "ensp": "", "gene": "DARS1", "gene_id": "ENSG00000115866", "mane": "", "mane_id": "", "transcript": "ENST00000888462"}, {"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.Ala227Gly", "biotype": "protein_coding", "codon": "227", "consequence": "missense", "dna_change": "135920591G\u003eC", "ensp": "", "gene": "DARS1", "gene_id": "ENSG00000115866", "mane": "", "mane_id": "", "transcript": "ENST00000939648"}, {"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.Ala274Gly", "biotype": "protein_coding", "codon": "274", "consequence": "missense", "dna_change": "135920591G\u003eC", "ensp": "", "gene": "DARS1", "gene_id": "ENSG00000115866", "mane": "", "mane_id": "", "transcript": "ENST00000952144"}, {"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.Ala270Gly", "biotype": "protein_coding", "codon": "270", "consequence": "missense", "dna_change": "135920591G\u003eC", "ensp": "", "gene": "DARS1", "gene_id": "ENSG00000115866", "mane": "", "mane_id": "", "transcript": "ENST00000952145"}, {"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.Ala229Gly", "biotype": "protein_coding", "codon": "229", "consequence": "missense", "dna_change": "135920591G\u003eC", "ensp": "", "gene": "DARS1", "gene_id": "ENSG00000115866", "mane": "", "mane_id": "", "transcript": "ENST00000952146"}, {"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.Ala260Gly", "biotype": "protein_coding", "codon": "260", "consequence": "missense", "dna_change": "135920591G\u003eC", "ensp": "", "gene": "DARS1", "gene_id": "ENSG00000115866", "mane": "", "mane_id": "", "transcript": "ENST00000952147"}, {"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.Ala274Gly", "biotype": "protein_coding", "codon": "274", "consequence": "missense", "dna_change": "135920591G\u003eC", "ensp": "", "gene": "DARS1", "gene_id": "ENSG00000115866", "mane": "", "mane_id": "", "transcript": "ENST00001145432"}, {"am_class": "likely_pathogenic", "am_pathogenicity": 0.895, "amino_acid_change": "p.Ala274Gly", "biotype": "protein_coding", "codon": "274", "consequence": "missense", "dna_change": "135920591G\u003eC", "ensp": "ENSP00000264161", "gene": "DARS1", "gene_id": "ENSG00000115866", "mane": "", "mane_id": "NM_001349", "transcript": "ENST00000264161"}, {"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.Ala274Gly", "biotype": "protein_coding", "codon": "274", "consequence": "missense", "dna_change": "135920591G\u003eC", "ensp": "", "gene": "DARS1", "gene_id": "ENSG00000115866", "mane": "", "mane_id": "", "transcript": "ENST00001010503"}]'
+    data-has-phenotype="0"
+    data-max-confidence="3"
+>
+    <td style="white-space: nowrap" class="details-control">
+        <button type="button" class="btn btn-link btn-sm p-0 details-toggle" aria-label="Toggle details"><i class="bi-plus-square"></i></button>
+
+            proband
+            <br><span class="text-muted">Family: 1</span>
+    </td>
+    <td>
+            2:135920591
+        <br>
+        G&gt;C
+        <br>
+        <small class="text-muted">
+            gnomAD v4 AC: <a href="https://gnomad.broadinstitute.org/variant/2-135920591-G-C?dataset=gnomad_r4" target="_blank">4</a>
+            | AF: <a href="https://gnomad.broadinstitute.org/variant/2-135920591-G-C?dataset=gnomad_r4" target="_blank">0.0</a>
+        </small>
+    </td>
+    <td>
+        🟢        <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-html="true" data-bs-title="🟢 Mendeliome">
+            <a href="https://panelapp-aus.org/panels/entities/DARS1" target="_blank">DARS1</a>
+        </span>
+        <br>
+        <span class="text-muted">
+        AR (Comp-Het)
+        </span>
+    </td>
+    <td>
+        ClinVar P/LP, PM5, AlphaMissense
+    </td>
+    <td>
+        2026-07-27
+    </td>
+    <td>
+            missense
+            <br>
+            p.Ala274Gly
+    </td>
+    <td>
+            <a href="http://www.ncbi.nlm.nih.gov/clinvar?term=3143640[alleleid]" target="_blank">(Likely) Pathogenic</a>
+<i class="bi-star"></i>            <br>
+            <small class="text-muted">PM5 Variants:</small><br>
+                <a href="http://www.ncbi.nlm.nih.gov/clinvar?term=65658[alleleid]"
+                    target="_blank">
+                    65658
+                </a>
+    </td>
+    <td>
+    </td>
+</tr><tr
+    data-variant-type="SmallVariant"
+    data-sample-name="proband"
+    data-sample-ext-id="proband"
+    data-family-id="1"
+    data-variant-coords="11:32392032"
+    data-variant-change="G-&gt;A"
+    data-genes="ENSG00000184937:WT1:🟢 Proteinuria"
+    data-variant-data='{"coordinates": {"alt": "A", "chrom": "11", "pos": 32392032, "ref": "G"}, "ignored_categories": ["SpliceVarDB", "Exomiser", "exomiser", "svdb"], "info": {"ac": 1, "af": 0.16666699945926666, "alpha_missense_max": "missing", "am_score": -2147480064.0, "an": 6, "categorybooleanalphamissense": false, "categorybooleanavi": false, "categorybooleanclinvar0star": false, "categorybooleanclinvar0starnewgene": false, "categorybooleanclinvarplp": true, "categorybooleanhighimpact": true, "categorybooleanpm5": false, "categorybooleanspliceai": false, "categorybooleansvdb": 0, "categorysampledenovo": ["proband"], "categorysampleexomiser": [], "clinvar_allele": 18533, "clinvar_significance": "Pathogenic/Likely Pathogenic", "clinvar_stars": 1, "clinvar_talos": 1, "exomiser": [], "gene_id": "ENSG00000184937", "gnomad_ac": 1, "gnomad_ac_xy": 1, "gnomad_af": 4.999999987376214e-07, "gnomad_homalt": 0, "svdb_doi": [], "svdb_location": "missing", "svdb_method": "missing", "var_link": "11-32392032-G-A"}, "support_categories": ["alphamissense", "ClinVar 0-star", "clinvar0star", "AlphaMissense"], "transcript_consequences": [{"am_class": "", "am_pathogenicity": "", "amino_acid_change": "p.Arg229Ter", "biotype": "protein_coding", "codon": "229", "consequence": "stop_gained", "dna_change": "32392032G\u003eA", "ensp": "", "gene": "WT1", "gene_id": "ENSG00000184937", "mane": "", "mane_id": "", "transcript": "ENST00000530998"}, {"am_class": "", "am_pathogenicity": "", "amino_acid_change": "p.Arg216Ter", "biotype": "protein_coding", "codon": "216", "consequence": "stop_gained", "dna_change": "32392032G\u003eA", "ensp": "", "gene": "WT1", "gene_id": "ENSG00000184937", "mane": "", "mane_id": "", "transcript": "ENST00000527882"}, {"am_class": "", "am_pathogenicity": "", "amino_acid_change": "p.Arg238Ter", "biotype": "protein_coding", "codon": "238", "consequence": "stop_gained", "dna_change": "32392032G\u003eA", "ensp": "", "gene": "WT1", "gene_id": "ENSG00000184937", "mane": "", "mane_id": "", "transcript": "ENST00000640146"}, {"am_class": "", "am_pathogenicity": "", "amino_acid_change": "p.Arg463Ter", "biotype": "protein_coding", "codon": "463", "consequence": "stop_gained", "dna_change": "32392032G\u003eA", "ensp": "ENSP00000415516", "gene": "WT1", "gene_id": "ENSG00000184937", "mane": "", "mane_id": "NM_024426", "transcript": "ENST00000452863"}, {"am_class": "", "am_pathogenicity": "", "amino_acid_change": "p.Arg446Ter", "biotype": "protein_coding", "codon": "446", "consequence": "stop_gained", "dna_change": "32392032G\u003eA", "ensp": "", "gene": "WT1", "gene_id": "ENSG00000184937", "mane": "", "mane_id": "", "transcript": "ENST00000639563"}, {"am_class": "", "am_pathogenicity": "", "amino_acid_change": "p.Arg373Ter", "biotype": "protein_coding", "codon": "373", "consequence": "stop_gained", "dna_change": "32392032G\u003eA", "ensp": "", "gene": "WT1", "gene_id": "ENSG00000184937", "mane": "", "mane_id": "", "transcript": "ENST00000850609"}, {"am_class": "", "am_pathogenicity": "", "amino_acid_change": "p.Arg463Ter", "biotype": "protein_coding", "codon": "463", "consequence": "stop_gained", "dna_change": "32392032G\u003eA", "ensp": "", "gene": "WT1", "gene_id": "ENSG00000184937", "mane": "", "mane_id": "", "transcript": "ENST00001143281"}, {"am_class": "", "am_pathogenicity": "", "amino_acid_change": "p.Arg246Ter", "biotype": "protein_coding", "codon": "246", "consequence": "stop_gained", "dna_change": "32392032G\u003eA", "ensp": "", "gene": "WT1", "gene_id": "ENSG00000184937", "mane": "", "mane_id": "", "transcript": "ENST00000379079"}, {"am_class": "", "am_pathogenicity": "", "amino_acid_change": "p.Arg390Ter", "biotype": "protein_coding", "codon": "390", "consequence": "stop_gained", "dna_change": "32392032G\u003eA", "ensp": "", "gene": "WT1", "gene_id": "ENSG00000184937", "mane": "", "mane_id": "", "transcript": "ENST00000850608"}, {"am_class": "", "am_pathogenicity": "", "amino_acid_change": "p.Arg373Ter", "biotype": "protein_coding", "codon": "373", "consequence": "stop_gained", "dna_change": "32392032G\u003eA", "ensp": "", "gene": "WT1", "gene_id": "ENSG00000184937", "mane": "", "mane_id": "", "transcript": "ENST00000850606"}, {"am_class": "", "am_pathogenicity": "", "amino_acid_change": "p.Arg446Ter", "biotype": "protein_coding", "codon": "446", "consequence": "stop_gained", "dna_change": "32392032G\u003eA", "ensp": "", "gene": "WT1", "gene_id": "ENSG00000184937", "mane": "", "mane_id": "", "transcript": "ENST00000332351"}, {"am_class": "", "am_pathogenicity": "", "amino_acid_change": "p.Arg463Ter", "biotype": "protein_coding", "codon": "463", "consequence": "stop_gained", "dna_change": "32392032G\u003eA", "ensp": "", "gene": "WT1", "gene_id": "ENSG00000184937", "mane": "", "mane_id": "", "transcript": "ENST00000448076"}]}'
+    data-genotypes='{"father": "WT", "mother": "WT", "proband": "Het"}'
+    data-phenotypes='[{"id": "HP:0004322", "label": "Short stature"}, {"id": "HP:0009145", "label": "Abnormal cerebral artery morphology"}, {"id": "HP:0002779", "label": "Tracheomalacia"}]'
+    data-panel-details='{"137": {"id": 137, "name": "Mendeliome", "version": "2.278"}, "144": {"id": 144, "name": "Proteinuria", "version": "1.0"}, "239": {"id": 239, "name": "Immunological disorders_SuperPanel", "version": "15.286"}, "300": {"id": 300, "name": "Vascular Malformations_Germline", "version": "2.0"}, "3144": {"id": 3144, "name": "Cerebral vascular malformations", "version": "2.0"}, "3181": {"id": 3181, "name": "Vascular Malformations_Somatic", "version": "2.0"}, "3731": {"id": 3731, "name": "Vascular Malformations SuperPanel", "version": "1.97"}}'
+    data-family-members='{"father": {"affected": false, "sex": "male"}, "mother": {"affected": false, "sex": "female"}, "proband": {"affected": true, "sex": "male"}}'
+    data-family-display='{"father": "father ", "mother": "mother ", "proband": "proband "}'
+    data-support-vars='[]'
+    data-transcript-consequences='[{"am_class": "", "am_pathogenicity": "", "amino_acid_change": "p.Arg229Ter", "biotype": "protein_coding", "codon": "229", "consequence": "stop_gained", "dna_change": "32392032G\u003eA", "ensp": "", "gene": "WT1", "gene_id": "ENSG00000184937", "mane": "", "mane_id": "", "transcript": "ENST00000530998"}, {"am_class": "", "am_pathogenicity": "", "amino_acid_change": "p.Arg216Ter", "biotype": "protein_coding", "codon": "216", "consequence": "stop_gained", "dna_change": "32392032G\u003eA", "ensp": "", "gene": "WT1", "gene_id": "ENSG00000184937", "mane": "", "mane_id": "", "transcript": "ENST00000527882"}, {"am_class": "", "am_pathogenicity": "", "amino_acid_change": "p.Arg238Ter", "biotype": "protein_coding", "codon": "238", "consequence": "stop_gained", "dna_change": "32392032G\u003eA", "ensp": "", "gene": "WT1", "gene_id": "ENSG00000184937", "mane": "", "mane_id": "", "transcript": "ENST00000640146"}, {"am_class": "", "am_pathogenicity": "", "amino_acid_change": "p.Arg463Ter", "biotype": "protein_coding", "codon": "463", "consequence": "stop_gained", "dna_change": "32392032G\u003eA", "ensp": "ENSP00000415516", "gene": "WT1", "gene_id": "ENSG00000184937", "mane": "", "mane_id": "NM_024426", "transcript": "ENST00000452863"}, {"am_class": "", "am_pathogenicity": "", "amino_acid_change": "p.Arg446Ter", "biotype": "protein_coding", "codon": "446", "consequence": "stop_gained", "dna_change": "32392032G\u003eA", "ensp": "", "gene": "WT1", "gene_id": "ENSG00000184937", "mane": "", "mane_id": "", "transcript": "ENST00000639563"}, {"am_class": "", "am_pathogenicity": "", "amino_acid_change": "p.Arg373Ter", "biotype": "protein_coding", "codon": "373", "consequence": "stop_gained", "dna_change": "32392032G\u003eA", "ensp": "", "gene": "WT1", "gene_id": "ENSG00000184937", "mane": "", "mane_id": "", "transcript": "ENST00000850609"}, {"am_class": "", "am_pathogenicity": "", "amino_acid_change": "p.Arg463Ter", "biotype": "protein_coding", "codon": "463", "consequence": "stop_gained", "dna_change": "32392032G\u003eA", "ensp": "", "gene": "WT1", "gene_id": "ENSG00000184937", "mane": "", "mane_id": "", "transcript": "ENST00001143281"}, {"am_class": "", "am_pathogenicity": "", "amino_acid_change": "p.Arg246Ter", "biotype": "protein_coding", "codon": "246", "consequence": "stop_gained", "dna_change": "32392032G\u003eA", "ensp": "", "gene": "WT1", "gene_id": "ENSG00000184937", "mane": "", "mane_id": "", "transcript": "ENST00000379079"}, {"am_class": "", "am_pathogenicity": "", "amino_acid_change": "p.Arg390Ter", "biotype": "protein_coding", "codon": "390", "consequence": "stop_gained", "dna_change": "32392032G\u003eA", "ensp": "", "gene": "WT1", "gene_id": "ENSG00000184937", "mane": "", "mane_id": "", "transcript": "ENST00000850608"}, {"am_class": "", "am_pathogenicity": "", "amino_acid_change": "p.Arg373Ter", "biotype": "protein_coding", "codon": "373", "consequence": "stop_gained", "dna_change": "32392032G\u003eA", "ensp": "", "gene": "WT1", "gene_id": "ENSG00000184937", "mane": "", "mane_id": "", "transcript": "ENST00000850606"}, {"am_class": "", "am_pathogenicity": "", "amino_acid_change": "p.Arg446Ter", "biotype": "protein_coding", "codon": "446", "consequence": "stop_gained", "dna_change": "32392032G\u003eA", "ensp": "", "gene": "WT1", "gene_id": "ENSG00000184937", "mane": "", "mane_id": "", "transcript": "ENST00000332351"}, {"am_class": "", "am_pathogenicity": "", "amino_acid_change": "p.Arg463Ter", "biotype": "protein_coding", "codon": "463", "consequence": "stop_gained", "dna_change": "32392032G\u003eA", "ensp": "", "gene": "WT1", "gene_id": "ENSG00000184937", "mane": "", "mane_id": "", "transcript": "ENST00000448076"}]'
+    data-has-phenotype="1"
+    data-max-confidence="3"
+>
+    <td style="white-space: nowrap" class="details-control">
+        <button type="button" class="btn btn-link btn-sm p-0 details-toggle" aria-label="Toggle details"><i class="bi-plus-square"></i></button>
+
+            proband
+            <br><span class="text-muted">Family: 1</span>
+    </td>
+    <td>
+            11:32392032
+        <br>
+        G&gt;A
+        <br>
+        <small class="text-muted">
+            gnomAD v4 AC: <a href="https://gnomad.broadinstitute.org/variant/11-32392032-G-A?dataset=gnomad_r4" target="_blank">1</a>
+            | AF: <a href="https://gnomad.broadinstitute.org/variant/11-32392032-G-A?dataset=gnomad_r4" target="_blank">0.0</a>
+        </small>
+    </td>
+    <td>
+        🟢        <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-html="true" data-bs-title="🟢 Proteinuria">
+            <a href="https://panelapp-aus.org/panels/entities/WT1" target="_blank">WT1</a>
+        </span>
+        <i class="bi-person-check-fill text-success ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
+            data-bs-title="Phenotype-Panel match: Proteinuria(144)"></i>
+        <i class="bi-person-check-fill text-info ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
+            data-bs-title="Cohort panels: Proteinuria(144)"></i>
+        <i class="bi-person-check-fill ms-1" style="color: #FF5733" data-bs-toggle="tooltip" data-bs-placement="top"
+            data-bs-title="Gene-Phenotype match: HP:0004322: Short stature"></i>
+        <br>
+        <span class="text-muted">
+        AD
+        </span>
+    </td>
+    <td>
+        ClinVar P/LP, De Novo, High Impact
+    </td>
+    <td>
+        2026-07-27
+    </td>
+    <td>
+            stop gained
+            <br>
+            p.Arg463Ter
+    </td>
+    <td>
+            <a href="http://www.ncbi.nlm.nih.gov/clinvar?term=18533[alleleid]" target="_blank">(Likely) Pathogenic</a>
+<i class="bi-star"></i>    </td>
+    <td>
+    </td>
+</tr><tr
+    data-variant-type="SmallVariant"
+    data-sample-name="proband"
+    data-sample-ext-id="proband"
+    data-family-id="1"
+    data-variant-coords="11:62841775"
+    data-variant-change="T-&gt;C"
+    data-genes="ENSG00000222328:RNU2-2:🟢 Mendeliome"
+    data-variant-data='{"coordinates": {"alt": "C", "chrom": "11", "pos": 62841775, "ref": "T"}, "ignored_categories": ["SpliceVarDB", "Exomiser", "exomiser", "svdb"], "info": {"ac": 1, "af": 0.16666699945926666, "alpha_missense_max": "missing", "am_score": -2147480064.0, "an": 6, "categorybooleanalphamissense": false, "categorybooleanavi": false, "categorybooleanclinvar0star": false, "categorybooleanclinvar0starnewgene": false, "categorybooleanclinvarplp": true, "categorybooleanhighimpact": false, "categorybooleanpm5": false, "categorybooleanspliceai": false, "categorybooleansvdb": 0, "categorysampledenovo": ["proband"], "categorysampleexomiser": [], "clinvar_allele": 3542469, "clinvar_significance": "Pathogenic/Likely Pathogenic", "clinvar_stars": 1, "clinvar_talos": 1, "exomiser": [], "gene_id": "ENSG00000222328", "gnomad_ac": 0, "gnomad_ac_xy": 0, "gnomad_af": 0.0, "gnomad_homalt": 0, "svdb_doi": [], "svdb_location": "missing", "svdb_method": "missing", "var_link": "11-62841775-T-C"}, "support_categories": ["alphamissense", "ClinVar 0-star", "clinvar0star", "AlphaMissense"], "transcript_consequences": [{"am_class": "", "am_pathogenicity": "", "amino_acid_change": "", "biotype": "snRNA", "codon": "", "consequence": "non_coding", "dna_change": "", "ensp": "", "gene": "RNU2-2", "gene_id": "ENSG00000222328", "mane": "", "mane_id": "", "transcript": ""}]}'
+    data-genotypes='{"father": "WT", "mother": "WT", "proband": "Het"}'
+    data-phenotypes='[{"id": "HP:0004322", "label": "Short stature"}, {"id": "HP:0009145", "label": "Abnormal cerebral artery morphology"}, {"id": "HP:0002779", "label": "Tracheomalacia"}]'
+    data-panel-details='{"137": {"id": 137, "name": "Mendeliome", "version": "2.278"}, "144": {"id": 144, "name": "Proteinuria", "version": "1.0"}, "239": {"id": 239, "name": "Immunological disorders_SuperPanel", "version": "15.286"}, "300": {"id": 300, "name": "Vascular Malformations_Germline", "version": "2.0"}, "3144": {"id": 3144, "name": "Cerebral vascular malformations", "version": "2.0"}, "3181": {"id": 3181, "name": "Vascular Malformations_Somatic", "version": "2.0"}, "3731": {"id": 3731, "name": "Vascular Malformations SuperPanel", "version": "1.97"}}'
+    data-family-members='{"father": {"affected": false, "sex": "male"}, "mother": {"affected": false, "sex": "female"}, "proband": {"affected": true, "sex": "male"}}'
+    data-family-display='{"father": "father ", "mother": "mother ", "proband": "proband "}'
+    data-support-vars='[]'
+    data-transcript-consequences='[{"am_class": "", "am_pathogenicity": "", "amino_acid_change": "", "biotype": "snRNA", "codon": "", "consequence": "non_coding", "dna_change": "", "ensp": "", "gene": "RNU2-2", "gene_id": "ENSG00000222328", "mane": "", "mane_id": "", "transcript": ""}]'
+    data-has-phenotype="1"
+    data-max-confidence="3"
+>
+    <td style="white-space: nowrap" class="details-control">
+        <button type="button" class="btn btn-link btn-sm p-0 details-toggle" aria-label="Toggle details"><i class="bi-plus-square"></i></button>
+
+            proband
+            <br><span class="text-muted">Family: 1</span>
+    </td>
+    <td>
+            11:62841775
+        <br>
+        T&gt;C
+        <br>
+        <small class="text-muted">
+            gnomAD v4 AC: <a href="https://gnomad.broadinstitute.org/variant/11-62841775-T-C?dataset=gnomad_r4" target="_blank">0</a>
+            | AF: <a href="https://gnomad.broadinstitute.org/variant/11-62841775-T-C?dataset=gnomad_r4" target="_blank">0.0</a>
+        </small>
+    </td>
+    <td>
+        🟢        <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-html="true" data-bs-title="🟢 Mendeliome">
+            <a href="https://panelapp-aus.org/panels/entities/RNU2-2" target="_blank">RNU2-2</a>
+        </span>
+        <i class="bi-person-check-fill ms-1" style="color: #FF5733" data-bs-toggle="tooltip" data-bs-placement="top"
+            data-bs-title="Gene-Phenotype match: HP:0004322: Short stature"></i>
+        <br>
+        <span class="text-muted">
+        AD
+        </span>
+    </td>
+    <td>
+        ClinVar P/LP, De Novo
+    </td>
+    <td>
+        2026-07-27
+    </td>
+    <td>
+            <span class="badge text-bg-warning">Non-canonical transcript only</span>
+    </td>
+    <td>
+            <a href="http://www.ncbi.nlm.nih.gov/clinvar?term=3542469[alleleid]" target="_blank">(Likely) Pathogenic</a>
+<i class="bi-star"></i>    </td>
+    <td>
+    </td>
+</tr><tr
+    data-variant-type="SmallVariant"
+    data-sample-name="proband"
+    data-sample-ext-id="proband"
+    data-family-id="1"
+    data-variant-coords="X:71109321"
+    data-variant-change="G-&gt;A"
+    data-genes="ENSG00000147168:IL2RG:🟢 Mendeliome&lt;br&gt;🟢 Immunological disorders_SuperPanel"
+    data-variant-data='{"coordinates": {"alt": "A", "chrom": "X", "pos": 71109321, "ref": "G"}, "ignored_categories": ["SpliceVarDB", "Exomiser", "exomiser", "svdb"], "info": {"ac": 2, "af": 0.5, "alpha_missense_max": 0.4702, "am_class": "ambiguous", "am_score": 0.4702000021934509, "am_transcript": "ENST00000374202", "an": 4, "categorybooleanalphamissense": false, "categorybooleanavi": false, "categorybooleanclinvar0star": false, "categorybooleanclinvar0starnewgene": false, "categorybooleanclinvarplp": true, "categorybooleanhighimpact": false, "categorybooleanpm5": false, "categorybooleanspliceai": false, "categorybooleansvdb": 0, "categorysampledenovo": [], "categorysampleexomiser": [], "clinvar_allele": 25066, "clinvar_significance": "Pathogenic/Likely Pathogenic", "clinvar_stars": 3, "clinvar_talos": 1, "exomiser": [], "gene_id": "ENSG00000147168", "gnomad_ac": 1, "gnomad_ac_xy": 0, "gnomad_af": 4.999999987376214e-07, "gnomad_homalt": 0, "svdb_doi": [], "svdb_location": "missing", "svdb_method": "missing", "var_link": "X-71109321-G-A"}, "support_categories": ["alphamissense", "ClinVar 0-star", "clinvar0star", "AlphaMissense"], "transcript_consequences": [{"am_class": "ambiguous", "am_pathogenicity": 0.4702, "amino_acid_change": "p.Arg222Cys", "biotype": "protein_coding", "codon": "222", "consequence": "missense", "dna_change": "71109321G\u003eA", "ensp": "ENSP00000363318", "gene": "IL2RG", "gene_id": "ENSG00000147168", "mane": "", "mane_id": "NM_000206", "transcript": "ENST00000374202"}, {"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.Arg222Cys", "biotype": "protein_coding", "codon": "222", "consequence": "missense", "dna_change": "71109321G\u003eA", "ensp": "", "gene": "IL2RG", "gene_id": "ENSG00000147168", "mane": "", "mane_id": "", "transcript": "ENST00000979050"}, {"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.Arg222Cys", "biotype": "protein_coding", "codon": "222", "consequence": "missense", "dna_change": "71109321G\u003eA", "ensp": "", "gene": "IL2RG", "gene_id": "ENSG00000147168", "mane": "", "mane_id": "", "transcript": "ENST00001133758"}, {"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.Arg222Cys", "biotype": "protein_coding", "codon": "222", "consequence": "missense", "dna_change": "71109321G\u003eA", "ensp": "", "gene": "IL2RG", "gene_id": "ENSG00000147168", "mane": "", "mane_id": "", "transcript": "ENST00000482750"}, {"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.Arg178Cys", "biotype": "protein_coding", "codon": "178", "consequence": "missense", "dna_change": "71109321G\u003eA", "ensp": "", "gene": "IL2RG", "gene_id": "ENSG00000147168", "mane": "", "mane_id": "", "transcript": "ENST00000464642"}]}'
+    data-genotypes='{"father": "WT", "mother": "Het", "proband": "Hemi"}'
+    data-phenotypes='[{"id": "HP:0004322", "label": "Short stature"}, {"id": "HP:0009145", "label": "Abnormal cerebral artery morphology"}, {"id": "HP:0002779", "label": "Tracheomalacia"}]'
+    data-panel-details='{"137": {"id": 137, "name": "Mendeliome", "version": "2.278"}, "144": {"id": 144, "name": "Proteinuria", "version": "1.0"}, "239": {"id": 239, "name": "Immunological disorders_SuperPanel", "version": "15.286"}, "300": {"id": 300, "name": "Vascular Malformations_Germline", "version": "2.0"}, "3144": {"id": 3144, "name": "Cerebral vascular malformations", "version": "2.0"}, "3181": {"id": 3181, "name": "Vascular Malformations_Somatic", "version": "2.0"}, "3731": {"id": 3731, "name": "Vascular Malformations SuperPanel", "version": "1.97"}}'
+    data-family-members='{"father": {"affected": false, "sex": "male"}, "mother": {"affected": false, "sex": "female"}, "proband": {"affected": true, "sex": "male"}}'
+    data-family-display='{"father": "father ", "mother": "mother ", "proband": "proband "}'
+    data-support-vars='[]'
+    data-transcript-consequences='[{"am_class": "ambiguous", "am_pathogenicity": 0.4702, "amino_acid_change": "p.Arg222Cys", "biotype": "protein_coding", "codon": "222", "consequence": "missense", "dna_change": "71109321G\u003eA", "ensp": "ENSP00000363318", "gene": "IL2RG", "gene_id": "ENSG00000147168", "mane": "", "mane_id": "NM_000206", "transcript": "ENST00000374202"}, {"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.Arg222Cys", "biotype": "protein_coding", "codon": "222", "consequence": "missense", "dna_change": "71109321G\u003eA", "ensp": "", "gene": "IL2RG", "gene_id": "ENSG00000147168", "mane": "", "mane_id": "", "transcript": "ENST00000979050"}, {"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.Arg222Cys", "biotype": "protein_coding", "codon": "222", "consequence": "missense", "dna_change": "71109321G\u003eA", "ensp": "", "gene": "IL2RG", "gene_id": "ENSG00000147168", "mane": "", "mane_id": "", "transcript": "ENST00001133758"}, {"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.Arg222Cys", "biotype": "protein_coding", "codon": "222", "consequence": "missense", "dna_change": "71109321G\u003eA", "ensp": "", "gene": "IL2RG", "gene_id": "ENSG00000147168", "mane": "", "mane_id": "", "transcript": "ENST00000482750"}, {"am_class": "", "am_pathogenicity": 0.0, "amino_acid_change": "p.Arg178Cys", "biotype": "protein_coding", "codon": "178", "consequence": "missense", "dna_change": "71109321G\u003eA", "ensp": "", "gene": "IL2RG", "gene_id": "ENSG00000147168", "mane": "", "mane_id": "", "transcript": "ENST00000464642"}]'
+    data-has-phenotype="1"
+    data-max-confidence="3"
+>
+    <td style="white-space: nowrap" class="details-control">
+        <button type="button" class="btn btn-link btn-sm p-0 details-toggle" aria-label="Toggle details"><i class="bi-plus-square"></i></button>
+
+            proband
+            <br><span class="text-muted">Family: 1</span>
+    </td>
+    <td>
+            X:71109321
+        <br>
+        G&gt;A
+        <br>
+        <small class="text-muted">
+            gnomAD v4 AC: <a href="https://gnomad.broadinstitute.org/variant/X-71109321-G-A?dataset=gnomad_r4" target="_blank">1</a>
+            | AF: <a href="https://gnomad.broadinstitute.org/variant/X-71109321-G-A?dataset=gnomad_r4" target="_blank">0.0</a>
+        </small>
+    </td>
+    <td>
+        🟢        <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-html="true" data-bs-title="🟢 Mendeliome&lt;br&gt;🟢 Immunological disorders_SuperPanel">
+            <a href="https://panelapp-aus.org/panels/entities/IL2RG" target="_blank">IL2RG</a>
+        </span>
+        <i class="bi-person-check-fill text-success ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
+            data-bs-title="Phenotype-Panel match: Immunological disorders_SuperPanel(239)"></i>
+        <i class="bi-person-check-fill text-info ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
+            data-bs-title="Cohort panels: Immunological disorders_SuperPanel(239)"></i>
+        <br>
+        <span class="text-muted">
+        XLR (Male)
+        </span>
+    </td>
+    <td>
+        ClinVar P/LP
+    </td>
+    <td>
+        2026-07-27
+    </td>
+    <td>
+            missense
+            <br>
+            p.Arg222Cys
+    </td>
+    <td>
+            <a href="http://www.ncbi.nlm.nih.gov/clinvar?term=25066[alleleid]" target="_blank">(Likely) Pathogenic</a>
+<i class="bi-star"></i><i class="bi-star"></i><i class="bi-star"></i>    </td>
+    <td>
+        <span class="badge text-bg-warning">
+            AB Ratio
+        </span><br>
+    </td>
+</tr>                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane fade" id="metadata-pane" role="tabpanel" aria-labelledby="metadata-tab">
+                    <div class="card mb-3">
+                        <div class="card-header">Run Summary</div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-sm mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>Category</th>
+                                            <th>Total</th>
+                                            <th>Mean/sample</th>
+                                            <th>Min</th>
+                                            <th>Max/sample</th>
+                                            <th>Median</th>
+                                            <th>Mode</th>
+                                            <th>Stddev</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>any</td>
+                                            <td>10</td>
+                                            <td>10.0</td>
+                                            <td>10</td>
+                                            <td>10</td>
+                                            <td>10</td>
+                                            <td>10</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td>ClinVar P/LP</td>
+                                            <td>9</td>
+                                            <td>9.0</td>
+                                            <td>9</td>
+                                            <td>9</td>
+                                            <td>9</td>
+                                            <td>9</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td>De Novo</td>
+                                            <td>6</td>
+                                            <td>6.0</td>
+                                            <td>6</td>
+                                            <td>6</td>
+                                            <td>6</td>
+                                            <td>6</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td>High Impact</td>
+                                            <td>3</td>
+                                            <td>3.0</td>
+                                            <td>3</td>
+                                            <td>3</td>
+                                            <td>3</td>
+                                            <td>3</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td>AlphaMissense</td>
+                                            <td>3</td>
+                                            <td>3.0</td>
+                                            <td>3</td>
+                                            <td>3</td>
+                                            <td>3</td>
+                                            <td>3</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td>PM5</td>
+                                            <td>3</td>
+                                            <td>3.0</td>
+                                            <td>3</td>
+                                            <td>3</td>
+                                            <td>3</td>
+                                            <td>3</td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                        <div class="card mb-3">
+                            <div class="card-header">Run Metadata</div>
+                            <div class="card-body p-0">
+                                <div class="table-responsive">
+                                    <table class="table table-sm mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th>Data</th>
+                                                <th>Value</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Run_datetime</td>
+                                                <td>2026-07-27</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Version</td>
+                                                <td>11.0.2</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card mb-3">
+                            <div class="card-header">Panels</div>
+                            <div class="card-body p-0">
+                                <div class="table-responsive">
+                                    <table class="table table-sm mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Version</th>
+                                                <th>Name</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>137</td>
+                                                <td>2.278</td>
+                                                <td>Mendeliome</td>
+                                            </tr>
+                                            <tr>
+                                                <td>3144</td>
+                                                <td>2.0</td>
+                                                <td>Cerebral vascular malformations</td>
+                                            </tr>
+                                            <tr>
+                                                <td>3181</td>
+                                                <td>2.0</td>
+                                                <td>Vascular Malformations_Somatic</td>
+                                            </tr>
+                                            <tr>
+                                                <td>144</td>
+                                                <td>1.0</td>
+                                                <td>Proteinuria</td>
+                                            </tr>
+                                            <tr>
+                                                <td>239</td>
+                                                <td>15.286</td>
+                                                <td>Immunological disorders_SuperPanel</td>
+                                            </tr>
+                                            <tr>
+                                                <td>300</td>
+                                                <td>2.0</td>
+                                                <td>Vascular Malformations_Germline</td>
+                                            </tr>
+                                            <tr>
+                                                <td>3731</td>
+                                                <td>1.97</td>
+                                                <td>Vascular Malformations SuperPanel</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card mb-3">
+                            <div class="card-header">Families</div>
+                            <div class="card-body p-0">
+                                <div class="table-responsive">
+                                    <table class="table table-sm mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th>family_size</th>
+                                                <th>tally</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>affected</td>
+                                                <td>1</td>
+                                            </tr>
+                                            <tr>
+                                                <td>female</td>
+                                                <td>1</td>
+                                            </tr>
+                                            <tr>
+                                                <td>male</td>
+                                                <td>2</td>
+                                            </tr>
+                                            <tr>
+                                                <td>trios</td>
+                                                <td>1</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+            </div>
+            <div class="tab-pane fade" id="config-pane" role="tabpanel" aria-labelledby="config-tab">
+                <div class="card">
+                    <div class="card-body">
+                        <pre class="bg-light border rounded p-3 small text-break" style="white-space: pre-wrap;">{
+  &#34;CreateTalosHTML&#34;: {
+    &#34;remove_solved_cases&#34;: true
+  },
+  &#34;GeneratePanelData&#34;: {
+    &#34;confidence_level&#34;: 3,
+    &#34;default_panel&#34;: 137,
+    &#34;forbidden_genes&#34;: [],
+    &#34;forced_panels&#34;: [
+      144,
+      239
+    ],
+    &#34;manual_overrides&#34;: [
+      {
+        &#34;chrom&#34;: &#34;1&#34;,
+        &#34;ensg&#34;: &#34;ENSG0000012345&#34;,
+        &#34;moi&#34;: &#34;Biallelic&#34;,
+        &#34;symbol&#34;: &#34;AGENE&#34;
+      }
+    ],
+    &#34;panelapp&#34;: &#34;https://panelapp-aus.org/api/v1/panels&#34;,
+    &#34;require_pheno_match&#34;: [
+      &#34;FLG&#34;,
+      &#34;GJB2&#34;,
+      &#34;F2&#34;,
+      &#34;F5&#34;,
+      &#34;HFE&#34;
+    ],
+    &#34;within_x_months&#34;: 24
+  },
+  &#34;HPOFlagging&#34;: {
+    &#34;min_similarity&#34;: 14.0,
+    &#34;semantic_match&#34;: true
+  },
+  &#34;RunHailFiltering&#34;: {
+    &#34;ac_threshold&#34;: 0.01,
+    &#34;additional_csq&#34;: [
+      &#34;missense&#34;,
+      &#34;inframe_deletion&#34;,
+      &#34;inframe_insertion&#34;
+    ],
+    &#34;af_semi_rare&#34;: 0.01,
+    &#34;am_pathogenicity&#34;: 0.564,
+    &#34;callset_af_sv_recessive&#34;: 0.03,
+    &#34;critical_csq&#34;: [
+      &#34;frameshift&#34;,
+      &#34;splice_acceptor&#34;,
+      &#34;splice_donor&#34;,
+      &#34;start_lost&#34;,
+      &#34;stop_gained&#34;,
+      &#34;stop_lost&#34;
+    ],
+    &#34;csq_string&#34;: [
+      &#34;consequence&#34;,
+      &#34;gene_id&#34;,
+      &#34;gene&#34;,
+      &#34;transcript&#34;,
+      &#34;mane_id&#34;,
+      &#34;mane&#34;,
+      &#34;biotype&#34;,
+      &#34;dna_change&#34;,
+      &#34;amino_acid_change&#34;,
+      &#34;codon&#34;,
+      &#34;ensp&#34;,
+      &#34;am_class&#34;,
+      &#34;am_pathogenicity&#34;
+    ],
+    &#34;de_novo&#34;: {
+      &#34;max_depth&#34;: 1000,
+      &#34;min_alt_depth&#34;: 5,
+      &#34;min_child_ab&#34;: 0.2,
+      &#34;min_depth&#34;: 5,
+      &#34;min_proband_gq&#34;: 25
+    },
+    &#34;max_parent_ab&#34;: 0.05,
+    &#34;min_alt_depth&#34;: 5,
+    &#34;minimum_depth&#34;: 10,
+    &#34;spliceai&#34;: 0.5
+  },
+  &#34;ValidateMOI&#34;: {
+    &#34;callset_max_af&#34;: 0.01,
+    &#34;callset_sv_max_af&#34;: 0.03,
+    &#34;clinvar_callset_max_af&#34;: 0.05,
+    &#34;clinvar_dominant_callset_max_af&#34;: 0.05,
+    &#34;clinvar_dominant_gnomad_max_af&#34;: 5e-05,
+    &#34;clinvar_gnomad_max_af&#34;: 0.05,
+    &#34;dominant_callset_max_ac&#34;: 10,
+    &#34;dominant_callset_max_af&#34;: 0.01,
+    &#34;dominant_callset_sv_max_af&#34;: 0.01,
+    &#34;dominant_gnomad_max_ac&#34;: 10,
+    &#34;dominant_gnomad_max_af&#34;: 1e-05,
+    &#34;dominant_gnomad_max_homozygotes&#34;: 0,
+    &#34;dominant_gnomad_sv_max_af&#34;: 0.01,
+    &#34;gnomad_max_af&#34;: 0.01,
+    &#34;gnomad_max_hemizygotes&#34;: 5,
+    &#34;gnomad_max_homozygotes&#34;: 5,
+    &#34;gnomad_sv_max_af&#34;: 0.03,
+    &#34;ignore_categories&#34;: [
+      &#34;exomiser&#34;,
+      &#34;svdb&#34;
+    ],
+    &#34;min_callset_ac_to_filter&#34;: 10,
+    &#34;phenotype_match&#34;: [
+      &#34;alphamissense&#34;
+    ],
+    &#34;support_categories&#34;: [
+      &#34;alphamissense&#34;,
+      &#34;clinvar0star&#34;
+    ]
+  }
+}</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    $(document).ready(function() {
+        function ucscUrl(variant, padding) {
+            if (padding === undefined) {
+                padding = 20;
+            }
+            var pos = parseInt(variant.pos, 10);
+            var refLen = variant.ref ? variant.ref.length : 1;
+            return 'http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&highlight=hg38.chr' +
+                   variant.chrom + ':' + pos + '-' + (refLen + pos - 1) +
+                   '&position=chr' + variant.chrom + ':' + (pos - padding) + '-' + (pos + padding);
+        }
+
+        function spliceAiUrl(variant, distance, mask) {
+            if (distance === undefined) {
+                distance = 500;
+            }
+            if (mask === undefined) {
+                mask = 0;
+            }
+            return 'https://spliceailookup.broadinstitute.org/#variant=' +
+                   variant.chrom + ':' + variant.pos + '-' + variant.ref + '-' + variant.alt +
+                   '&hg=38&distance=' + distance + '&mask=' + mask + '&precomputed=0';
+        }
+
+        function omimGeneUrl(symbol) {
+            return 'https://www.omim.org/search?index=entry&start=1&search=' +
+                   encodeURIComponent(symbol) + '&field=approved_gene_symbol';
+        }
+
+        function decipherUrl(geneId, proteinView) {
+            if (proteinView === undefined) {
+                proteinView = true;
+            }
+            if (proteinView) {
+                return 'https://www.deciphergenomics.org/gene/' + geneId + '/overview/protein-genomic-info';
+            }
+            return 'https://www.deciphergenomics.org/gene/' + geneId + '/overview/clinical-info';
+        }
+
+        function pedSymbol(sex, affected) {
+            var shape = 'diamond';
+            if (sex === 'male' || sex === '1') {
+                shape = 'square';
+            } else if (sex === 'female' || sex === '2') {
+                shape = 'circle';
+            }
+
+            var iconClass = 'bi-question-' + shape;
+            if (affected === '2' || affected === 'true' || affected === true) {
+                iconClass = 'bi-' + shape + '-fill';
+            } else if (affected === '1' || affected === 'false' || affected === false) {
+                iconClass = 'bi-' + shape;
+            }
+
+            return '<i class="' + iconClass + ' text-small text-secondary"></i>';
+        }
+
+        function escapeHtml(unsafe) {
+            if (unsafe === undefined || unsafe === null) {
+                return '';
+            }
+            var value = String(unsafe);
+            return value
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        function parseDataAttribute(tr, attribute, fallback) {
+            var value = tr.attr(attribute);
+            if (value === undefined || value === null) {
+                return fallback;
+            }
+
+            if (typeof value !== 'string') {
+                return value;
+            }
+
+            try {
+                return JSON.parse(value);
+            } catch (error) {
+                return fallback;
+            }
+        }
+
+        var phenotypeFilter = $('#phenotype-filter');
+
+        $('#variant-table tbody tr').each(function () {
+            if (!this.hasAttribute('data-has-phenotype')) {
+                this.setAttribute('data-has-phenotype', '0');
+            }
+        });
+
+        $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+            if (settings.nTable !== $('#variant-table')[0]) {
+                return true;
+            }
+
+            var filterValue = phenotypeFilter.val();
+            if (!filterValue || filterValue === 'all') {
+                return true;
+            }
+
+            var aoData = settings.aoData[dataIndex];
+            var rowNode = aoData && aoData.nTr;
+            if (!rowNode) {
+                return true;
+            }
+
+            var hasPhenotype = rowNode.getAttribute('data-has-phenotype');
+
+            if (filterValue === 'has') {
+                return hasPhenotype === '1';
+            }
+
+            if (filterValue === 'none') {
+                return hasPhenotype !== '1';
+            }
+
+            return true;
+        });
+
+        $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+            if (settings.nTable !== $('#variant-table')[0]) {
+                return true;
+            }
+
+            var checkedValues = $('.conf-filter:checked').map(function() {
+                return this.value;
+            }).get();
+
+            if (checkedValues.length === 4) {
+                return true;
+            }
+
+            var aoData = settings.aoData[dataIndex];
+            var rowNode = aoData && aoData.nTr;
+            if (!rowNode) {
+                return true;
+            }
+
+            var conf = rowNode.getAttribute('data-max-confidence') || '0';
+            return checkedValues.indexOf(conf) !== -1;
+        });
+
+        function formatChildRow(rowData) {
+            var variantData = rowData.variantData || {};
+            var genotypes = rowData.genotypes || {};
+            var phenotypes = rowData.phenotypes || [];
+            var panelDetails = rowData.panelDetails || {};
+            var familyMembers = rowData.familyMembers || {};
+            var familyDisplay = rowData.familyDisplay || {};
+            var supportVars = rowData.supportVars || [];
+        var transcriptConsequences = rowData.transcriptConsequences || [];
+
+        var html = '<div class="child-row-content"><div class="row">';
+
+        html += '<div class="col-md-6"><div class="card"><div class="card-body">';
+        html += '<h5 class="card-title">Variant Details</h5><dl class="row">';
+
+        html += '<dt class="col-sm-4">Coordinates</dt><dd class="col-sm-8">';
+        html += escapeHtml(rowData.variantCoords) + '<br>' + escapeHtml(rowData.variantChange);
+        html += '</dd>';
+
+        if (rowData.variantType) {
+            html += '<dt class="col-sm-4">Source</dt><dd class="col-sm-8">';
+            html += escapeHtml(String(rowData.variantType));
+            html += '</dd>';
+        }
+
+        if (variantData.info && variantData.info.as_filterstatus) {
+            html += '<dt class="col-sm-4">Filter status</dt><dd class="col-sm-8">';
+            html += escapeHtml(String(variantData.info.as_filterstatus));
+            html += '</dd>';
+        }
+
+        if (supportVars && supportVars.length > 0) {
+            var validSupport = supportVars.filter(function(entry) {
+                return entry && entry.var_string;
+            });
+            if (validSupport.length > 0) {
+                html += '<dt class="col-sm-4">Supporting variants</dt><dd class="col-sm-8">';
+                validSupport.forEach(function(entry, index) {
+                    if (entry.url) {
+                        html += '<a href="' + escapeHtml(entry.url) + '" target="_blank">' + escapeHtml(entry.var_string) + '</a>';
+                    } else {
+                        html += escapeHtml(entry.var_string);
+                    }
+                    if (index < validSupport.length - 1) {
+                        html += '<br>';
+                    }
+                });
+                html += '</dd>';
+            }
+        }
+
+        if (rowData.variantType === 'StructuralVariant' && variantData.info) {
+            var svLen = variantData.info.svlen;
+            var svType = variantData.info.svtype;
+            if (svType) {
+                html += '<dt class="col-sm-4">Structural details</dt><dd class="col-sm-8">';
+                html += escapeHtml(String(svType));
+                if (svLen !== undefined && svLen !== null) {
+                    html += ' ' + escapeHtml(String(svLen)) + 'bp';
+                }
+                html += '</dd>';
+            }
+        }
+
+            html += '<dt class="col-sm-4">Allele Counts</dt><dd class="col-sm-8">';
+            if (variantData.info) {
+                var callsetAc = (variantData.info.ac !== undefined && variantData.info.ac !== null) ? variantData.info.ac : 'N/A';
+                var callsetAn = (variantData.info.an !== undefined && variantData.info.an !== null) ? variantData.info.an : 'N/A';
+                html += 'This callset AC: ' + escapeHtml(String(callsetAc)) + ' / AN: ' + escapeHtml(String(callsetAn)) + '<br>';
+
+                if (rowData.variantType === 'SmallVariant' && variantData.info.gnomad_ac !== undefined && variantData.info.gnomad_ac !== null) {
+                    var gnomadId = null;
+                    if (variantData.coordinates && variantData.coordinates.chrom && variantData.coordinates.ref && variantData.coordinates.alt) {
+                        gnomadId = [
+                            variantData.coordinates.chrom,
+                            variantData.coordinates.pos,
+                            variantData.coordinates.ref,
+                            variantData.coordinates.alt
+                        ].join('-');
+                    }
+                    if (!gnomadId) {
+                        gnomadId = rowData.variantCoords.replace(':', '-');
+                    }
+                    var gnomadAfVal = variantData.info.gnomad_af;
+                    var gnomadAf = 'N/A';
+                    if (gnomadAfVal !== undefined && gnomadAfVal !== null && !isNaN(parseFloat(gnomadAfVal))) {
+                        gnomadAf = parseFloat(gnomadAfVal).toFixed(5);
+                    }
+                    html += 'gnomAD 4.1: <a href="https://gnomad.broadinstitute.org/variant/' + encodeURIComponent(gnomadId) + '?dataset=gnomad_r4" target="_blank"> AC:' + escapeHtml(String(variantData.info.gnomad_ac)) + ' AF: ' + escapeHtml(String(gnomadAf)) + '</a>';
+                } else if (rowData.variantType === 'StructuralVariant' && variantData.info.gnomad_key) {
+                    var svAfVal = variantData.info['gnomad_v2.1_sv_af'];
+                    var svAf = 'N/A';
+                    if (svAfVal !== undefined && svAfVal !== null && !isNaN(parseFloat(svAfVal))) {
+                        svAf = parseFloat(svAfVal).toFixed(5);
+                    }
+                    html += 'gnomAD v2.1: <a href="https://gnomad.broadinstitute.org/variant/' + encodeURIComponent(String(variantData.info.gnomad_key)) + '?dataset=gnomad_sv_r2_1" target="_blank">' + escapeHtml(String(svAf)) + '</a>';
+                }
+            }
+            html += '</dd>';
+
+            if (rowData.variantType === 'SmallVariant' && variantData.info) {
+                html += '<dt class="col-sm-4">In Silico Predictions</dt><dd class="col-sm-8">';
+                if (variantData.info.alpha_missense_max && variantData.info.alpha_missense_max !== 'missing') {
+                    html += 'AlphaMissense: ' + parseFloat(variantData.info.alpha_missense_max).toFixed(2) + '<br>';
+                }
+                if (variantData.info.avi_score !== null && variantData.info.avi_score !== 'missing') {
+                    html += 'AG AVI: ' + parseFloat(variantData.info.avi_score).toFixed(2) + '<br>';
+                }
+                if (variantData.info.splice_ai_delta) {
+                    var variantRef = {
+                        chrom: rowData.variantCoords.split(':')[0],
+                        pos: rowData.variantCoords.split(':')[1],
+                        ref: variantData.coordinates ? variantData.coordinates.ref : '',
+                        alt: variantData.coordinates ? variantData.coordinates.alt : ''
+                    };
+                    html += 'SpliceAI: <a href="' + spliceAiUrl(variantRef) + '" target="_blank">' + parseFloat(variantData.info.splice_ai_delta).toFixed(2) + '</a>';
+                    if (variantData.info.splice_ai_csq && !['missing', 'No_consequence'].includes(variantData.info.splice_ai_csq)) {
+                        html += ' (' + escapeHtml(variantData.info.splice_ai_csq) + ')';
+                    }
+                }
+                html += '</dd>';
+
+                html += '<dt class="col-sm-4">External Links</dt><dd class="col-sm-8">';
+                var variantForLinks = {
+                    chrom: rowData.variantCoords.split(':')[0],
+                    pos: rowData.variantCoords.split(':')[1],
+                    ref: variantData.coordinates ? variantData.coordinates.ref : '',
+                    alt: variantData.coordinates ? variantData.coordinates.alt : ''
+                };
+                var genes = rowData.genes ? rowData.genes.split(',') : [];
+                var firstGene = genes[0] ? genes[0].split(':') : ['', ''];
+
+                html += '<a href="' + spliceAiUrl(variantForLinks) + '" target="_blank">SpliceAI</a> | ';
+                html += '<a href="' + ucscUrl(variantForLinks) + '" target="_blank">UCSC</a> | ';
+                if (firstGene[0]) {
+                    html += '<a href="' + decipherUrl(firstGene[0], true) + '" target="_blank">Decipher</a> ';
+                    html += '<a href="' + decipherUrl(firstGene[0], false) + '" target="_blank">(Clinical)</a> | ';
+                }
+                if (firstGene[1]) {
+                    html += '<a href="' + omimGeneUrl(firstGene[1]) + '" target="_blank">OMIM</a>';
+                }
+                html += '</dd>';
+            } else if (rowData.variantType === 'StructuralVariant' && variantData.info) {
+                html += '<dt class="col-sm-4">Additional</dt><dd class="col-sm-8">';
+                var lof = variantData.info.lof;
+                if (lof) {
+                    var lofText = Array.isArray(lof) ? lof.join(', ') : String(lof);
+                    html += 'LoF Genes: ' + escapeHtml(lofText) + '<br>';
+                }
+                var algorithms = variantData.info.algorithms;
+                if (algorithms) {
+                    var algText = Array.isArray(algorithms) ? algorithms.join(', ') : String(algorithms);
+                    html += 'Algorithms: ' + escapeHtml(algText) + '<br>';
+                }
+                var evidence = variantData.info.evidence;
+                if (evidence) {
+                    var evidenceText = Array.isArray(evidence) ? evidence.join(', ') : String(evidence);
+                    html += 'Evidence Types: ' + escapeHtml(evidenceText) + '<br>';
+                }
+                if (rowData.genes) {
+                    var genesList = rowData.genes.split(',');
+                    var first = genesList[0] ? genesList[0].split(':') : ['', ''];
+                    if (first[1]) {
+                        html += '<a href="' + omimGeneUrl(first[1]) + '" target="_blank">OMIM</a>';
+                    }
+                }
+                html += '</dd>';
+            }
+
+            html += '</dl></div></div></div>';
+
+            html += '<div class="col-md-6"><div class="card"><div class="card-body">';
+            html += '<h5 class="card-title">Family Information</h5><dl class="row">';
+
+            html += '<dt class="col-sm-4">Genotypes</dt><dd class="col-sm-8">';
+            Object.keys(genotypes).forEach(function(sampleId) {
+                if (familyMembers[sampleId] && familyDisplay[sampleId] && genotypes[sampleId]) {
+                    var member = familyMembers[sampleId];
+                    var sex = member.sex && member.sex.value ? member.sex.value : member.sex;
+                    var affected = member.affected;
+                    html += pedSymbol(sex, affected) + ' ';
+                    html += escapeHtml(familyDisplay[sampleId]) + ' - ' + escapeHtml(genotypes[sampleId]) + '<br>';
+                }
+            });
+            html += '</dd>';
+
+            html += '<dt class="col-sm-4">Phenotypes</dt><dd class="col-sm-8">';
+            phenotypes.forEach(function(phenotype) {
+                if (phenotype && phenotype.id && phenotype.label) {
+                    html += escapeHtml(phenotype.id) + ' - ' + escapeHtml(phenotype.label) + '<br>';
+                }
+            });
+            html += '</dd>';
+
+            html += '<dt class="col-sm-4">Panels</dt><dd class="col-sm-8">';
+            Object.keys(panelDetails).forEach(function(panelId) {
+                var panel = panelDetails[panelId];
+                if (panel && panel.name) {
+                    html += escapeHtml(panel.name) + ' (' + escapeHtml(panelId) + ') v.' + escapeHtml(panel.version || 'N/A') + '<br>';
+                }
+            });
+            html += '</dd>';
+
+            html += '</dl></div></div>';
+
+        html += '</div></div>';
+
+            if (transcriptConsequences && transcriptConsequences.length > 0) {
+                html += '<div class="col-12 mt-3"><div class="card"><div class="card-body">';
+                html += '<h5 class="card-title">Transcript Consequences</h5>';
+                html += '<div class="table-responsive"><table class="table table-sm table-striped">';
+                html += '<thead class="table-dark"><tr>';
+                html += '<th>Gene</th><th>Transcript</th><th>Protein change</th><th>Consequence</th>';
+                html += '<th>Biotype</th><th>AlphaMissense</th>';
+                html += '</tr></thead><tbody>';
+
+                transcriptConsequences.forEach(function(csq) {
+                    if (csq) {
+                        var transcriptId = csq.transcript || csq.feature || '';
+                        html += '<tr>';
+                        html += '<td>' + escapeHtml(csq.gene || '') + '</td>';
+                        html += '<td><small>' + escapeHtml(transcriptId) + '</small></td>';
+                        var proteinChange = (csq.amino_acid_change || '');
+                        html += '<td><small>' + escapeHtml(proteinChange.trim()) + '</small>';
+                        if (csq.mane_id) {
+                            html += ' <span class="badge text-bg-info"> MANE - ' + escapeHtml(String(csq.mane_id)) + '</span>';
+                        }
+                        html += '</td>';
+                        html += '<td><small>' + escapeHtml(csq.consequence || '') + '</small></td>';
+                        html += '<td><small>' + escapeHtml(csq.biotype || '') + '</small></td>';
+                        html += '<td>' + escapeHtml(csq.am_class || '');
+                        if (csq.am_pathogenicity && typeof csq.am_pathogenicity === 'number') {
+                            html += ' (' + csq.am_pathogenicity.toFixed(2) + ')';
+                        }
+                        html += '</td></tr>';
+                    }
+                });
+
+                html += '</tbody></table></div></div></div></div>';
+            }
+
+            html += '</div>';
+            return html;
+        }
+
+        function initTooltips() {
+            var tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+            [].slice.call(tooltipTriggerList).forEach(function(tooltipTriggerEl) {
+                if (!bootstrap.Tooltip.getInstance(tooltipTriggerEl)) {
+                    new bootstrap.Tooltip(tooltipTriggerEl, {
+                        html: tooltipTriggerEl.dataset.bsHtml === 'true',
+                    });
+                }
+            });
+        }
+
+        var table = $('#variant-table').DataTable({
+            paging: true,
+            pageLength: 50,
+            lengthMenu: [10, 25, 50, 100],
+            ordering: true,
+            searching: true,
+            drawCallback: function() {
+                initTooltips();
+            },
+            rowGroup: {
+                dataSrc: function (row) {
+                    var cellHtml = row[0];
+                    var tempDiv = $('<div>').html(cellHtml);
+                    return tempDiv.text().trim() || 'Unknown';
+                },
+                startRender: function (rows, group) {
+                    var collapsed = false;
+
+                    rows.nodes().each(function (r) {
+                        r.style.display = collapsed ? 'none' : '';
+                    });
+
+                    var headerRow = $('<tr/>')
+                        .append('<td colspan="100%">' + escapeHtml(group) + ' (' + rows.count() + ')</td>')
+                        .attr('data-name', group)
+                        .addClass('group-start');
+
+                    if (collapsed) {
+                        headerRow.addClass('collapsed');
+                    }
+
+                    return headerRow;
+                }
+            }
+        });
+
+        // Prevent sorting when clicking on input fields
+        $('#variant-table thead tr:eq(1) th input').on('click', function(e) {
+            e.stopPropagation();
+        });
+
+        // Apply the search
+        $('#variant-table thead tr:eq(1) th').each(function(i) {
+            $('input', this).on('keyup change', function() {
+                if (table.column(i).search() !== this.value) {
+                    table
+                        .column(i)
+                        .search(this.value)
+                        .draw();
+                }
+            });
+        });
+
+
+        $('#variant-table tbody').on('click', 'td.details-control', function () {
+            var tr = $(this).closest('tr');
+            var row = table.row(tr);
+
+            if (row.child.isShown()) {
+                row.child.hide();
+                tr.removeClass('shown');
+                $(this).find('i').removeClass('bi-dash-square').addClass('bi-plus-square');
+            } else {
+                var rowData = {
+                    variantType: tr.attr('data-variant-type') || '',
+                    sampleName: tr.attr('data-sample-name') || '',
+                    sampleExtId: tr.attr('data-sample-ext-id') || '',
+                    familyId: tr.attr('data-family-id') || '',
+                    variantCoords: tr.attr('data-variant-coords') || '',
+                    variantChange: tr.attr('data-variant-change') || '',
+                    genes: tr.attr('data-genes') || '',
+                    variantData: parseDataAttribute(tr, 'data-variant-data', {}),
+                    genotypes: parseDataAttribute(tr, 'data-genotypes', {}),
+                    phenotypes: parseDataAttribute(tr, 'data-phenotypes', []),
+                    panelDetails: parseDataAttribute(tr, 'data-panel-details', {}),
+                    familyMembers: parseDataAttribute(tr, 'data-family-members', {}),
+                    familyDisplay: parseDataAttribute(tr, 'data-family-display', {}),
+                    supportVars: parseDataAttribute(tr, 'data-support-vars', []),
+                    transcriptConsequences: parseDataAttribute(tr, 'data-transcript-consequences', [])
+                };
+
+                row.child(formatChildRow(rowData)).show();
+                tr.addClass('shown');
+                $(this).find('i').removeClass('bi-plus-square').addClass('bi-dash-square');
+            }
+        });
+
+        phenotypeFilter.on('change', function () {
+            table.draw();
+        });
+
+        $('.conf-filter').on('change', function () {
+            table.draw();
+        });
+
+        $('#variant-table tbody').on('click', 'tr.group-start', function () {
+            var name = $(this).data('name');
+            var collapsed = $(this).hasClass('collapsed');
+            $(this).toggleClass('collapsed');
+
+            table.rows(function (idx, data, node) {
+                var cellHtml = data[0];
+                var tempDiv = $('<div>').html(cellHtml);
+                var text = tempDiv.text().trim() || 'Unknown';
+                return text === name;
+            }).nodes().to$().each(function () {
+                this.style.display = collapsed ? '' : 'none';
+            });
+        });
+
+        /* ============================================================
+           Case overview header
+
+           Everything here is derived from the table's own data-* payload
+           plus the Run Metadata and Run Configuration panes, so the header
+           stays correct if the report is regenerated with different data.
+           ============================================================ */
+
+        // Which triage tile is currently filtering the table ('' = none).
+        var activeTileFilter = '';
+
+        $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+            if (settings.nTable !== $('#variant-table')[0]) {
+                return true;
+            }
+
+            if (!activeTileFilter) {
+                return true;
+            }
+
+            var aoData = settings.aoData[dataIndex];
+            var rowNode = aoData && aoData.nTr;
+            if (!rowNode) {
+                return true;
+            }
+
+            return rowNode.getAttribute('data-tile-' + activeTileFilter) === '1';
+        });
+
+        function buildCaseOverview() {
+            // Scope to real variant rows only: RowGroup injects group-header
+            // <tr>s into the tbody and expanded details add child <tr>s,
+            // neither of which carry the data-* payload.
+            var $rows = $('#variant-table tbody tr[data-variant-coords]');
+            if (!$rows.length) {
+                return;
+            }
+
+            var CONFIDENCE_FLOOR = {
+                '3': '🟢 Green only',
+                '2': '🟡 Amber and above',
+                '1': '🔴 Red and above',
+                '0': '⚪ Any confidence'
+            };
+
+            // --- Pass 1: collapse rows to unique variants -------------
+            // Talos emits one row per (variant x MOI), so the row count
+            // overstates the number of findings. Key on coordinates plus
+            // the base change to get the real candidate list.
+            var variants = {};
+            var familyIds = {};
+
+            $rows.each(function () {
+                var $tr = $(this);
+                var variantData = parseDataAttribute($tr, 'data-variant-data', {}) || {};
+                var info = variantData.info || {};
+                var key = ($tr.attr('data-variant-coords') || '') + '|' + ($tr.attr('data-variant-change') || '');
+
+                familyIds[$tr.attr('data-family-id') || ''] = true;
+
+                var variant = variants[key];
+                if (!variant) {
+                    variant = variants[key] = {
+                        gene: '',
+                        pheno: false,
+                        denovo: false,
+                        plp: false,
+                        flagged: false
+                    };
+                }
+
+                if (!variant.gene) {
+                    var geneParts = ($tr.attr('data-genes') || '').split(':');
+                    if (geneParts.length > 1) {
+                        variant.gene = geneParts[1].split('<br>')[0].trim();
+                    }
+                }
+
+                if ($tr.attr('data-has-phenotype') === '1') {
+                    variant.pheno = true;
+                }
+                if (Array.isArray(info.categorysampledenovo) && info.categorysampledenovo.length > 0) {
+                    variant.denovo = true;
+                }
+                if (info.categorybooleanclinvarplp === true) {
+                    variant.plp = true;
+                }
+                // Flags live only in the rendered Flags cell, and the two
+                // MOI copies of a variant can disagree - so OR across them.
+                if ($tr.find('td').eq(7).find('.badge').length > 0) {
+                    variant.flagged = true;
+                }
+            });
+
+            // --- Pass 2: stamp the variant-level verdict on every row ---
+            // Filtering by tile must keep both MOI copies of a variant
+            // together, otherwise the counts and the table disagree.
+            $rows.each(function () {
+                var $tr = $(this);
+                var key = ($tr.attr('data-variant-coords') || '') + '|' + ($tr.attr('data-variant-change') || '');
+                var variant = variants[key] || {};
+
+                $tr.attr('data-tile-pheno', variant.pheno ? '1' : '0');
+                $tr.attr('data-tile-denovo', variant.denovo ? '1' : '0');
+                $tr.attr('data-tile-plp', variant.plp ? '1' : '0');
+                $tr.attr('data-tile-flagged', variant.flagged ? '1' : '0');
+            });
+
+            var variantList = Object.keys(variants).map(function (key) {
+                return variants[key];
+            });
+
+            function tally(predicate) {
+                return variantList.filter(predicate).length;
+            }
+
+            var genes = {};
+            variantList.forEach(function (variant) {
+                if (variant.gene) {
+                    genes[variant.gene] = true;
+                }
+            });
+
+            var counts = {
+                variants: variantList.length,
+                rows: $rows.length,
+                genes: Object.keys(genes).length,
+                pheno: tally(function (v) { return v.pheno; }),
+                denovo: tally(function (v) { return v.denovo; }),
+                plp: tally(function (v) { return v.plp; }),
+                flagged: tally(function (v) { return v.flagged; })
+            };
+
+            // --- Case facts (identical across rows of one family) ------
+            var $first = $rows.first();
+            var familyCount = Object.keys(familyIds).length;
+            var singleFamily = familyCount === 1;
+            var familyId = $first.attr('data-family-id') || '';
+            var probandKey = $first.attr('data-sample-name') || '';
+            var probandLabel = $first.attr('data-sample-ext-id') || probandKey;
+            var members = parseDataAttribute($first, 'data-family-members', {}) || {};
+            var displayNames = parseDataAttribute($first, 'data-family-display', {}) || {};
+            var phenotypes = parseDataAttribute($first, 'data-phenotypes', []) || [];
+            var panels = parseDataAttribute($first, 'data-panel-details', {}) || {};
+
+            // --- Run provenance, read from the other two tabs ---------
+            var config = {};
+            try {
+                config = JSON.parse($('#config-pane pre').text());
+            } catch (error) {
+                config = {};
+            }
+            var panelConfig = config.GeneratePanelData || {};
+            var hpoConfig = config.HPOFlagging || {};
+            var htmlConfig = config.CreateTalosHTML || {};
+
+            var runMeta = {};
+            $('#metadata-pane table').each(function () {
+                var $metaTable = $(this);
+                if ($metaTable.find('thead th').first().text().trim() !== 'Data') {
+                    return;
+                }
+                $metaTable.find('tbody tr').each(function () {
+                    var $cells = $(this).find('td');
+                    runMeta[$cells.eq(0).text().trim()] = $cells.eq(1).text().trim();
+                });
+            });
+
+            // --- Renderers --------------------------------------------
+            function memberSex(member) {
+                return (member.sex && member.sex.value) ? member.sex.value : member.sex;
+            }
+
+            function isAffected(member) {
+                return member.affected === true || member.affected === '2' || member.affected === 'true';
+            }
+
+            function renderPedigree() {
+                var keys = Object.keys(members);
+                if (!keys.length) {
+                    return '<span class="case-header__note">No pedigree data in this report.</span>';
+                }
+
+                var others = keys.filter(function (key) {
+                    return key !== probandKey;
+                });
+                var hasProband = !!(probandKey && members[probandKey]);
+
+                var COL = 84;        // centre-to-centre spacing
+                var PARENT_Y = 13;   // glyph centre, upper generation
+                var CHILD_Y = 66;    // glyph centre, proband generation
+                var columns = Math.max(others.length, 1);
+                var width = columns * COL;
+                var height = hasProband ? 92 : 46;
+                var midX = width / 2;
+
+                function centreFor(index) {
+                    return (index * COL) + (COL / 2);
+                }
+
+                function glyph(cx, cy, member) {
+                    var sex = String(memberSex(member) || '').toLowerCase();
+                    var paint = ' fill="' + (isAffected(member) ? '#0b0b0b' : '#fcfcfb') +
+                        '" stroke="#0b0b0b" stroke-width="1.5"';
+
+                    if (sex === 'male' || sex === '1') {
+                        return '<rect x="' + (cx - 8) + '" y="' + (cy - 8) + '" width="16" height="16"' + paint + '/>';
+                    }
+                    if (sex === 'female' || sex === '2') {
+                        return '<circle cx="' + cx + '" cy="' + cy + '" r="8"' + paint + '/>';
+                    }
+                    // Sex unknown: diamond, per pedigree convention.
+                    return '<polygon points="' +
+                        [cx + ',' + (cy - 9), (cx + 9) + ',' + cy, cx + ',' + (cy + 9), (cx - 9) + ',' + cy].join(' ') +
+                        '"' + paint + '/>';
+                }
+
+                function caption(cx, cy, key, isProband) {
+                    var text = (displayNames[key] || key || '').trim() || key;
+                    if (text.length > 13) {
+                        text = text.slice(0, 12) + '…';
+                    }
+                    return '<text x="' + cx + '" y="' + cy + '" text-anchor="middle" font-size="10.5" fill="' +
+                        (isProband ? '#0b0b0b' : '#52514e') + '"' + (isProband ? ' font-weight="600"' : '') + '>' +
+                        escapeHtml(text) + '</text>';
+                }
+
+                function connector(x1, y1, x2, y2) {
+                    return '<line x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 +
+                        '" stroke="#898781" stroke-width="1"/>';
+                }
+
+                var svg = '<svg class="case-ped" width="' + width + '" height="' + height +
+                    '" viewBox="0 0 ' + width + ' ' + height + '" role="img" aria-label="Pedigree for this family">';
+
+                others.forEach(function (key, index) {
+                    var cx = centreFor(index);
+                    svg += glyph(cx, PARENT_Y, members[key]);
+                    svg += caption(cx, PARENT_Y + 21, key, false);
+                });
+
+                // Marriage line across the upper generation.
+                if (others.length > 1) {
+                    svg += connector(centreFor(0), PARENT_Y, centreFor(others.length - 1), PARENT_Y);
+                }
+
+                if (hasProband) {
+                    if (others.length > 1) {
+                        svg += connector(midX, PARENT_Y, midX, CHILD_Y - 9);
+                    } else if (others.length === 1) {
+                        svg += connector(midX, PARENT_Y + 8, midX, CHILD_Y - 9);
+                    }
+                    svg += glyph(midX, CHILD_Y, members[probandKey]);
+                    svg += caption(midX, CHILD_Y + 21, probandKey, true);
+                }
+
+                svg += '</svg>';
+                svg += '<div class="case-header__note">Filled = affected · square male, circle female</div>';
+                return svg;
+            }
+
+            function familyStructure() {
+                var size = Object.keys(members).length;
+                if (size === 3) { return 'trio'; }
+                if (size === 2) { return 'duo'; }
+                if (size === 1) { return 'singleton'; }
+                if (size > 3) { return size + '-member family'; }
+                return '';
+            }
+
+            function probandDescriptor() {
+                var member = members[probandKey];
+                if (!member) { return ''; }
+                var bits = [];
+                if (member.affected === true) { bits.push('affected'); }
+                var sex = memberSex(member);
+                if (sex) { bits.push(String(sex)); }
+                return bits.join(' ');
+            }
+
+            function renderPhenotypes() {
+                if (!phenotypes.length) {
+                    return '<span class="case-header__note">No HPO terms recorded for this participant.</span>';
+                }
+
+                var html = '<ul class="case-hpo">';
+                phenotypes.forEach(function (phenotype) {
+                    if (!phenotype || !phenotype.id) { return; }
+                    html += '<li><a href="https://hpo.jax.org/browse/term/' + encodeURIComponent(phenotype.id) +
+                        '" target="_blank"><span class="case-hpo__id">' + escapeHtml(phenotype.id) + '</span></a> ' +
+                        escapeHtml(phenotype.label || '') + '</li>';
+                });
+                html += '</ul>';
+
+                var matchBits = [];
+                if (hpoConfig.semantic_match) { matchBits.push('semantic matching on'); }
+                if (hpoConfig.min_similarity !== undefined) {
+                    matchBits.push('min similarity ' + escapeHtml(String(hpoConfig.min_similarity)));
+                }
+                if (matchBits.length) {
+                    html += '<div class="case-header__note">' + matchBits.join(' · ') + '</div>';
+                }
+                return html;
+            }
+
+            function renderScope() {
+                var panelIds = Object.keys(panels);
+                var forced = (panelConfig.forced_panels || []).map(String);
+                var defaultPanel = String(panelConfig.default_panel);
+
+                function panelLink(panelId) {
+                    var panel = panels[panelId] || {};
+                    return '<a href="https://panelapp-aus.org/panels/' + encodeURIComponent(panelId) +
+                        '/" target="_blank">' + escapeHtml(panel.name || panelId) + '</a>';
+                }
+
+                // Group by *why* the panel is in play - a reviewer needs to
+                // tell a deliberate panel choice from an HPO-driven one.
+                var defaultPanels = [];
+                var forcedPanels = [];
+                var matchedPanels = [];
+                panelIds.forEach(function (panelId) {
+                    if (panelId === defaultPanel) {
+                        defaultPanels.push(panelId);
+                    } else if (forced.indexOf(panelId) !== -1) {
+                        forcedPanels.push(panelId);
+                    } else {
+                        matchedPanels.push(panelId);
+                    }
+                });
+
+                var html = '<dl class="case-scope">';
+                html += '<dt>Panels searched — ' + panelIds.length + '</dt><dd>';
+
+                if (!panelIds.length) {
+                    html += 'none recorded';
+                } else {
+                    var lines = [];
+                    defaultPanels.forEach(function (panelId) {
+                        var panel = panels[panelId] || {};
+                        lines.push(panelLink(panelId) + '<span class="case-hpo__id"> v' +
+                            escapeHtml(panel.version || '?') + ' · default</span>');
+                    });
+                    if (forcedPanels.length) {
+                        lines.push(forcedPanels.map(panelLink).join(', ') +
+                            '<span class="case-hpo__id"> · forced</span>');
+                    }
+                    html += lines.join('<br>');
+
+                    if (matchedPanels.length) {
+                        html += '<details class="case-scope__more"><summary>' + matchedPanels.length +
+                            ' HPO-matched panels</summary>' +
+                            matchedPanels.map(panelLink).join(', ') + '</details>';
+                    }
+                }
+                html += '</dd>';
+
+                var floorKey = String(panelConfig.confidence_level);
+                html += '<dt>Gene confidence floor</dt><dd>' +
+                    (CONFIDENCE_FLOOR[floorKey] || escapeHtml(floorKey)) + '</dd>';
+
+                var caveats = [];
+                if (panelConfig.within_x_months !== undefined) {
+                    caveats.push('new-gene window ' + escapeHtml(String(panelConfig.within_x_months)) + ' months');
+                }
+                if (htmlConfig.remove_solved_cases) {
+                    caveats.push('solved cases removed');
+                }
+                if (caveats.length) {
+                    html += '<dt>Run scope</dt><dd>' + caveats.join(' · ') + '</dd>';
+                }
+
+                html += '</dl>';
+                return html;
+            }
+
+            function renderTile(tile) {
+                var tag = tile.filter ? 'button' : 'div';
+                var classes = 'case-tile' +
+                    (tile.hero ? ' case-tile--hero' : '') +
+                    (tile.warning ? ' case-tile--warning' : '');
+                var attrs = ' class="' + classes + '"';
+                if (tile.filter) {
+                    attrs += ' type="button" data-tile-filter="' + tile.filter + '" aria-pressed="false"';
+                    attrs += ' title="Show only these candidates"';
+                }
+
+                var icon = tile.warning ?
+                    '<i class="bi-exclamation-triangle-fill case-tile__icon" aria-hidden="true"></i>' : '';
+
+                var html = '<' + tag + attrs + '>';
+                html += '<div class="case-tile__value">' + tile.value + '</div>';
+                html += '<div class="case-tile__label">' + icon + escapeHtml(tile.label) + '</div>';
+                if (tile.sub) {
+                    html += '<div class="case-tile__sub">' + escapeHtml(tile.sub) + '</div>';
+                }
+                html += '</' + tag + '>';
+                return html;
+            }
+
+            function renderTiles() {
+                // Five headline numbers: a KPI row, not a chart. Values stay
+                // in readable ink so the amber accent on the QC tile never
+                // has to carry meaning on its own.
+                var extraRows = counts.rows - counts.variants;
+                var tiles = [
+                    {
+                        value: counts.variants,
+                        label: 'Candidate variants',
+                        sub: counts.genes + ' genes · ' + counts.rows + ' table rows' +
+                            (extraRows > 0 ? ' (' + extraRows + ' MOI duplicates)' : ''),
+                        hero: true
+                    },
+                    { value: counts.pheno, label: 'Phenotype-matched', filter: 'pheno' },
+                    { value: counts.denovo, label: 'De novo', filter: 'denovo' },
+                    { value: counts.plp, label: 'ClinVar P/LP', filter: 'plp' },
+                    { value: counts.flagged, label: 'QC-flagged', filter: 'flagged', warning: true }
+                ];
+
+                return '<div class="case-tiles">' + tiles.map(renderTile).join('') + '</div>';
+            }
+
+            // --- Assemble ---------------------------------------------
+            var who;
+            if (singleFamily) {
+                var sub = [];
+                if (probandLabel) { sub.push(escapeHtml(probandLabel.trim())); }
+                var descriptor = probandDescriptor();
+                if (descriptor) { sub.push(escapeHtml(descriptor)); }
+                var structure = familyStructure();
+                if (structure) { sub.push(escapeHtml(structure)); }
+
+                who = '<span class="case-header__who">Family ' + escapeHtml(familyId) + '</span>' +
+                    (sub.length ? ' <span class="case-header__sub">· ' + sub.join(' · ') + '</span>' : '');
+            } else {
+                who = '<span class="case-header__who">' + familyCount + ' families</span>' +
+                    ' <span class="case-header__sub">· cohort-level view</span>';
+            }
+
+            var provenanceBits = [];
+            if (runMeta.Version) { provenanceBits.push('Talos ' + escapeHtml(runMeta.Version)); }
+            if (runMeta.Run_datetime) { provenanceBits.push('run ' + escapeHtml(runMeta.Run_datetime)); }
+
+            var html = '';
+            html += '<div class="case-header__identity">';
+            html += '<div>' + who + '</div>';
+            html += '<div class="case-header__provenance">' + provenanceBits.join(' · ') + '</div>';
+            html += '</div>';
+
+            html += '<div class="case-header__body">';
+
+            html += '<div class="case-header__cell">';
+            html += '<div class="case-header__label">Pedigree</div>';
+            html += singleFamily ? renderPedigree() :
+                '<span class="case-header__note">Filter the Individual column to one family to see its pedigree.</span>';
+            html += '</div>';
+
+            html += '<div class="case-header__cell">';
+            html += '<div class="case-header__label">Phenotype' +
+                (singleFamily && phenotypes.length ? ' — ' + phenotypes.length + ' HPO terms' : '') + '</div>';
+            html += singleFamily ? renderPhenotypes() :
+                '<span class="case-header__note">Phenotype terms vary by family in a cohort report.</span>';
+            html += '</div>';
+
+            html += '<div class="case-header__cell">';
+            html += '<div class="case-header__label">Search scope</div>';
+            html += renderScope();
+            html += '</div>';
+
+            html += '</div>';
+
+            html += renderTiles();
+
+            $('#case-overview').html(html);
+
+            // --- Condensed sticky bar ---------------------------------
+            var stickyFacts = [];
+            var stickyWho;
+            if (singleFamily) {
+                stickyWho = 'Family ' + familyId;
+                var stickyDescriptor = probandDescriptor();
+                if (stickyDescriptor) { stickyWho += ' · ' + stickyDescriptor; }
+                var stickyStructure = familyStructure();
+                if (stickyStructure) { stickyWho += ' · ' + stickyStructure; }
+                if (phenotypes.length) { stickyFacts.push(phenotypes.length + ' HPO terms'); }
+            } else {
+                stickyWho = familyCount + ' families';
+            }
+            stickyFacts.push(counts.variants + ' candidates / ' + counts.genes + ' genes');
+            if (counts.flagged) {
+                stickyFacts.push('<i class="bi-exclamation-triangle-fill" aria-hidden="true"></i> ' +
+                    counts.flagged + ' QC-flagged');
+            }
+
+            $('#case-sticky').html(
+                '<span class="case-sticky__who">' + escapeHtml(stickyWho) + '</span>' +
+                '<span class="case-sticky__facts">' + stickyFacts.join('<span class="case-sticky__sep">·</span>') + '</span>' +
+                '<button type="button" class="btn btn-outline-secondary btn-sm" id="case-sticky-top">Show full case</button>'
+            );
+
+            $('#case-sticky-top').on('click', function () {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            if (typeof IntersectionObserver === 'function') {
+                new IntersectionObserver(function (entries) {
+                    entries.forEach(function (entry) {
+                        $('#case-sticky').toggleClass('is-visible', !entry.isIntersecting);
+                    });
+                }, { rootMargin: '-8px 0px 0px 0px', threshold: 0 }).observe($('#case-overview')[0]);
+            }
+
+            // A printed or screenshotted header has to carry everything, so
+            // expand any collapsed detail for the duration of the print.
+            var expandedForPrint = [];
+            window.addEventListener('beforeprint', function () {
+                expandedForPrint = $('#case-overview details:not([open])').toArray();
+                expandedForPrint.forEach(function (element) {
+                    element.open = true;
+                });
+            });
+            window.addEventListener('afterprint', function () {
+                expandedForPrint.forEach(function (element) {
+                    element.open = false;
+                });
+                expandedForPrint = [];
+            });
+
+            // --- Tile filtering ---------------------------------------
+            $('#case-overview').on('click', '[data-tile-filter]', function () {
+                var filter = $(this).attr('data-tile-filter');
+                activeTileFilter = (activeTileFilter === filter) ? '' : filter;
+
+                $('#case-overview [data-tile-filter]').each(function () {
+                    $(this).attr('aria-pressed', $(this).attr('data-tile-filter') === activeTileFilter ? 'true' : 'false');
+                });
+
+                table.draw();
+            });
+        }
+
+        buildCaseOverview();
+      });
+    </script>
+  </body>
+</html>
