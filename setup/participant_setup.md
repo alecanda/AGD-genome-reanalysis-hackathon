@@ -97,7 +97,7 @@ After the hackathon, run `/login` again to switch back to your normal subscripti
 
 # Working with your team
 
-The workshop is designed for teams of approximately four people, combining clinical scientists and bioinformaticians. We suggest that one experienced bioinformatician takes the role of technical steward, handling the final project repository, data, and files.
+The workshop is designed for teams of approximately four people, combining clinical scientists and bioinformaticians. We suggest that **one experienced bioinformatician takes the role of technical steward, handling the final project repository, data, and files.**
 
 ## Shared project workspace
 
