@@ -1,22 +1,18 @@
 # Participant Technical Setup
 
-## Choose the setup that matches your experience
+Please choose the path that matches your experience:
 
-We deliberately support two ways of working. You do **not** need to install a full programming environment just to participate. Due to time constraints, unfortunately it won't be feasible to help with technical challenges on the day. We strongly recommend to choose the right path below based on you experience and skill level.
+### Path A — Users with no programming experience
 
-### Path A — Users with no programming experience: Claude Platform / Claude App
+**Recommended if you have little or no programming experience, or cannot install anything on your device**
 
-**Recommended if you have little or no programming experience, or do not already use VS Code/another IDE.**
+You can participate using the Claude Console (https://platform.claude.com/). You do not need to install Claude Code, VS Code, Git, or a terminal environment for the introductory exercises.
 
-Participants are recommended to participate using the Claude Console (https://platform.claude.com/). You do not need to install Claude Code, VS Code, Git, or a terminal environment for the introductory exercises.
-
-**Note:** Claude Chat (https://claude.ai/) is a separate system to Claude Platform even with the same email. The Claude credits supplied for the hackathon (details below) are for Console, given as API credit. It does not top up a Claude Chat Pro/Max subscription. Therefore, we suggest setting up an account with the Console even if you already use Claude Chat.
+**Note:** Claude Chat (https://claude.ai/) is a separate system to Claude Platform. The Claude credits supplied for the hackathon (details below) are for Console, given as API credit.
 
 ### Path B — Users with programming and Claude Code experience
 
-**Recommended if you already have coding experience and use VS Code or a similar editor.**
-
-Use Claude Code when you are comfortable with a terminal, code editor, Git/GitHub, and an existing codebase.
+**Recommended if you already have coding experience and use VS Code or a similar editor, and feel comfortable with a terminal and Git.**
 
 Recommended software:
 - VS Code or another editor
@@ -24,29 +20,23 @@ Recommended software:
 - Claude Code
 - GitHub account
 
-You do **not** need to install this path just because you are attending. However, participants following this path should still have a Claude Console login and should redeem hackathon credits on this platform.
-
 ---
 
 # Claude event credits (everyone)
 
-Anthropic will provide **$100 of API credit per participant**, subject to the event claim limit.
+Anthropic provides **$100 of API credit per participant**.
 
-The event claim link will be distributed closer to the event and is intentionally not included in this document yet.
 
-**[CLAIM LINK — TO BE ADDED CLOSER TO THE EVENT](https://example.com/event-claim-link)**
 
 ### Before the event
 
-Please create/sign in to your Claude Console (https://platform.claude.com/) account **before 23 September** so email verification does not delay you at the start of the workshop.
+Please create or sign in to your Claude Console (https://platform.claude.com/) account **before the hackathon starts** so email verification does not delay you at the start of the workshop. You can also use an existing account.
 
-You can use an existing account. If you have never used Claude Console before, the claim process will guide you through creating a Console account using your existing email.
+Here is a tutorial for getting the necessary Claude Credits. Note that the credit will be added to the active account/organisation.
 
-### Claiming the event credit
+### Claiming the event credit on Sep 23
 
-**If you have access to more than one Claude Console organisation, check which organisation is active **before claiming**. The credit will be added to the active organisation.**
-
-1. Follow the claim link.
+1. Follow the claim link. It will be distributed at the registration desk on-side.
 2. Sign in to your Anthropic account.
 ![image](/img/console_signin.png)
 3. Select "Individual" on the screen "How will you use the Claude API?"
@@ -58,13 +48,14 @@ You can use an existing account. If you have never used Claude Console before, t
 6. Wait for you $100 credit to appear in you dashboard (can take up to 2 hours)
 ![image](/img/credits_in_profile.png)
 
-> **Important:** The event credit is **API credit in Claude Console**. It is not a credit/top-up for a Claude Pro or Max subscription.
-
-The credit is valid for **90 days from the moment it is claimed**. The organisers will therefore distribute the claim link at/near the event rather than weeks in advance.
+The credit is valid for **90 days from the moment it is claimed**.
 
 ---
+# PATH A: Claude Console
 
-# Claude Code (Path B participants)
+Please continue reading at the section **Working with your team**. You can skip the Claude Code setup step required for Path B.
+
+# PATH B: Claude Code
 ## ⚠️ Claude Code users: make sure you use the hackathon credits and not personal credits
 
 ### Before the event
@@ -74,18 +65,16 @@ Follow detailed instructions for installation for your system here: https://code
 After installation and claiming the event credit:
 
 ### via a terminal
-1. In Claude Code (run `claude` in a terminal), run `/login`.
-2. Select **Anthropic Console account (API usage billing)** then **Sign in with your Console account**.
+1. In Claude Code (run `claude` in a terminal), run `/login`. If you are already signed in, run `/logout` first.
+2. Select **Anthropic Console account (API usage billing)**. **Do NOT select:** “Claude account with subscription”
 ![image](/img/code_terminal_login.png)
+3. Select **Sign in with your Console account**.
 ![image](/img/code_terminal_login2.png)
-3. **Do NOT select:** “Claude account with subscription”.
 4. Select **default** workspace and authorise this when the browser opens for login.
 ![image](/img/default_workspace.png)
 5. Run `/status` to check which account/billing method is active.
 
-If you select the subscription option, Claude Code can continue using your personal Claude plan and **will not use the hackathon API credits**.
-
-After the hackathon, run `/login` again to switch back to your normal subscription.
+After the hackathon, run `/logout`, then `/login` again to switch back to your normal Claude account with subscription.
 
 ### via VS Code
 1. Click the Claude Code icon in the top right tool bar, or type `/login` in the already open Claude Code side panel.
@@ -95,7 +84,7 @@ After the hackathon, run `/login` again to switch back to your normal subscripti
 4. Follow prompts for login and authorisation.
 ---
 
-# Working with your team
+# Working with your team (everyone)
 
 The workshop is designed for teams of approximately four people, combining clinical scientists and bioinformaticians. We suggest that **one experienced bioinformatician takes the role of technical steward, handling the final project repository, data, and files.**
 
@@ -104,13 +93,19 @@ The workshop is designed for teams of approximately four people, combining clini
 The workshop GitHub repository is the main shared workspace for team projects.
 
 **Workshop GitHub repository:**  
-[WORKSHOP GITHUB REPOSITORY](https://github.com/drewjbeh/AGD-genome-reanalysis-hackathon/tree/main)
+[https://github.com/drewjbeh/AGD-genome-reanalysis-hackathon/tree/main](https://github.com/drewjbeh/AGD-genome-reanalysis-hackathon/tree/main)
 
-Please fork the repo, make a subdirectory for your team with a creative (and unlikely to be duplicated) name under `session-2/projects`. Please push your work here, including your final presentation and working prototype.
+1. Please fork the repo (button near the top right)
+![image](/img/fork_repo.png)
+2. Keep the suggested name, leave "Copy the main branch only" checked, and click "Create fork".
+You find a copy of the repository in your own Github account, which you can either edit in the browser, or clone on your local machine, edit, and push changes
+4. Create a subdirectory for your team with a creative (and unlikely to be duplicated) name under `session-2/projects`. Please push your work here, including your final presentation and working prototype.
 
 ---
 
 # Talos setup
+
+**TOOO: refine instructions. Are they both for Path A and B? We should provide some more setup instructions using Claude Console**
 
 The hackathon uses a **pinned Talos 11.0.1 environment**.
 
@@ -120,24 +115,21 @@ More technically experienced participants who want to work directly with Talos s
 ```
 git clone git@github.com:populationgenomics/talos.git --branch v11.0.1
 ```
-
-**Docker/Nextflow and a complete local Talos pipeline are **optional**, not prerequisites.**
-
 ---
 
 # Data and AI safety
 
 **Do not use patient-identifiable or confidential clinical data with Claude.**
 
-The hackathon will provide synthetic/public data. Do not paste patient identifiers, confidential clinical reports, unpublished confidential patient data, credentials, passwords, API keys, or other secrets into Claude. **The organisers of the hackathon are not liable for any data privacy breaches related to participants using sensitive data with any AI-based agent or tool.**
+The hackathon provides synthetic/public data. Do not paste patient identifiers, confidential clinical reports, unpublished confidential patient data, credentials, passwords, API keys, or other secrets into Claude. **The organisers of the hackathon are not liable for any data privacy breaches related to participants using sensitive data with any AI-based agent or tool.**
 
 ---
 
 # If you get stuck
 
-There will be on-site support, including help from the Anthropic team with Claude account setup, Claude Console, event credit claiming, Claude Code installation, login/authentication, and basic troubleshooting.
+There will be on-site support, including help with Claude account setup, Claude Console, event credit claiming, Claude Code installation, login/authentication, and basic troubleshooting.
 
-For the hackathon itself, do not spend a large part of your session building infrastructure from scratch. Start with the provided materials and get something working first.
+For the hackathon itself, do not build infrastructure from scratch. Start with the provided materials and get something working first.
 
 ## Quick checklist
 
@@ -150,11 +142,10 @@ For the hackathon itself, do not spend a large part of your session building inf
 - [ ] GitHub account available
 - [ ] Workshop GitHub repository accessible
 
-### Claude Console participants
+### Path A: Claude Console participants
 - [ ] Claude Console accessible
-- [ ] No further technical setup required
 
-### Claude Code participants
+### Path B: Claude Code participants
 - [ ] VS Code or similar editor
 - [ ] Git installed
 - [ ] Claude Code installed
