@@ -43,4 +43,4 @@ No patient data is provided. Use synthetic/public data only.
 
 ## Funding and support
 The AI x Genomics Hackathon at the Arbeitsgemeinschaft für Gen-Diagnostik e.V. Jahrestagung 2026 was supported by the following institutions, companies, and projects:
-![image](/img/GHGA_full_Logo_orange.png)![image](/img/Anthropic%20Logo%20-%20Colored%20-%20zonalogo.com.svg)
+![image](/img/GHGA_full_Logo_orange.png)![image](/img/Anthropic%20Logo%20-%20Colored%20-%20zonalogo.com.svg)![image](/img/igsb_logo.png)
