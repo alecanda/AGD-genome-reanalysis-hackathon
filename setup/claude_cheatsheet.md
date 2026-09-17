@@ -23,7 +23,7 @@ For the tasks in the hackathon, Opus should be a sufficient balance between capa
 
 Claude chat does not automatically have access to your computer. Claude Code can access the files and tools available in its workspace, but you still need to specify what you want changed.
 
-### Claude chat: simple tasks without technical setup
+### Claude Chat: simple tasks without technical setup
 
 Use Claude chat when you want help with a self-contained task and do not need Claude to inspect a local project or run commands. Upload a document, spreadsheet, image, or small data file, describe the desired output, and review the result in the conversation.
 

@@ -15,7 +15,7 @@ In Session 1, you will get a short, contained experience of using an AI coding a
 - **Track A: Tidy the Talos data** — inspect a messy candidate table and turn it into a concise, clinician-readable summary. You will practise understanding unfamiliar data, choosing useful fields, and iterating on a practical output rather than trying to write perfect code.
 - **Track B: Reskin the Talos report** — work with the real Talos output and make one useful presentation change to its HTML report. You will practise using Claude to analyse a file, identify areas fit for improvement, and testing a small change without altering the underlying variant interpretation.
 
-Choose the track that suits your starting point: Track A begins with a data transformation task, while Track B takes you into repository-level changes in a real software project.
+Choose the track that suits your starting point: Track A begins with a data transformation task, while Track B takes you into modifying and extending the HTML, JavaScript and CSS code of the output of Talos.
 
 ## Session 2 — Team hackathon
 
@@ -35,7 +35,7 @@ Please fork the repo, make a subdirectory for your team with a creative (and unl
 
 The workshop deliberately uses the public Talos project and its test fixtures as the foundation. The upstream repository contains small VCF/pedigree/test JSON fixtures and the HTML report is assembled by Python/Jinja code.
 
-This workshop repository should reference a pinned Talos release for the event rather than tracking `main` during the workshop.
+Other source data not directly related to Talos have been synthetically generated for the purposed of this workshop.
 
 ## Data policy
 

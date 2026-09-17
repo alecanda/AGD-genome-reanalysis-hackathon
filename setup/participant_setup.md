@@ -1,32 +1,8 @@
 # Participant Technical Setup
 
-Please choose the path that matches your experience:
-
-### Path A — Users with no programming experience
-
-**Recommended if you have little or no programming experience, or cannot install anything on your device**
-
-You can participate using the Claude Console (https://platform.claude.com/). You do not need to install Claude Code, VS Code, Git, or a terminal environment for the introductory exercises.
-
-**Note:** Claude Chat (https://claude.ai/) is a separate system to Claude Platform. The Claude credits supplied for the hackathon (details below) are for Console, given as API credit.
-
-### Path B — Users with programming and Claude Code experience
-
-**Recommended if you already have coding experience and use VS Code or a similar editor, and feel comfortable with a terminal and Git.**
-
-Recommended software:
-- VS Code or another editor
-- Git
-- Claude Code
-- GitHub account
-
----
-
 # Claude event credits (everyone)
 
 Anthropic provides **$100 of API credit per participant**.
-
-
 
 ### Before the event
 
@@ -36,8 +12,8 @@ Here is a tutorial for getting the necessary Claude Credits. Note that the credi
 
 ### Claiming the event credit on Sep 23
 
-1. Follow the claim link. It will be distributed at the registration desk on-side.
-2. Sign in to your Anthropic account.
+1. Follow the claim link. It will be distributed at the registration desk on-site.
+2. Sign in to/create your Anthropic account (same as in "Before the event").
 ![image](/img/console_signin.png)
 3. Select "Individual" on the screen "How will you use the Claude API?"
 ![image](/img/type.png)
@@ -51,16 +27,45 @@ Here is a tutorial for getting the necessary Claude Credits. Note that the credi
 The credit is valid for **90 days from the moment it is claimed**.
 
 ---
-# PATH A: Claude Console
 
-Please continue reading at the section **Working with your team**. You can skip the Claude Code setup step required for Path B.
+Please choose the path that matches your experience:
 
-# PATH B: Claude Code
+### Path A — Users with no programming experience
+
+**Recommended if you have little or no programming experience, or cannot install anything on your device**
+
+You can participate using [Claude Chat](https://claude.ai/) (recommended) and the [Claude Console](https://platform.claude.com/) (more complex, for testing prompts and building repeatable AI workflows). You do not need to install Claude Code, VS Code, Git, or a terminal environment for the introductory exercises.
+
+**Note:** Claude Chat (https://claude.ai/) is a separate system to Claude Console. The Claude credits supplied for the hackathon (details below) are for Console, given as API credit.
+
+### Path B — Users with programming and Claude Code experience
+
+**Recommended if you already have coding experience and use VS Code or a similar editor, and feel comfortable with a terminal and Git.**
+
+## Option 1: use GitHub Codespaces
+
+Instead of installing Claude Code and the other tools locally, you can open a cloud-based development environment from [your forked workshop repository](#shared-project-workspace) using [GitHub Codespaces](https://github.com/features/codespaces). Codespaces provides a browser-based editor and terminal connected directly to your fork, and the organisers will configure it with Claude Code and the other tools needed for the challenges.
+
+This means you do not need to clone the repository, install VS Code, or set up the development environment on your own computer. You can edit files, run commands, commit, and push from the Codespace directly to your fork. This should make it easier to share work with your team and for the technical steward to review and merge it into the team project.
+
+### setup via GitHub
+1. From [your forked workshop repository](#shared-project-workspace), click the green "Code" button at the top right.
+2. Click the "Codespaces" tab.
+3. Click "Create codespace on main"
+![image](/img/make_codespace.png)
+4. **TODO** Add Claude login instructions
+
+You can now work directly in this space on the workshop files using AI Chat and Claude Code. 
+
+## Option 2: use Claude Code 
+
+Recommended software:
+- VS Code or another editor
+- Git
+- Claude Code
+- GitHub account
+
 ## ⚠️ Claude Code users: make sure you use the hackathon credits and not personal credits
-
-### Before the event
-Install Claude Code, either the terminal tool, VS Code integration, standalone app or any combination of the above. 
-Follow detailed instructions for installation for your system here: https://code.claude.com/docs/en/overview
 
 After installation and claiming the event credit:
 
@@ -82,6 +87,7 @@ After the hackathon, run `/logout`, then `/login` again to switch back to your n
 2. Choose **Anthropic Console**.
 3. Allow opening of the external link.
 4. Follow prompts for login and authorisation.
+
 ---
 
 # Working with your team (everyone)
@@ -93,12 +99,12 @@ The workshop is designed for teams of approximately four people, combining clini
 The workshop GitHub repository is the main shared workspace for team projects.
 
 **Workshop GitHub repository:**  
-[https://github.com/drewjbeh/AGD-genome-reanalysis-hackathon/tree/main](https://github.com/drewjbeh/AGD-genome-reanalysis-hackathon/tree/main)
+[AGD-genome-reanalysis-hackathon](https://github.com/drewjbeh/AGD-genome-reanalysis-hackathon/tree/main)
 
 1. Please fork the repo (button near the top right)
 ![image](/img/fork_repo.png)
 2. Keep the suggested name, leave "Copy the main branch only" checked, and click "Create fork".
-You find a copy of the repository in your own Github account, which you can either edit in the browser, or clone on your local machine, edit, and push changes
+You find a copy of the repository in your own Github account, which you can either edit in the browser, or clone on your local machine, edit, and push changes with git.
 4. Create a subdirectory for your team with a creative (and unlikely to be duplicated) name under `session-2/projects`. Please push your work here, including your final presentation and working prototype.
 
 ---
@@ -115,6 +121,7 @@ More technically experienced participants who want to work directly with Talos s
 ```
 git clone git@github.com:populationgenomics/talos.git --branch v11.0.1
 ```
+However, for Talos to work as a complete pipeline, many dependencies and large annotation datasets are required. We therefore recommend using the supplied output files as the basis for all challenges rather than running the pipeline during the hackathon.
 ---
 
 # Data and AI safety
@@ -142,7 +149,8 @@ For the hackathon itself, do not build infrastructure from scratch. Start with t
 - [ ] GitHub account available
 - [ ] Workshop GitHub repository accessible
 
-### Path A: Claude Console participants
+### Path A: Claude Chat and Console participants
+- [ ] Claude Chat account accessible (web or app)
 - [ ] Claude Console accessible
 
 ### Path B: Claude Code participants
