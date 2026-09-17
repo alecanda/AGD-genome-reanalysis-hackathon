@@ -1,16 +1,16 @@
 # Participant Technical Setup
 
-# Claude event credits (everyone)
-
-Anthropic provides **$100 of API credit per participant**.
-
 ### Before the event
 
 Please create or sign in to your Claude Console (https://platform.claude.com/) account **before the hackathon starts** so email verification does not delay you at the start of the workshop. You can also use an existing account.
 
 Here is a tutorial for getting the necessary Claude Credits. Note that the credit will be added to the active account/organisation.
 
-### Claiming the event credit on Sep 23
+### Claude event credits
+
+Anthropic provides **$100 of API credit per participant**.
+
+#### Claiming the event credit on Sep 23
 
 1. Follow the claim link. It will be distributed at the registration desk on-site.
 2. Sign in to/create your Anthropic account (same as in "Before the event").
@@ -28,9 +28,9 @@ The credit is valid for **90 days from the moment it is claimed**.
 
 ---
 
-Please choose the path that matches your experience:
+**Please choose the path that matches your experience:**
 
-### Path A — Users with no programming experience
+## Path A — Users with no programming experience
 
 **Recommended if you have little or no programming experience, or cannot install anything on your device**
 
@@ -38,17 +38,17 @@ You can participate using [Claude Chat](https://claude.ai/) (recommended) and th
 
 **Note:** Claude Chat (https://claude.ai/) is a separate system to Claude Console. The Claude credits supplied for the hackathon (details below) are for Console, given as API credit.
 
-### Path B — Users with programming and Claude Code experience
+## Path B — Users with programming and Claude Code experience
 
 **Recommended if you already have coding experience and use VS Code or a similar editor, and feel comfortable with a terminal and Git.**
 
-## Option 1: use GitHub Codespaces
+### Option 1: use GitHub Codespaces
 
 Instead of installing Claude Code and the other tools locally, you can open a cloud-based development environment from [your forked workshop repository](#shared-project-workspace) using [GitHub Codespaces](https://github.com/features/codespaces). Codespaces provides a browser-based editor and terminal connected directly to your fork, and the organisers will configure it with Claude Code and the other tools needed for the challenges.
 
 This means you do not need to clone the repository, install VS Code, or set up the development environment on your own computer. You can edit files, run commands, commit, and push from the Codespace directly to your fork. This should make it easier to share work with your team and for the technical steward to review and merge it into the team project.
 
-### setup via GitHub
+#### setup via GitHub
 1. From [your forked workshop repository](#shared-project-workspace), click the green "Code" button at the top right.
 2. Click the "Codespaces" tab.
 3. Click "Create codespace on main"
@@ -57,7 +57,7 @@ This means you do not need to clone the repository, install VS Code, or set up t
 
 You can now work directly in this space on the workshop files using AI Chat and Claude Code. 
 
-## Option 2: use Claude Code 
+### Option 2: use Claude Code 
 
 Recommended software:
 - VS Code or another editor
@@ -65,11 +65,11 @@ Recommended software:
 - Claude Code
 - GitHub account
 
-## ⚠️ Claude Code users: make sure you use the hackathon credits and not personal credits
+#### ⚠️ Claude Code users: make sure you use the hackathon credits and not personal credits
 
 After installation and claiming the event credit:
 
-### via a terminal
+#### via a terminal
 1. In Claude Code (run `claude` in a terminal), run `/login`. If you are already signed in, run `/logout` first.
 2. Select **Anthropic Console account (API usage billing)**. **Do NOT select:** “Claude account with subscription”
 ![image](/img/code_terminal_login.png)
@@ -81,7 +81,7 @@ After installation and claiming the event credit:
 
 After the hackathon, run `/logout`, then `/login` again to switch back to your normal Claude account with subscription.
 
-### via VS Code
+#### via VS Code
 1. Click the Claude Code icon in the top right tool bar, or type `/login` in the already open Claude Code side panel.
 ![image](/img/vs_login.png)
 2. Choose **Anthropic Console**.
@@ -90,11 +90,11 @@ After the hackathon, run `/logout`, then `/login` again to switch back to your n
 
 ---
 
-# Working with your team (everyone)
+## Working with your team
 
 The workshop is designed for teams of approximately four people, combining clinical scientists and bioinformaticians. We suggest that **one experienced bioinformatician takes the role of technical steward, handling the final project repository, data, and files.**
 
-## Shared project workspace
+### Shared project workspace
 
 The workshop GitHub repository is the main shared workspace for team projects.
 
@@ -109,7 +109,7 @@ You find a copy of the repository in your own Github account, which you can eith
 
 ---
 
-# Talos setup
+## Talos setup
 
 **TOOO: refine instructions. Are they both for Path A and B? We should provide some more setup instructions using Claude Console**
 
@@ -122,9 +122,10 @@ More technically experienced participants who want to work directly with Talos s
 git clone git@github.com:populationgenomics/talos.git --branch v11.0.1
 ```
 However, for Talos to work as a complete pipeline, many dependencies and large annotation datasets are required. We therefore recommend using the supplied output files as the basis for all challenges rather than running the pipeline during the hackathon.
+
 ---
 
-# Data and AI safety
+## Data and AI safety
 
 **Do not use patient-identifiable or confidential clinical data with Claude.**
 
@@ -132,15 +133,15 @@ The hackathon provides synthetic/public data. Do not paste patient identifiers, 
 
 ---
 
-# If you get stuck
+## If you get stuck
 
 There will be on-site support, including help with Claude account setup, Claude Console, event credit claiming, Claude Code installation, login/authentication, and basic troubleshooting.
 
 For the hackathon itself, do not build infrastructure from scratch. Start with the provided materials and get something working first.
 
-## Quick checklist
+### Quick checklist
 
-### Everyone
+#### Everyone
 - [ ] Anthropic/Claude account created or tested
 - [ ] Email verification completed before the event
 - [ ] Event claim link used when released
@@ -149,11 +150,16 @@ For the hackathon itself, do not build infrastructure from scratch. Start with t
 - [ ] GitHub account available
 - [ ] Workshop GitHub repository accessible
 
-### Path A: Claude Chat and Console participants
+#### Path A: Claude Chat and Console participants
 - [ ] Claude Chat account accessible (web or app)
 - [ ] Claude Console accessible
 
-### Path B: Claude Code participants
+#### Path B: Claude Code participants
+- [ ] Workshop GitHub forked
+- [ ] Codespace created 
+
+OR
+
 - [ ] VS Code or similar editor
 - [ ] Git installed
 - [ ] Claude Code installed
