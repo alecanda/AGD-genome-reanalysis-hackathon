@@ -26,7 +26,7 @@ Recommended software:
 
 Anthropic provides **$100 of API credit per participant**.
 
-The event claim link will be distributed at the registration desk on-side.
+
 
 ### Before the event
 
@@ -36,7 +36,7 @@ Here is a tutorial for getting the necessary Claude Credits. Note that the credi
 
 ### Claiming the event credit on Sep 23
 
-1. Follow the claim link.
+1. Follow the claim link. It will be distributed at the registration desk on-side.
 2. Sign in to your Anthropic account.
 ![image](/img/console_signin.png)
 3. Select "Individual" on the screen "How will you use the Claude API?"
@@ -51,8 +51,11 @@ Here is a tutorial for getting the necessary Claude Credits. Note that the credi
 The credit is valid for **90 days from the moment it is claimed**.
 
 ---
+# PATH A: Claude Console
 
-# Claude Code (only Path B participants)
+Please continue reading at the section **Working with your team**. You can skip the Claude Code setup step required for Path B.
+
+# PATH B: Claude Code
 ## ⚠️ Claude Code users: make sure you use the hackathon credits and not personal credits
 
 ### Before the event
@@ -92,9 +95,11 @@ The workshop GitHub repository is the main shared workspace for team projects.
 **Workshop GitHub repository:**  
 [https://github.com/drewjbeh/AGD-genome-reanalysis-hackathon/tree/main](https://github.com/drewjbeh/AGD-genome-reanalysis-hackathon/tree/main)
 
-Please fork the repo (button in upper right corner of main repo page), create a subdirectory for your team with a creative (and unlikely to be duplicated) name under `session-2/projects`. Please push your work here, including your final presentation and working prototype.
-
-TODO: add screenshots
+1. Please fork the repo (button near the top right)
+![image](/img/fork_repo.png)
+2. Keep the suggested name, leave "Copy the main branch only" checked, and click "Create fork".
+You find a copy of the repository in your own Github account, which you can either edit in the browser, or clone on your local machine, edit, and push changes
+4. Create a subdirectory for your team with a creative (and unlikely to be duplicated) name under `session-2/projects`. Please push your work here, including your final presentation and working prototype.
 
 ---
 
