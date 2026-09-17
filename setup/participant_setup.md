@@ -84,7 +84,7 @@ After the hackathon, run `/logout`, then `/login` again to switch back to your n
 4. Follow prompts for login and authorisation.
 ---
 
-# Working with your team
+# Working with your team (everyone)
 
 The workshop is designed for teams of approximately four people, combining clinical scientists and bioinformaticians. We suggest that **one experienced bioinformatician takes the role of technical steward, handling the final project repository, data, and files.**
 
