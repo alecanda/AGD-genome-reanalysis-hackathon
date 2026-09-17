@@ -105,6 +105,8 @@ You find a copy of the repository in your own Github account, which you can eith
 
 # Talos setup
 
+**TOOO: refine instructions. Are they both for Path A and B? We should provide some more setup instructions using Claude Console**
+
 The hackathon uses a **pinned Talos 11.0.1 environment**.
 
 The organisers will provide prepared Talos 11.0.1 outputs and workshop data so participants do not need to spend the hackathon setting up the complete Talos pipeline.
@@ -142,7 +144,6 @@ For the hackathon itself, do not build infrastructure from scratch. Start with t
 
 ### Path A: Claude Console participants
 - [ ] Claude Console accessible
-- [ ] No further technical setup required
 
 ### Path B: Claude Code participants
 - [ ] VS Code or similar editor
