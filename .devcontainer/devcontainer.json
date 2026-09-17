@@ -1,0 +1,80 @@
+{
+  "name": "AGD-hackathon",
+
+  // Python base (pandas/pysam/jsonschema etc. for variant data), Bookworm for recent apt packages.
+  "image": "mcr.microsoft.com/devcontainers/python:3.12-bookworm",
+
+  "features": {
+    // Official Anthropic feature: installs the Claude Code CLI + the VS Code extension.
+    "ghcr.io/anthropics/devcontainer-features/claude-code:1.0": {},
+
+    // Node.js: needed for JSON/HTML tooling (prettier, ajv-cli, live-server, JSON Schema validators).
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "lts"
+    },
+
+    // jq/yq + common shell utils — handy for slicing VCF-derived JSON on the command line.
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "installZsh": true,
+      "configureZshAsDefaultShell": true,
+      "upgradePackages": true
+    },
+    "ghcr.io/devcontainers-extra/features/jq-likes:2": {},
+
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+
+    // Miniforge (conda + mamba), for bioinformatics tooling (Talos, SV callers, etc.) that ships as conda envs.
+    "ghcr.io/rocker-org/devcontainer-features/miniforge:2": {}
+  },
+
+  "postCreateCommand": "pip install --user jsonschema pandas jinja2 && npm install -g ajv-cli prettier live-server",
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        // Claude Code (also added by the feature above, but explicit here for clarity/idempotency)
+        "anthropic.claude-code",
+
+        // JSON
+        "mohsen1.prettify-json",
+        "redhat.vscode-yaml",
+
+        // HTML / web
+        "ritwickdey.liveserver",
+        "esbenp.prettier-vscode",
+        "formulahendry.auto-rename-tag",
+
+        // Python / data / bioinformatics
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-toolsai.jupyter",
+
+        // General
+        "eamodio.gitlens",
+        "editorconfig.editorconfig",
+        "streetsidesoftware.code-spell-checker"
+      ],
+      "settings": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "[json]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[html]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "files.associations": {
+          "*.jsonl": "json"
+        }
+      }
+    }
+  },
+
+  "forwardPorts": [5500, 8000],
+  "portsAttributes": {
+    "5500": { "label": "Live Server (HTML preview)" },
+    "8000": { "label": "Python http.server" }
+  },
+
+  "remoteUser": "vscode"
+}
