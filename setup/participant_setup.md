@@ -53,7 +53,8 @@ This means you do not need to clone the repository, install VS Code, or set up t
 2. Click the "Codespaces" tab.
 3. Click "Create codespace on main"
 ![image](/img/make_codespace.png)
-4. **TODO** Add Claude login instructions
+4. VS Code opens in your browser in the existing repository, with a terminal on the bottom
+5. Type "claude" in the terminal, choose the display mode you like, and follow the Claude login instructions you can find under "via a terminal" below
 
 You can now work directly in this space on the workshop files using AI Chat and Claude Code. 
 
