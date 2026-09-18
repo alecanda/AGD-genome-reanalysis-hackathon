@@ -21,7 +21,7 @@ Anthropic provides **$100 of API credit per participant**.
 ![image](/img/skip_credits.png)
 5. Fill in the application page for "AGD 2026 Rare-Disease Reanalysis Hackathon (Uni Bonn / TUM) Credits"
 ![image](/img/agd_credits.png)
-6. Wait for you $100 credit to appear in you dashboard (can take up to 2 hours)
+6. Wait for you $100 credit to appear in you dashboard (usually within 5 minutes, but can take up to 2 hours)
 ![image](/img/credits_in_profile.png)
 
 The credit is valid for **90 days from the moment it is claimed**.
@@ -56,13 +56,15 @@ This means you do not need to clone the repository, install VS Code, or set up t
 3. Click "Create codespace on main"
 ![image](/img/make_codespace.png)
 4. VS Code opens in your browser in the existing repository, the automatic installation process can take up to 5 minutes. At the end of the setup, click "Trust Folder & Continue"
-5. Once it is done, you see a terminal on the bottom. If it doesn't seem to function properly, open up a fresh one by clicking on the + on the top right corner of the terminal
+5. Once it is done, you see a terminal on the bottom. If it doesn't seem to function properly, open up a fresh one by clicking on the + on the top right corner of the terminal.
+For the next steps, you can either work in terminal, or alternatively use the pre-installed Claude extension for VS Code. We show the terminal path:
 6. Type "claude" in, choose the display mode you like, and choose "Anthropic console account" as login method
 ![image](/img/claude_login_codespaces.png)
 7. Then "sign in with your console account" and *press cancel on "Do you want Code to open the external website?"**
+![image](/img/claude_cancel.png)
 8. Instead, copy-paste the long link that appeared in the terminal in your browser, choose "Default" workspace, authenticate, and copy-paste the long code appearing on screen back into the VS code terminal
 ![image](/img/claude_long_url.png) ![image](/img/claude_authentication_code.png)
-10. After successful login, choose default terminal settings, trust the folder, and you are ready to go!
+9. After successful login, choose default terminal settings, trust the folder, and you are ready to go!
 
 You can now work directly in this space on the workshop files using AI Chat and Claude Code. 
 
