@@ -1,6 +1,7 @@
 # Session 2 (group hackathon) data
 
-All data for session 2 is located in [`/session-2/data/`](/session-2/data/)
+All data for session 2 is located in [`/session-2/data/`](/session-2/data/).
+Individual challenge descriptions are outlined in the `README.md` fiels in each challenge subdirectory.
 
 ## Challenges 1 - 3
 
