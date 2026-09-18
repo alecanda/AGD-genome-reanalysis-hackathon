@@ -1,0 +1,323 @@
+{
+    "results": {
+        "proband": {
+            "variants": [
+                {
+                    "sample": "proband",
+                    "var_data": {
+                        "coordinates": {
+                            "chrom": "16",
+                            "pos": 89279566,
+                            "ref": "CCTTCGGGG",
+                            "alt": "C"
+                        },
+                        "info": {
+                            "an": 2,
+                            "af": 0.5,
+                            "ac": 1,
+                            "gnomad_ac": 0,
+                            "gnomad_af": 0.0,
+                            "gnomad_homalt": 0,
+                            "clinvar_significance": "Pathogenic",
+                            "clinvar_stars": 1,
+                            "clinvar_allele": 536920,
+                            "clinvar_talos": 1,
+                            "categorybooleanclinvarplp": true,
+                            "categorybooleanclinvar0star": false,
+                            "categorybooleanclinvar0starnewgene": false,
+                            "categorybooleanalphamissense": false,
+                            "categorybooleanhighimpact": true,
+                            "categorybooleanspliceai": false,
+                            "categorybooleanavi": false,
+                            "categorysampledenovo": [
+                                "proband"
+                            ],
+                            "gene_id": "ENSG00000167522",
+                            "var_link": "16-89279566-CCTTCGGGG-C",
+                            "categorybooleanpm5": false,
+                            "categorysampleexomiser": [],
+                            "exomiser": []
+                        },
+                        "ignored_categories": [],
+                        "support_categories": [
+                            "clinvar0star",
+                            "ClinVar 0-star",
+                            "AlphaMissense",
+                            "alphamissense"
+                        ],
+                        "transcript_consequences": [
+                            {
+                                "consequence": "frameshift",
+                                "gene_id": "ENSG00000167522",
+                                "gene": "ANKRD11",
+                                "transcript": "ENST00000642600",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "89279566CCTTCGGGG>C",
+                                "amino_acid_change": "p.Ala2323Glyfs*205",
+                                "codon": "2323",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": 0.0
+                            },
+                            {
+                                "consequence": "frameshift",
+                                "gene_id": "ENSG00000167522",
+                                "gene": "ANKRD11",
+                                "transcript": "ENST00000378330",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "89279566CCTTCGGGG>C",
+                                "amino_acid_change": "p.Ala2323Glyfs*205",
+                                "codon": "2323",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": 0.0
+                            },
+                            {
+                                "consequence": "frameshift",
+                                "gene_id": "ENSG00000167522",
+                                "gene": "ANKRD11",
+                                "transcript": "ENST00001133007",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "89279566CCTTCGGGG>C",
+                                "amino_acid_change": "p.Ala2323Glyfs*205",
+                                "codon": "2323",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": 0.0
+                            },
+                            {
+                                "consequence": "frameshift",
+                                "gene_id": "ENSG00000167522",
+                                "gene": "ANKRD11",
+                                "transcript": "ENST00000301030",
+                                "mane_id": "NM_013275",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "89279566CCTTCGGGG>C",
+                                "amino_acid_change": "p.Ala2323Glyfs*205",
+                                "codon": "2323",
+                                "ensp": "ENSP00000301030",
+                                "am_class": "",
+                                "am_pathogenicity": 0.0
+                            },
+                            {
+                                "consequence": "intron",
+                                "gene_id": "ENSG00000167522",
+                                "gene": "ANKRD11",
+                                "transcript": "",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "",
+                                "amino_acid_change": "",
+                                "codon": "",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": 0.0
+                            }
+                        ]
+                    },
+                    "categories": {
+                        "ClinVar P/LP": "2026-09-17",
+                        "High Impact": "2026-09-17",
+                        "De Novo": "2026-09-17"
+                    },
+                    "date_of_phenotype_match": "2026-09-17",
+                    "phenotype_labels": [
+                        "HP:0004322: Short stature"
+                    ],
+                    "evidence_last_updated": "2026-09-17",
+                    "family": "1",
+                    "first_tagged": "2026-09-17",
+                    "flags": [],
+                    "gene": "ENSG00000167522",
+                    "genotypes": {
+                        "proband": "Het",
+                        "father": "WT",
+                        "mother": "WT"
+                    },
+                    "labels": [],
+                    "panels": {
+                        "forced": {},
+                        "matched": {}
+                    },
+                    "phenotypes": [],
+                    "reasons": "Autosomal Dominant",
+                    "support_vars": [],
+                    "clinvar_stars": 1,
+                    "clinvar_increase": false,
+                    "exomiser_results": [],
+                    "found_in_current_run": true,
+                    "max_confidence": 3,
+                    "confidence_increase": false
+                }
+            ],
+            "metadata": {
+                "family_id": "1",
+                "members": {
+                    "proband": {
+                        "affected": true,
+                        "sex": "female"
+                    },
+                    "father": {
+                        "affected": false,
+                        "sex": "male"
+                    },
+                    "mother": {
+                        "affected": false,
+                        "sex": "female"
+                    }
+                },
+                "phenotypes": [
+                    {
+                        "id": "HP:0002779",
+                        "label": "Tracheomalacia"
+                    },
+                    {
+                        "id": "HP:0009145",
+                        "label": "Abnormal cerebral artery morphology"
+                    },
+                    {
+                        "id": "HP:0004322",
+                        "label": "Short stature"
+                    }
+                ],
+                "panel_details": {
+                    "3144": {
+                        "id": 3144,
+                        "name": "Cerebral vascular malformations",
+                        "version": "2.0"
+                    },
+                    "137": {
+                        "id": 137,
+                        "name": "Mendeliome",
+                        "version": "2.612"
+                    },
+                    "300": {
+                        "id": 300,
+                        "name": "Vascular Malformations_Germline",
+                        "version": "2.1"
+                    },
+                    "3181": {
+                        "id": 3181,
+                        "name": "Vascular Malformations_Somatic",
+                        "version": "2.0"
+                    },
+                    "239": {
+                        "id": 239,
+                        "name": "Immunological disorders_SuperPanel",
+                        "version": "15.328"
+                    },
+                    "144": {
+                        "id": 144,
+                        "name": "Proteinuria",
+                        "version": "1.3"
+                    },
+                    "3731": {
+                        "id": 3731,
+                        "name": "Vascular Malformations SuperPanel",
+                        "version": "1.98"
+                    }
+                },
+                "solved": false,
+                "present_in_small": true,
+                "present_in_sv": false
+            }
+        }
+    },
+    "metadata": {
+        "version": "0.4.0",
+        "family_breakdown": {
+            "trios": 1,
+            "female": 2,
+            "affected": 1,
+            "male": 1
+        },
+        "input_file": "",
+        "panels": {
+            "137": {
+                "id": 137,
+                "name": "Mendeliome",
+                "version": "2.612"
+            },
+            "3144": {
+                "id": 3144,
+                "name": "Cerebral vascular malformations",
+                "version": "2.0"
+            },
+            "3181": {
+                "id": 3181,
+                "name": "Vascular Malformations_Somatic",
+                "version": "2.0"
+            },
+            "144": {
+                "id": 144,
+                "name": "Proteinuria",
+                "version": "1.3"
+            },
+            "239": {
+                "id": 239,
+                "name": "Immunological disorders_SuperPanel",
+                "version": "15.328"
+            },
+            "300": {
+                "id": 300,
+                "name": "Vascular Malformations_Germline",
+                "version": "2.1"
+            },
+            "3731": {
+                "id": 3731,
+                "name": "Vascular Malformations SuperPanel",
+                "version": "1.98"
+            }
+        },
+        "run_datetime": "2026-09-17",
+        "variant_breakdown": {
+            "any": {
+                "total": 1,
+                "mean": 1.0,
+                "min": 1,
+                "max": 1,
+                "median": 1,
+                "mode": 1,
+                "stddev": 0.0
+            },
+            "ClinVar P/LP": {
+                "total": 1,
+                "mean": 1.0,
+                "min": 1,
+                "max": 1,
+                "median": 1,
+                "mode": 1,
+                "stddev": 0.0
+            },
+            "High Impact": {
+                "total": 1,
+                "mean": 1.0,
+                "min": 1,
+                "max": 1,
+                "median": 1,
+                "mode": 1,
+                "stddev": 0.0
+            },
+            "De Novo": {
+                "total": 1,
+                "mean": 1.0,
+                "min": 1,
+                "max": 1,
+                "median": 1,
+                "mode": 1,
+                "stddev": 0.0
+            }
+        },
+        "samples_with_no_variants": [],
+        "unused_ext_labels": []
+    },
+    "version": "2.5.0"
+}

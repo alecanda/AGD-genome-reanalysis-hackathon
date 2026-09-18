@@ -2,7 +2,10 @@
 
 ## Mission
 
-Start with the real Talos output (in `/data/example_report.html`), and make one visual/presentation change to this file.
+Start with the real Talos output, and make one visual/presentation change to the HTML report.
+Data needed for this challenge is located in this directory, and includes:
+* [Example HTML report](/session-1/track-b/example_report_2026-09-17.html): this file should be edited as the goal of this challenge.
+* [Example json output](/session-1/track-b/example_json_2026-09-17.json): for reference only. This data is already embedded in the HTML. 
 
 ### Starter ideas
 

@@ -1,0 +1,2293 @@
+{
+    "results": {
+        "proband": {
+            "variants": [
+                {
+                    "sample": "proband",
+                    "var_data": {
+                        "coordinates": {
+                            "chrom": "16",
+                            "pos": 89279566,
+                            "ref": "CCTTCGGGG",
+                            "alt": "C"
+                        },
+                        "info": {
+                            "ac": 1,
+                            "af": 0.5,
+                            "an": 2,
+                            "am_score": -2147480064.0,
+                            "clinvar_significance": "Pathogenic/Likely Pathogenic",
+                            "clinvar_stars": 1,
+                            "clinvar_allele": 536920,
+                            "clinvar_talos": 1,
+                            "categorybooleanclinvarplp": true,
+                            "categorybooleanclinvar0starnewgene": false,
+                            "categorybooleanclinvar0star": false,
+                            "categorybooleansvdb": 0,
+                            "svdb_location": "missing",
+                            "svdb_method": "missing",
+                            "categorybooleanalphamissense": false,
+                            "categorybooleanhighimpact": true,
+                            "categorybooleanspliceai": false,
+                            "categorybooleanavi": false,
+                            "categorysampledenovo": [
+                                "proband"
+                            ],
+                            "gnomad_af": 0.0,
+                            "gene_id": "ENSG00000167522",
+                            "var_link": "16-89279566-CCTTCGGGG-C",
+                            "categorybooleanpm5": false,
+                            "svdb_doi": [],
+                            "categorysampleexomiser": [],
+                            "exomiser": []
+                        },
+                        "ignored_categories": [
+                            "SpliceVarDB",
+                            "exomiser",
+                            "svdb",
+                            "Exomiser"
+                        ],
+                        "support_categories": [
+                            "ClinVar 0-star",
+                            "clinvar0star",
+                            "AlphaMissense",
+                            "alphamissense"
+                        ],
+                        "transcript_consequences": [
+                            {
+                                "consequence": "frameshift",
+                                "gene_id": "ENSG00000167522",
+                                "gene": "ANKRD11",
+                                "transcript": "ENST00000642600",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "89279566CCTTCGGGG>C",
+                                "amino_acid_change": "p.Ala2323Glyfs*205",
+                                "codon": "2323",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": ""
+                            },
+                            {
+                                "consequence": "frameshift",
+                                "gene_id": "ENSG00000167522",
+                                "gene": "ANKRD11",
+                                "transcript": "ENST00000378330",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "89279566CCTTCGGGG>C",
+                                "amino_acid_change": "p.Ala2323Glyfs*205",
+                                "codon": "2323",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": ""
+                            },
+                            {
+                                "consequence": "frameshift",
+                                "gene_id": "ENSG00000167522",
+                                "gene": "ANKRD11",
+                                "transcript": "ENST00001133007",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "89279566CCTTCGGGG>C",
+                                "amino_acid_change": "p.Ala2323Glyfs*205",
+                                "codon": "2323",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": ""
+                            },
+                            {
+                                "consequence": "frameshift",
+                                "gene_id": "ENSG00000167522",
+                                "gene": "ANKRD11",
+                                "transcript": "ENST00000301030",
+                                "mane_id": "NM_013275",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "89279566CCTTCGGGG>C",
+                                "amino_acid_change": "p.Ala2323Glyfs*205",
+                                "codon": "2323",
+                                "ensp": "ENSP00000301030",
+                                "am_class": "",
+                                "am_pathogenicity": ""
+                            }
+                        ]
+                    },
+                    "categories": {
+                        "ClinVar P/LP": "2026-07-27",
+                        "De Novo": "2026-07-27",
+                        "High Impact": "2026-07-27"
+                    },
+                    "date_of_phenotype_match": "2026-07-27",
+                    "phenotype_labels": [
+                        "HP:0004322: Short stature"
+                    ],
+                    "evidence_last_updated": "2026-07-27",
+                    "family": "1",
+                    "first_tagged": "2026-07-27",
+                    "flags": [],
+                    "gene": "ENSG00000167522",
+                    "genotypes": {
+                        "proband": "Het",
+                        "father": "WT",
+                        "mother": "WT"
+                    },
+                    "labels": [],
+                    "panels": {
+                        "forced": {},
+                        "matched": {}
+                    },
+                    "phenotypes": [],
+                    "reasons": "Autosomal Dominant",
+                    "support_vars": [],
+                    "clinvar_stars": 1,
+                    "clinvar_increase": false,
+                    "exomiser_results": [],
+                    "found_in_current_run": true
+                },
+                {
+                    "sample": "proband",
+                    "var_data": {
+                        "coordinates": {
+                            "chrom": "6",
+                            "pos": 52043102,
+                            "ref": "C",
+                            "alt": "G"
+                        },
+                        "info": {
+                            "ac": 2,
+                            "af": 0.33333298563957214,
+                            "an": 6,
+                            "am_class": "likely_pathogenic",
+                            "am_score": 0.8996000289916992,
+                            "am_transcript": "ENST00000371117",
+                            "clinvar_significance": "Pathogenic/Likely Pathogenic",
+                            "clinvar_stars": 1,
+                            "clinvar_allele": 544235,
+                            "clinvar_talos": 1,
+                            "categorybooleanclinvarplp": true,
+                            "categorybooleanclinvar0starnewgene": false,
+                            "categorybooleanclinvar0star": false,
+                            "categorybooleansvdb": 0,
+                            "svdb_location": "missing",
+                            "svdb_method": "missing",
+                            "categorybooleanalphamissense": true,
+                            "categorybooleanhighimpact": false,
+                            "categorybooleanspliceai": false,
+                            "categorybooleanavi": false,
+                            "categorysampledenovo": [],
+                            "gnomad_af": 0.0,
+                            "gene_id": "ENSG00000170927",
+                            "var_link": "6-52043102-C-G",
+                            "categorybooleanpm5": false,
+                            "svdb_doi": [],
+                            "categorysampleexomiser": [],
+                            "exomiser": []
+                        },
+                        "ignored_categories": [
+                            "SpliceVarDB",
+                            "exomiser",
+                            "svdb",
+                            "Exomiser"
+                        ],
+                        "support_categories": [
+                            "ClinVar 0-star",
+                            "clinvar0star",
+                            "AlphaMissense",
+                            "alphamissense"
+                        ],
+                        "transcript_consequences": [
+                            {
+                                "consequence": "missense",
+                                "gene_id": "ENSG00000170927",
+                                "gene": "PKHD1",
+                                "transcript": "ENST00000371117",
+                                "mane_id": "NM_138694",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "52043102C>G",
+                                "amino_acid_change": "p.Gly952Arg",
+                                "codon": "952",
+                                "ensp": "ENSP00000360158",
+                                "am_class": "likely_pathogenic",
+                                "am_pathogenicity": 0.8996
+                            },
+                            {
+                                "consequence": "missense",
+                                "gene_id": "ENSG00000170927",
+                                "gene": "PKHD1",
+                                "transcript": "ENST00001140737",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "52043102C>G",
+                                "amino_acid_change": "p.Gly952Arg",
+                                "codon": "952",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": 0.0
+                            },
+                            {
+                                "consequence": "missense",
+                                "gene_id": "ENSG00000170927",
+                                "gene": "PKHD1",
+                                "transcript": "ENST00000340994",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "52043102C>G",
+                                "amino_acid_change": "p.Gly952Arg",
+                                "codon": "952",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": 0.0
+                            }
+                        ]
+                    },
+                    "categories": {
+                        "ClinVar P/LP": "2026-07-27",
+                        "AlphaMissense": "2026-07-27"
+                    },
+                    "date_of_phenotype_match": null,
+                    "phenotype_labels": [],
+                    "evidence_last_updated": "2026-07-27",
+                    "family": "1",
+                    "first_tagged": "2026-07-27",
+                    "flags": [
+                        "Ambiguous Cat.1 MOI"
+                    ],
+                    "gene": "ENSG00000170927",
+                    "genotypes": {
+                        "proband": "Het",
+                        "father": "WT",
+                        "mother": "Het"
+                    },
+                    "labels": [],
+                    "panels": {
+                        "forced": {},
+                        "matched": {}
+                    },
+                    "phenotypes": [],
+                    "reasons": "Autosomal Dominant",
+                    "support_vars": [],
+                    "clinvar_stars": 1,
+                    "clinvar_increase": false,
+                    "exomiser_results": [],
+                    "found_in_current_run": true
+                },
+                {
+                    "sample": "proband",
+                    "var_data": {
+                        "coordinates": {
+                            "chrom": "6",
+                            "pos": 52043102,
+                            "ref": "C",
+                            "alt": "G"
+                        },
+                        "info": {
+                            "ac": 2,
+                            "af": 0.33333298563957214,
+                            "an": 6,
+                            "am_class": "likely_pathogenic",
+                            "am_score": 0.8996000289916992,
+                            "am_transcript": "ENST00000371117",
+                            "clinvar_significance": "Pathogenic/Likely Pathogenic",
+                            "clinvar_stars": 1,
+                            "clinvar_allele": 544235,
+                            "clinvar_talos": 1,
+                            "categorybooleanclinvarplp": true,
+                            "categorybooleanclinvar0starnewgene": false,
+                            "categorybooleanclinvar0star": false,
+                            "categorybooleansvdb": 0,
+                            "svdb_location": "missing",
+                            "svdb_method": "missing",
+                            "categorybooleanalphamissense": true,
+                            "categorybooleanhighimpact": false,
+                            "categorybooleanspliceai": false,
+                            "categorybooleanavi": false,
+                            "categorysampledenovo": [],
+                            "gnomad_af": 0.0,
+                            "gene_id": "ENSG00000170927",
+                            "var_link": "6-52043102-C-G",
+                            "categorybooleanpm5": false,
+                            "svdb_doi": [],
+                            "categorysampleexomiser": [],
+                            "exomiser": []
+                        },
+                        "ignored_categories": [
+                            "SpliceVarDB",
+                            "exomiser",
+                            "svdb",
+                            "Exomiser"
+                        ],
+                        "support_categories": [
+                            "ClinVar 0-star",
+                            "clinvar0star",
+                            "AlphaMissense",
+                            "alphamissense"
+                        ],
+                        "transcript_consequences": [
+                            {
+                                "consequence": "missense",
+                                "gene_id": "ENSG00000170927",
+                                "gene": "PKHD1",
+                                "transcript": "ENST00000371117",
+                                "mane_id": "NM_138694",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "52043102C>G",
+                                "amino_acid_change": "p.Gly952Arg",
+                                "codon": "952",
+                                "ensp": "ENSP00000360158",
+                                "am_class": "likely_pathogenic",
+                                "am_pathogenicity": 0.8996
+                            },
+                            {
+                                "consequence": "missense",
+                                "gene_id": "ENSG00000170927",
+                                "gene": "PKHD1",
+                                "transcript": "ENST00001140737",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "52043102C>G",
+                                "amino_acid_change": "p.Gly952Arg",
+                                "codon": "952",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": 0.0
+                            },
+                            {
+                                "consequence": "missense",
+                                "gene_id": "ENSG00000170927",
+                                "gene": "PKHD1",
+                                "transcript": "ENST00000340994",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "52043102C>G",
+                                "amino_acid_change": "p.Gly952Arg",
+                                "codon": "952",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": 0.0
+                            }
+                        ]
+                    },
+                    "categories": {
+                        "ClinVar P/LP": "2026-07-27",
+                        "AlphaMissense": "2026-07-27"
+                    },
+                    "date_of_phenotype_match": null,
+                    "phenotype_labels": [],
+                    "evidence_last_updated": "2026-07-27",
+                    "family": "1",
+                    "first_tagged": "2026-07-27",
+                    "flags": [],
+                    "gene": "ENSG00000170927",
+                    "genotypes": {
+                        "proband": "Het",
+                        "father": "WT",
+                        "mother": "Het"
+                    },
+                    "labels": [],
+                    "panels": {
+                        "forced": {},
+                        "matched": {}
+                    },
+                    "phenotypes": [],
+                    "reasons": "Autosomal Recessive Comp-Het",
+                    "support_vars": [
+                        "6-52043699-T-A"
+                    ],
+                    "clinvar_stars": 1,
+                    "clinvar_increase": false,
+                    "exomiser_results": [],
+                    "found_in_current_run": true
+                },
+                {
+                    "sample": "proband",
+                    "var_data": {
+                        "coordinates": {
+                            "chrom": "6",
+                            "pos": 52043699,
+                            "ref": "T",
+                            "alt": "A"
+                        },
+                        "info": {
+                            "ac": 1,
+                            "af": 0.16666699945926666,
+                            "an": 6,
+                            "am_class": "likely_benign",
+                            "am_score": 0.08340000361204147,
+                            "am_transcript": "ENST00000371117",
+                            "clinvar_significance": "missing",
+                            "clinvar_stars": 0,
+                            "clinvar_allele": 0,
+                            "clinvar_talos": 0,
+                            "categorybooleanclinvarplp": false,
+                            "categorybooleanclinvar0starnewgene": false,
+                            "categorybooleanclinvar0star": false,
+                            "categorybooleansvdb": 0,
+                            "svdb_location": "missing",
+                            "svdb_method": "missing",
+                            "categorybooleanalphamissense": false,
+                            "categorybooleanhighimpact": false,
+                            "categorybooleanspliceai": false,
+                            "categorybooleanavi": false,
+                            "categorysampledenovo": [
+                                "proband"
+                            ],
+                            "gnomad_af": 0.0,
+                            "gene_id": "ENSG00000170927",
+                            "var_link": "6-52043699-T-A",
+                            "categorybooleanpm5": true,
+                            "pm5_data": {
+                                "966872": "1"
+                            },
+                            "svdb_doi": [],
+                            "categorysampleexomiser": [],
+                            "exomiser": []
+                        },
+                        "ignored_categories": [
+                            "SpliceVarDB",
+                            "exomiser",
+                            "svdb",
+                            "Exomiser"
+                        ],
+                        "support_categories": [
+                            "ClinVar 0-star",
+                            "clinvar0star",
+                            "AlphaMissense",
+                            "alphamissense"
+                        ],
+                        "transcript_consequences": [
+                            {
+                                "consequence": "missense",
+                                "gene_id": "ENSG00000170927",
+                                "gene": "PKHD1",
+                                "transcript": "ENST00000371117",
+                                "mane_id": "NM_138694",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "52043699T>A",
+                                "amino_acid_change": "p.His916Leu",
+                                "codon": "916",
+                                "ensp": "ENSP00000360158",
+                                "am_class": "likely_benign",
+                                "am_pathogenicity": 0.0834
+                            },
+                            {
+                                "consequence": "missense",
+                                "gene_id": "ENSG00000170927",
+                                "gene": "PKHD1",
+                                "transcript": "ENST00001140737",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "52043699T>A",
+                                "amino_acid_change": "p.His916Leu",
+                                "codon": "916",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": 0.0
+                            },
+                            {
+                                "consequence": "missense",
+                                "gene_id": "ENSG00000170927",
+                                "gene": "PKHD1",
+                                "transcript": "ENST00000340994",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "52043699T>A",
+                                "amino_acid_change": "p.His916Leu",
+                                "codon": "916",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": 0.0
+                            }
+                        ]
+                    },
+                    "categories": {
+                        "De Novo": "2026-07-27",
+                        "PM5": "2026-07-27"
+                    },
+                    "date_of_phenotype_match": null,
+                    "phenotype_labels": [],
+                    "evidence_last_updated": "2026-07-27",
+                    "family": "1",
+                    "first_tagged": "2026-07-27",
+                    "flags": [],
+                    "gene": "ENSG00000170927",
+                    "genotypes": {
+                        "proband": "Het",
+                        "father": "WT",
+                        "mother": "WT"
+                    },
+                    "labels": [],
+                    "panels": {
+                        "forced": {},
+                        "matched": {}
+                    },
+                    "phenotypes": [],
+                    "reasons": "Autosomal Dominant",
+                    "support_vars": [],
+                    "clinvar_stars": 0,
+                    "clinvar_increase": false,
+                    "exomiser_results": [],
+                    "found_in_current_run": true
+                },
+                {
+                    "sample": "proband",
+                    "var_data": {
+                        "coordinates": {
+                            "chrom": "6",
+                            "pos": 52043699,
+                            "ref": "T",
+                            "alt": "A"
+                        },
+                        "info": {
+                            "ac": 1,
+                            "af": 0.16666699945926666,
+                            "an": 6,
+                            "am_class": "likely_benign",
+                            "am_score": 0.08340000361204147,
+                            "am_transcript": "ENST00000371117",
+                            "clinvar_significance": "missing",
+                            "clinvar_stars": 0,
+                            "clinvar_allele": 0,
+                            "clinvar_talos": 0,
+                            "categorybooleanclinvarplp": false,
+                            "categorybooleanclinvar0starnewgene": false,
+                            "categorybooleanclinvar0star": false,
+                            "categorybooleansvdb": 0,
+                            "svdb_location": "missing",
+                            "svdb_method": "missing",
+                            "categorybooleanalphamissense": false,
+                            "categorybooleanhighimpact": false,
+                            "categorybooleanspliceai": false,
+                            "categorybooleanavi": false,
+                            "categorysampledenovo": [
+                                "proband"
+                            ],
+                            "gnomad_af": 0.0,
+                            "gene_id": "ENSG00000170927",
+                            "var_link": "6-52043699-T-A",
+                            "categorybooleanpm5": true,
+                            "pm5_data": {
+                                "966872": "1"
+                            },
+                            "svdb_doi": [],
+                            "categorysampleexomiser": [],
+                            "exomiser": []
+                        },
+                        "ignored_categories": [
+                            "SpliceVarDB",
+                            "exomiser",
+                            "svdb",
+                            "Exomiser"
+                        ],
+                        "support_categories": [
+                            "ClinVar 0-star",
+                            "clinvar0star",
+                            "AlphaMissense",
+                            "alphamissense"
+                        ],
+                        "transcript_consequences": [
+                            {
+                                "consequence": "missense",
+                                "gene_id": "ENSG00000170927",
+                                "gene": "PKHD1",
+                                "transcript": "ENST00000371117",
+                                "mane_id": "NM_138694",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "52043699T>A",
+                                "amino_acid_change": "p.His916Leu",
+                                "codon": "916",
+                                "ensp": "ENSP00000360158",
+                                "am_class": "likely_benign",
+                                "am_pathogenicity": 0.0834
+                            },
+                            {
+                                "consequence": "missense",
+                                "gene_id": "ENSG00000170927",
+                                "gene": "PKHD1",
+                                "transcript": "ENST00001140737",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "52043699T>A",
+                                "amino_acid_change": "p.His916Leu",
+                                "codon": "916",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": 0.0
+                            },
+                            {
+                                "consequence": "missense",
+                                "gene_id": "ENSG00000170927",
+                                "gene": "PKHD1",
+                                "transcript": "ENST00000340994",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "52043699T>A",
+                                "amino_acid_change": "p.His916Leu",
+                                "codon": "916",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": 0.0
+                            }
+                        ]
+                    },
+                    "categories": {
+                        "De Novo": "2026-07-27",
+                        "PM5": "2026-07-27"
+                    },
+                    "date_of_phenotype_match": null,
+                    "phenotype_labels": [],
+                    "evidence_last_updated": "2026-07-27",
+                    "family": "1",
+                    "first_tagged": "2026-07-27",
+                    "flags": [],
+                    "gene": "ENSG00000170927",
+                    "genotypes": {
+                        "proband": "Het",
+                        "father": "WT",
+                        "mother": "WT"
+                    },
+                    "labels": [],
+                    "panels": {
+                        "forced": {},
+                        "matched": {}
+                    },
+                    "phenotypes": [],
+                    "reasons": "Autosomal Recessive Comp-Het",
+                    "support_vars": [
+                        "6-52043102-C-G"
+                    ],
+                    "clinvar_stars": 0,
+                    "clinvar_increase": false,
+                    "exomiser_results": [],
+                    "found_in_current_run": true
+                },
+                {
+                    "sample": "proband",
+                    "var_data": {
+                        "coordinates": {
+                            "chrom": "12",
+                            "pos": 89470359,
+                            "ref": "A",
+                            "alt": "C"
+                        },
+                        "info": {
+                            "ac": 4,
+                            "af": 0.6666669845581055,
+                            "an": 6,
+                            "am_score": -2147480064.0,
+                            "clinvar_significance": "Pathogenic/Likely Pathogenic",
+                            "clinvar_stars": 1,
+                            "clinvar_allele": 2021818,
+                            "clinvar_talos": 1,
+                            "categorybooleanclinvarplp": true,
+                            "categorybooleanclinvar0starnewgene": false,
+                            "categorybooleanclinvar0star": false,
+                            "categorybooleansvdb": 0,
+                            "svdb_location": "missing",
+                            "svdb_method": "missing",
+                            "categorybooleanalphamissense": false,
+                            "categorybooleanhighimpact": true,
+                            "categorybooleanspliceai": false,
+                            "categorybooleanavi": false,
+                            "categorysampledenovo": [],
+                            "gnomad_ac": 1,
+                            "gnomad_af": 4.999999987376214e-7,
+                            "gnomad_ac_xy": 1,
+                            "gnomad_homalt": 0,
+                            "gene_id": "ENSG00000139323",
+                            "var_link": "12-89470359-A-C",
+                            "categorybooleanpm5": false,
+                            "svdb_doi": [],
+                            "categorysampleexomiser": [],
+                            "exomiser": []
+                        },
+                        "ignored_categories": [
+                            "SpliceVarDB",
+                            "exomiser",
+                            "svdb",
+                            "Exomiser"
+                        ],
+                        "support_categories": [
+                            "ClinVar 0-star",
+                            "clinvar0star",
+                            "AlphaMissense",
+                            "alphamissense"
+                        ],
+                        "transcript_consequences": [
+                            {
+                                "consequence": "splice_donor",
+                                "gene_id": "ENSG00000139323",
+                                "gene": "POC1B",
+                                "transcript": "ENST00000549035",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "",
+                                "amino_acid_change": "",
+                                "codon": "",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": ""
+                            },
+                            {
+                                "consequence": "splice_donor",
+                                "gene_id": "ENSG00000139323",
+                                "gene": "POC1B",
+                                "transcript": "ENST00000393179",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "",
+                                "amino_acid_change": "",
+                                "codon": "",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": ""
+                            },
+                            {
+                                "consequence": "splice_donor",
+                                "gene_id": "ENSG00000139323",
+                                "gene": "POC1B",
+                                "transcript": "ENST00000313546",
+                                "mane_id": "NM_172240",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "",
+                                "amino_acid_change": "",
+                                "codon": "",
+                                "ensp": "ENSP00000323302",
+                                "am_class": "",
+                                "am_pathogenicity": ""
+                            },
+                            {
+                                "consequence": "splice_donor",
+                                "gene_id": "ENSG00000139323",
+                                "gene": "POC1B",
+                                "transcript": "ENST00000867691",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "",
+                                "amino_acid_change": "",
+                                "codon": "",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": ""
+                            },
+                            {
+                                "consequence": "splice_donor",
+                                "gene_id": "ENSG00000139323",
+                                "gene": "POC1B",
+                                "transcript": "ENST00000867692",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "",
+                                "amino_acid_change": "",
+                                "codon": "",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": ""
+                            },
+                            {
+                                "consequence": "splice_donor",
+                                "gene_id": "ENSG00000139323",
+                                "gene": "POC1B",
+                                "transcript": "ENST00000867693",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "",
+                                "amino_acid_change": "",
+                                "codon": "",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": ""
+                            },
+                            {
+                                "consequence": "splice_donor",
+                                "gene_id": "ENSG00000139323",
+                                "gene": "POC1B",
+                                "transcript": "ENST00000867694",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "",
+                                "amino_acid_change": "",
+                                "codon": "",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": ""
+                            },
+                            {
+                                "consequence": "splice_donor",
+                                "gene_id": "ENSG00000139323",
+                                "gene": "POC1B",
+                                "transcript": "ENST00000867695",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "",
+                                "amino_acid_change": "",
+                                "codon": "",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": ""
+                            },
+                            {
+                                "consequence": "splice_donor",
+                                "gene_id": "ENSG00000139323",
+                                "gene": "POC1B",
+                                "transcript": "ENST00000867696",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "",
+                                "amino_acid_change": "",
+                                "codon": "",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": ""
+                            },
+                            {
+                                "consequence": "splice_donor",
+                                "gene_id": "ENSG00000139323",
+                                "gene": "POC1B",
+                                "transcript": "ENST00000928753",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "",
+                                "amino_acid_change": "",
+                                "codon": "",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": ""
+                            },
+                            {
+                                "consequence": "splice_donor",
+                                "gene_id": "ENSG00000139323",
+                                "gene": "POC1B",
+                                "transcript": "ENST00001136504",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "",
+                                "amino_acid_change": "",
+                                "codon": "",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": ""
+                            },
+                            {
+                                "consequence": "splice_donor",
+                                "gene_id": "ENSG00000139323",
+                                "gene": "POC1B",
+                                "transcript": "ENST00000928752",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "",
+                                "amino_acid_change": "",
+                                "codon": "",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": ""
+                            },
+                            {
+                                "consequence": "splice_donor",
+                                "gene_id": "ENSG00000139323",
+                                "gene": "POC1B",
+                                "transcript": "ENST00000928754",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "",
+                                "amino_acid_change": "",
+                                "codon": "",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": ""
+                            }
+                        ]
+                    },
+                    "categories": {
+                        "ClinVar P/LP": "2026-07-27",
+                        "High Impact": "2026-07-27"
+                    },
+                    "date_of_phenotype_match": null,
+                    "phenotype_labels": [],
+                    "evidence_last_updated": "2026-07-27",
+                    "family": "1",
+                    "first_tagged": "2026-07-27",
+                    "flags": [
+                        "AB Ratio"
+                    ],
+                    "gene": "ENSG00000139323",
+                    "genotypes": {
+                        "proband": "Hom",
+                        "father": "Het",
+                        "mother": "Het"
+                    },
+                    "labels": [],
+                    "panels": {
+                        "forced": {},
+                        "matched": {}
+                    },
+                    "phenotypes": [],
+                    "reasons": "Autosomal Recessive Homozygous",
+                    "support_vars": [],
+                    "clinvar_stars": 1,
+                    "clinvar_increase": false,
+                    "exomiser_results": [],
+                    "found_in_current_run": true
+                },
+                {
+                    "sample": "proband",
+                    "var_data": {
+                        "coordinates": {
+                            "chrom": "12",
+                            "pos": 120291834,
+                            "ref": "A",
+                            "alt": "G"
+                        },
+                        "info": {
+                            "ac": 1,
+                            "af": 0.16666699945926666,
+                            "an": 6,
+                            "am_score": -2147480064.0,
+                            "clinvar_significance": "Pathogenic/Likely Pathogenic",
+                            "clinvar_stars": 1,
+                            "clinvar_allele": 3882585,
+                            "clinvar_talos": 1,
+                            "categorybooleanclinvarplp": true,
+                            "categorybooleanclinvar0starnewgene": false,
+                            "categorybooleanclinvar0star": false,
+                            "categorybooleansvdb": 0,
+                            "svdb_location": "missing",
+                            "svdb_method": "missing",
+                            "categorybooleanalphamissense": false,
+                            "categorybooleanhighimpact": false,
+                            "categorybooleanspliceai": false,
+                            "categorybooleanavi": false,
+                            "categorysampledenovo": [
+                                "proband"
+                            ],
+                            "gnomad_af": 0.0,
+                            "gene_id": "ENSG00000202538",
+                            "var_link": "12-120291834-A-G",
+                            "categorybooleanpm5": false,
+                            "svdb_doi": [],
+                            "categorysampleexomiser": [],
+                            "exomiser": []
+                        },
+                        "ignored_categories": [
+                            "SpliceVarDB",
+                            "exomiser",
+                            "svdb",
+                            "Exomiser"
+                        ],
+                        "support_categories": [
+                            "ClinVar 0-star",
+                            "clinvar0star",
+                            "AlphaMissense",
+                            "alphamissense"
+                        ],
+                        "transcript_consequences": [
+                            {
+                                "consequence": "non_coding",
+                                "gene_id": "ENSG00000202538",
+                                "gene": "RNU4-2",
+                                "transcript": "",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "snRNA",
+                                "dna_change": "",
+                                "amino_acid_change": "",
+                                "codon": "",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": ""
+                            }
+                        ]
+                    },
+                    "categories": {
+                        "ClinVar P/LP": "2026-07-27",
+                        "De Novo": "2026-07-27"
+                    },
+                    "date_of_phenotype_match": "2026-07-27",
+                    "phenotype_labels": [
+                        "HP:0004938: Tortuous cerebral arteries",
+                        "HP:0004322: Short stature"
+                    ],
+                    "evidence_last_updated": "2026-07-27",
+                    "family": "1",
+                    "first_tagged": "2026-07-27",
+                    "flags": [],
+                    "gene": "ENSG00000202538",
+                    "genotypes": {
+                        "proband": "Het",
+                        "father": "WT",
+                        "mother": "WT"
+                    },
+                    "labels": [],
+                    "panels": {
+                        "forced": {},
+                        "matched": {}
+                    },
+                    "phenotypes": [],
+                    "reasons": "Autosomal Dominant",
+                    "support_vars": [],
+                    "clinvar_stars": 1,
+                    "clinvar_increase": false,
+                    "exomiser_results": [],
+                    "found_in_current_run": true
+                },
+                {
+                    "sample": "proband",
+                    "var_data": {
+                        "coordinates": {
+                            "chrom": "2",
+                            "pos": 135912503,
+                            "ref": "G",
+                            "alt": "A"
+                        },
+                        "info": {
+                            "ac": 2,
+                            "af": 0.33333298563957214,
+                            "an": 6,
+                            "am_class": "likely_pathogenic",
+                            "am_score": 0.7738000154495239,
+                            "am_transcript": "ENST00000264161",
+                            "clinvar_significance": "VUS",
+                            "clinvar_stars": 0,
+                            "clinvar_allele": 3963420,
+                            "clinvar_talos": 0,
+                            "categorybooleanclinvarplp": false,
+                            "categorybooleanclinvar0starnewgene": false,
+                            "categorybooleanclinvar0star": false,
+                            "categorybooleansvdb": 0,
+                            "svdb_location": "missing",
+                            "svdb_method": "missing",
+                            "categorybooleanalphamissense": true,
+                            "categorybooleanhighimpact": false,
+                            "categorybooleanspliceai": false,
+                            "categorybooleanavi": false,
+                            "categorysampledenovo": [],
+                            "gnomad_ac": 2,
+                            "gnomad_af": 1.500000053056283e-6,
+                            "gnomad_ac_xy": 1,
+                            "gnomad_homalt": 0,
+                            "gene_id": "ENSG00000115866",
+                            "var_link": "2-135912503-G-A",
+                            "categorybooleanpm5": false,
+                            "svdb_doi": [],
+                            "categorysampleexomiser": [],
+                            "exomiser": []
+                        },
+                        "ignored_categories": [
+                            "SpliceVarDB",
+                            "exomiser",
+                            "svdb",
+                            "Exomiser"
+                        ],
+                        "support_categories": [
+                            "ClinVar 0-star",
+                            "clinvar0star",
+                            "AlphaMissense",
+                            "alphamissense"
+                        ],
+                        "transcript_consequences": [
+                            {
+                                "consequence": "missense",
+                                "gene_id": "ENSG00000115866",
+                                "gene": "DARS1",
+                                "transcript": "ENST00000888460",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "135912503G>A",
+                                "amino_acid_change": "p.Pro385Ser",
+                                "codon": "385",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": 0.0
+                            },
+                            {
+                                "consequence": "missense",
+                                "gene_id": "ENSG00000115866",
+                                "gene": "DARS1",
+                                "transcript": "ENST00000888461",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "135912503G>A",
+                                "amino_acid_change": "p.Pro374Ser",
+                                "codon": "374",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": 0.0
+                            },
+                            {
+                                "consequence": "missense",
+                                "gene_id": "ENSG00000115866",
+                                "gene": "DARS1",
+                                "transcript": "ENST00000888462",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "135912503G>A",
+                                "amino_acid_change": "p.Pro356Ser",
+                                "codon": "356",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": 0.0
+                            },
+                            {
+                                "consequence": "missense",
+                                "gene_id": "ENSG00000115866",
+                                "gene": "DARS1",
+                                "transcript": "ENST00000939648",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "135912503G>A",
+                                "amino_acid_change": "p.Pro358Ser",
+                                "codon": "358",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": 0.0
+                            },
+                            {
+                                "consequence": "missense",
+                                "gene_id": "ENSG00000115866",
+                                "gene": "DARS1",
+                                "transcript": "ENST00000952144",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "135912503G>A",
+                                "amino_acid_change": "p.Pro405Ser",
+                                "codon": "405",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": 0.0
+                            },
+                            {
+                                "consequence": "missense",
+                                "gene_id": "ENSG00000115866",
+                                "gene": "DARS1",
+                                "transcript": "ENST00000952145",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "135912503G>A",
+                                "amino_acid_change": "p.Pro401Ser",
+                                "codon": "401",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": 0.0
+                            },
+                            {
+                                "consequence": "missense",
+                                "gene_id": "ENSG00000115866",
+                                "gene": "DARS1",
+                                "transcript": "ENST00000952146",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "135912503G>A",
+                                "amino_acid_change": "p.Pro360Ser",
+                                "codon": "360",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": 0.0
+                            },
+                            {
+                                "consequence": "missense",
+                                "gene_id": "ENSG00000115866",
+                                "gene": "DARS1",
+                                "transcript": "ENST00000952147",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "135912503G>A",
+                                "amino_acid_change": "p.Pro391Ser",
+                                "codon": "391",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": 0.0
+                            },
+                            {
+                                "consequence": "missense",
+                                "gene_id": "ENSG00000115866",
+                                "gene": "DARS1",
+                                "transcript": "ENST00001145432",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "135912503G>A",
+                                "amino_acid_change": "p.Pro405Ser",
+                                "codon": "405",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": 0.0
+                            },
+                            {
+                                "consequence": "missense",
+                                "gene_id": "ENSG00000115866",
+                                "gene": "DARS1",
+                                "transcript": "ENST00000264161",
+                                "mane_id": "NM_001349",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "135912503G>A",
+                                "amino_acid_change": "p.Pro405Ser",
+                                "codon": "405",
+                                "ensp": "ENSP00000264161",
+                                "am_class": "likely_pathogenic",
+                                "am_pathogenicity": 0.7738
+                            },
+                            {
+                                "consequence": "missense",
+                                "gene_id": "ENSG00000115866",
+                                "gene": "DARS1",
+                                "transcript": "ENST00001010503",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "135912503G>A",
+                                "amino_acid_change": "p.Pro405Ser",
+                                "codon": "405",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": 0.0
+                            }
+                        ]
+                    },
+                    "categories": {
+                        "AlphaMissense": "2026-07-27"
+                    },
+                    "date_of_phenotype_match": null,
+                    "phenotype_labels": [],
+                    "evidence_last_updated": "2026-07-27",
+                    "family": "1",
+                    "first_tagged": "2026-07-27",
+                    "flags": [],
+                    "gene": "ENSG00000115866",
+                    "genotypes": {
+                        "proband": "Het",
+                        "father": "WT",
+                        "mother": "Het"
+                    },
+                    "labels": [],
+                    "panels": {
+                        "forced": {},
+                        "matched": {}
+                    },
+                    "phenotypes": [],
+                    "reasons": "Autosomal Recessive Comp-Het",
+                    "support_vars": [
+                        "2-135920591-G-C"
+                    ],
+                    "clinvar_stars": 0,
+                    "clinvar_increase": false,
+                    "exomiser_results": [],
+                    "found_in_current_run": true
+                },
+                {
+                    "sample": "proband",
+                    "var_data": {
+                        "coordinates": {
+                            "chrom": "2",
+                            "pos": 135920591,
+                            "ref": "G",
+                            "alt": "C"
+                        },
+                        "info": {
+                            "ac": 2,
+                            "af": 0.33333298563957214,
+                            "an": 6,
+                            "am_class": "likely_pathogenic",
+                            "am_score": 0.8949999809265137,
+                            "am_transcript": "ENST00000264161",
+                            "clinvar_significance": "Pathogenic/Likely Pathogenic",
+                            "clinvar_stars": 1,
+                            "clinvar_allele": 3143640,
+                            "clinvar_talos": 1,
+                            "categorybooleanclinvarplp": true,
+                            "categorybooleanclinvar0starnewgene": false,
+                            "categorybooleanclinvar0star": false,
+                            "categorybooleansvdb": 0,
+                            "svdb_location": "missing",
+                            "svdb_method": "missing",
+                            "categorybooleanalphamissense": true,
+                            "categorybooleanhighimpact": false,
+                            "categorybooleanspliceai": false,
+                            "categorybooleanavi": false,
+                            "categorysampledenovo": [],
+                            "gnomad_ac": 4,
+                            "gnomad_af": 2.499999936844688e-6,
+                            "gnomad_ac_xy": 1,
+                            "gnomad_homalt": 0,
+                            "gene_id": "ENSG00000115866",
+                            "var_link": "2-135920591-G-C",
+                            "categorybooleanpm5": true,
+                            "pm5_data": {
+                                "65658": "0"
+                            },
+                            "svdb_doi": [],
+                            "categorysampleexomiser": [],
+                            "exomiser": []
+                        },
+                        "ignored_categories": [
+                            "SpliceVarDB",
+                            "exomiser",
+                            "svdb",
+                            "Exomiser"
+                        ],
+                        "support_categories": [
+                            "ClinVar 0-star",
+                            "clinvar0star",
+                            "AlphaMissense",
+                            "alphamissense"
+                        ],
+                        "transcript_consequences": [
+                            {
+                                "consequence": "missense",
+                                "gene_id": "ENSG00000115866",
+                                "gene": "DARS1",
+                                "transcript": "ENST00000888460",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "135920591G>C",
+                                "amino_acid_change": "p.Ala254Gly",
+                                "codon": "254",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": 0.0
+                            },
+                            {
+                                "consequence": "missense",
+                                "gene_id": "ENSG00000115866",
+                                "gene": "DARS1",
+                                "transcript": "ENST00000888461",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "135920591G>C",
+                                "amino_acid_change": "p.Ala243Gly",
+                                "codon": "243",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": 0.0
+                            },
+                            {
+                                "consequence": "missense",
+                                "gene_id": "ENSG00000115866",
+                                "gene": "DARS1",
+                                "transcript": "ENST00000888462",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "135920591G>C",
+                                "amino_acid_change": "p.Ala274Gly",
+                                "codon": "274",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": 0.0
+                            },
+                            {
+                                "consequence": "missense",
+                                "gene_id": "ENSG00000115866",
+                                "gene": "DARS1",
+                                "transcript": "ENST00000939648",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "135920591G>C",
+                                "amino_acid_change": "p.Ala227Gly",
+                                "codon": "227",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": 0.0
+                            },
+                            {
+                                "consequence": "missense",
+                                "gene_id": "ENSG00000115866",
+                                "gene": "DARS1",
+                                "transcript": "ENST00000952144",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "135920591G>C",
+                                "amino_acid_change": "p.Ala274Gly",
+                                "codon": "274",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": 0.0
+                            },
+                            {
+                                "consequence": "missense",
+                                "gene_id": "ENSG00000115866",
+                                "gene": "DARS1",
+                                "transcript": "ENST00000952145",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "135920591G>C",
+                                "amino_acid_change": "p.Ala270Gly",
+                                "codon": "270",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": 0.0
+                            },
+                            {
+                                "consequence": "missense",
+                                "gene_id": "ENSG00000115866",
+                                "gene": "DARS1",
+                                "transcript": "ENST00000952146",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "135920591G>C",
+                                "amino_acid_change": "p.Ala229Gly",
+                                "codon": "229",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": 0.0
+                            },
+                            {
+                                "consequence": "missense",
+                                "gene_id": "ENSG00000115866",
+                                "gene": "DARS1",
+                                "transcript": "ENST00000952147",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "135920591G>C",
+                                "amino_acid_change": "p.Ala260Gly",
+                                "codon": "260",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": 0.0
+                            },
+                            {
+                                "consequence": "missense",
+                                "gene_id": "ENSG00000115866",
+                                "gene": "DARS1",
+                                "transcript": "ENST00001145432",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "135920591G>C",
+                                "amino_acid_change": "p.Ala274Gly",
+                                "codon": "274",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": 0.0
+                            },
+                            {
+                                "consequence": "missense",
+                                "gene_id": "ENSG00000115866",
+                                "gene": "DARS1",
+                                "transcript": "ENST00000264161",
+                                "mane_id": "NM_001349",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "135920591G>C",
+                                "amino_acid_change": "p.Ala274Gly",
+                                "codon": "274",
+                                "ensp": "ENSP00000264161",
+                                "am_class": "likely_pathogenic",
+                                "am_pathogenicity": 0.895
+                            },
+                            {
+                                "consequence": "missense",
+                                "gene_id": "ENSG00000115866",
+                                "gene": "DARS1",
+                                "transcript": "ENST00001010503",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "135920591G>C",
+                                "amino_acid_change": "p.Ala274Gly",
+                                "codon": "274",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": 0.0
+                            }
+                        ]
+                    },
+                    "categories": {
+                        "ClinVar P/LP": "2026-07-27",
+                        "PM5": "2026-07-27",
+                        "AlphaMissense": "2026-07-27"
+                    },
+                    "date_of_phenotype_match": null,
+                    "phenotype_labels": [],
+                    "evidence_last_updated": "2026-07-27",
+                    "family": "1",
+                    "first_tagged": "2026-07-27",
+                    "flags": [],
+                    "gene": "ENSG00000115866",
+                    "genotypes": {
+                        "proband": "Het",
+                        "father": "Het",
+                        "mother": "WT"
+                    },
+                    "labels": [],
+                    "panels": {
+                        "forced": {},
+                        "matched": {}
+                    },
+                    "phenotypes": [],
+                    "reasons": "Autosomal Recessive Comp-Het",
+                    "support_vars": [
+                        "2-135912503-G-A"
+                    ],
+                    "clinvar_stars": 1,
+                    "clinvar_increase": false,
+                    "exomiser_results": [],
+                    "found_in_current_run": true
+                },
+                {
+                    "sample": "proband",
+                    "var_data": {
+                        "coordinates": {
+                            "chrom": "11",
+                            "pos": 32392032,
+                            "ref": "G",
+                            "alt": "A"
+                        },
+                        "info": {
+                            "ac": 1,
+                            "af": 0.16666699945926666,
+                            "an": 6,
+                            "am_score": -2147480064.0,
+                            "clinvar_significance": "Pathogenic/Likely Pathogenic",
+                            "clinvar_stars": 1,
+                            "clinvar_allele": 18533,
+                            "clinvar_talos": 1,
+                            "categorybooleanclinvarplp": true,
+                            "categorybooleanclinvar0starnewgene": false,
+                            "categorybooleanclinvar0star": false,
+                            "categorybooleansvdb": 0,
+                            "svdb_location": "missing",
+                            "svdb_method": "missing",
+                            "categorybooleanalphamissense": false,
+                            "categorybooleanhighimpact": true,
+                            "categorybooleanspliceai": false,
+                            "categorybooleanavi": false,
+                            "categorysampledenovo": [
+                                "proband"
+                            ],
+                            "gnomad_ac": 1,
+                            "gnomad_af": 4.999999987376214e-7,
+                            "gnomad_ac_xy": 1,
+                            "gnomad_homalt": 0,
+                            "gene_id": "ENSG00000184937",
+                            "var_link": "11-32392032-G-A",
+                            "categorybooleanpm5": false,
+                            "svdb_doi": [],
+                            "categorysampleexomiser": [],
+                            "exomiser": []
+                        },
+                        "ignored_categories": [
+                            "SpliceVarDB",
+                            "exomiser",
+                            "svdb",
+                            "Exomiser"
+                        ],
+                        "support_categories": [
+                            "ClinVar 0-star",
+                            "clinvar0star",
+                            "AlphaMissense",
+                            "alphamissense"
+                        ],
+                        "transcript_consequences": [
+                            {
+                                "consequence": "stop_gained",
+                                "gene_id": "ENSG00000184937",
+                                "gene": "WT1",
+                                "transcript": "ENST00000530998",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "32392032G>A",
+                                "amino_acid_change": "p.Arg229Ter",
+                                "codon": "229",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": ""
+                            },
+                            {
+                                "consequence": "stop_gained",
+                                "gene_id": "ENSG00000184937",
+                                "gene": "WT1",
+                                "transcript": "ENST00000527882",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "32392032G>A",
+                                "amino_acid_change": "p.Arg216Ter",
+                                "codon": "216",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": ""
+                            },
+                            {
+                                "consequence": "stop_gained",
+                                "gene_id": "ENSG00000184937",
+                                "gene": "WT1",
+                                "transcript": "ENST00000640146",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "32392032G>A",
+                                "amino_acid_change": "p.Arg238Ter",
+                                "codon": "238",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": ""
+                            },
+                            {
+                                "consequence": "stop_gained",
+                                "gene_id": "ENSG00000184937",
+                                "gene": "WT1",
+                                "transcript": "ENST00000452863",
+                                "mane_id": "NM_024426",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "32392032G>A",
+                                "amino_acid_change": "p.Arg463Ter",
+                                "codon": "463",
+                                "ensp": "ENSP00000415516",
+                                "am_class": "",
+                                "am_pathogenicity": ""
+                            },
+                            {
+                                "consequence": "stop_gained",
+                                "gene_id": "ENSG00000184937",
+                                "gene": "WT1",
+                                "transcript": "ENST00000639563",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "32392032G>A",
+                                "amino_acid_change": "p.Arg446Ter",
+                                "codon": "446",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": ""
+                            },
+                            {
+                                "consequence": "stop_gained",
+                                "gene_id": "ENSG00000184937",
+                                "gene": "WT1",
+                                "transcript": "ENST00000850609",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "32392032G>A",
+                                "amino_acid_change": "p.Arg373Ter",
+                                "codon": "373",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": ""
+                            },
+                            {
+                                "consequence": "stop_gained",
+                                "gene_id": "ENSG00000184937",
+                                "gene": "WT1",
+                                "transcript": "ENST00001143281",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "32392032G>A",
+                                "amino_acid_change": "p.Arg463Ter",
+                                "codon": "463",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": ""
+                            },
+                            {
+                                "consequence": "stop_gained",
+                                "gene_id": "ENSG00000184937",
+                                "gene": "WT1",
+                                "transcript": "ENST00000379079",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "32392032G>A",
+                                "amino_acid_change": "p.Arg246Ter",
+                                "codon": "246",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": ""
+                            },
+                            {
+                                "consequence": "stop_gained",
+                                "gene_id": "ENSG00000184937",
+                                "gene": "WT1",
+                                "transcript": "ENST00000850608",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "32392032G>A",
+                                "amino_acid_change": "p.Arg390Ter",
+                                "codon": "390",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": ""
+                            },
+                            {
+                                "consequence": "stop_gained",
+                                "gene_id": "ENSG00000184937",
+                                "gene": "WT1",
+                                "transcript": "ENST00000850606",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "32392032G>A",
+                                "amino_acid_change": "p.Arg373Ter",
+                                "codon": "373",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": ""
+                            },
+                            {
+                                "consequence": "stop_gained",
+                                "gene_id": "ENSG00000184937",
+                                "gene": "WT1",
+                                "transcript": "ENST00000332351",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "32392032G>A",
+                                "amino_acid_change": "p.Arg446Ter",
+                                "codon": "446",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": ""
+                            },
+                            {
+                                "consequence": "stop_gained",
+                                "gene_id": "ENSG00000184937",
+                                "gene": "WT1",
+                                "transcript": "ENST00000448076",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "32392032G>A",
+                                "amino_acid_change": "p.Arg463Ter",
+                                "codon": "463",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": ""
+                            }
+                        ]
+                    },
+                    "categories": {
+                        "ClinVar P/LP": "2026-07-27",
+                        "De Novo": "2026-07-27",
+                        "High Impact": "2026-07-27"
+                    },
+                    "date_of_phenotype_match": "2026-07-27",
+                    "phenotype_labels": [
+                        "HP:0004322: Short stature"
+                    ],
+                    "evidence_last_updated": "2026-07-27",
+                    "family": "1",
+                    "first_tagged": "2026-07-27",
+                    "flags": [],
+                    "gene": "ENSG00000184937",
+                    "genotypes": {
+                        "proband": "Het",
+                        "father": "WT",
+                        "mother": "WT"
+                    },
+                    "labels": [],
+                    "panels": {
+                        "forced": {
+                            "144": "Proteinuria"
+                        },
+                        "matched": {
+                            "144": "Proteinuria"
+                        }
+                    },
+                    "phenotypes": [],
+                    "reasons": "Autosomal Dominant",
+                    "support_vars": [],
+                    "clinvar_stars": 1,
+                    "clinvar_increase": false,
+                    "exomiser_results": [],
+                    "found_in_current_run": true
+                },
+                {
+                    "sample": "proband",
+                    "var_data": {
+                        "coordinates": {
+                            "chrom": "11",
+                            "pos": 62841775,
+                            "ref": "T",
+                            "alt": "C"
+                        },
+                        "info": {
+                            "ac": 1,
+                            "af": 0.16666699945926666,
+                            "an": 6,
+                            "am_score": -2147480064.0,
+                            "clinvar_significance": "Pathogenic/Likely Pathogenic",
+                            "clinvar_stars": 1,
+                            "clinvar_allele": 3542469,
+                            "clinvar_talos": 1,
+                            "categorybooleanclinvarplp": true,
+                            "categorybooleanclinvar0starnewgene": false,
+                            "categorybooleanclinvar0star": false,
+                            "categorybooleansvdb": 0,
+                            "svdb_location": "missing",
+                            "svdb_method": "missing",
+                            "categorybooleanalphamissense": false,
+                            "categorybooleanhighimpact": false,
+                            "categorybooleanspliceai": false,
+                            "categorybooleanavi": false,
+                            "categorysampledenovo": [
+                                "proband"
+                            ],
+                            "gnomad_ac": 0,
+                            "gnomad_af": 0.0,
+                            "gnomad_ac_xy": 0,
+                            "gnomad_homalt": 0,
+                            "gene_id": "ENSG00000222328",
+                            "var_link": "11-62841775-T-C",
+                            "categorybooleanpm5": false,
+                            "svdb_doi": [],
+                            "categorysampleexomiser": [],
+                            "exomiser": []
+                        },
+                        "ignored_categories": [
+                            "SpliceVarDB",
+                            "exomiser",
+                            "svdb",
+                            "Exomiser"
+                        ],
+                        "support_categories": [
+                            "ClinVar 0-star",
+                            "clinvar0star",
+                            "AlphaMissense",
+                            "alphamissense"
+                        ],
+                        "transcript_consequences": [
+                            {
+                                "consequence": "non_coding",
+                                "gene_id": "ENSG00000222328",
+                                "gene": "RNU2-2",
+                                "transcript": "",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "snRNA",
+                                "dna_change": "",
+                                "amino_acid_change": "",
+                                "codon": "",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": ""
+                            }
+                        ]
+                    },
+                    "categories": {
+                        "ClinVar P/LP": "2026-07-27",
+                        "De Novo": "2026-07-27"
+                    },
+                    "date_of_phenotype_match": "2026-07-27",
+                    "phenotype_labels": [
+                        "HP:0004322: Short stature"
+                    ],
+                    "evidence_last_updated": "2026-07-27",
+                    "family": "1",
+                    "first_tagged": "2026-07-27",
+                    "flags": [],
+                    "gene": "ENSG00000222328",
+                    "genotypes": {
+                        "proband": "Het",
+                        "father": "WT",
+                        "mother": "WT"
+                    },
+                    "labels": [],
+                    "panels": {
+                        "forced": {},
+                        "matched": {}
+                    },
+                    "phenotypes": [],
+                    "reasons": "Autosomal Dominant",
+                    "support_vars": [],
+                    "clinvar_stars": 1,
+                    "clinvar_increase": false,
+                    "exomiser_results": [],
+                    "found_in_current_run": true
+                },
+                {
+                    "sample": "proband",
+                    "var_data": {
+                        "coordinates": {
+                            "chrom": "X",
+                            "pos": 71109321,
+                            "ref": "G",
+                            "alt": "A"
+                        },
+                        "info": {
+                            "ac": 2,
+                            "af": 0.5,
+                            "an": 4,
+                            "am_class": "ambiguous",
+                            "am_score": 0.4702000021934509,
+                            "am_transcript": "ENST00000374202",
+                            "clinvar_significance": "Pathogenic/Likely Pathogenic",
+                            "clinvar_stars": 3,
+                            "clinvar_allele": 25066,
+                            "clinvar_talos": 1,
+                            "categorybooleanclinvarplp": true,
+                            "categorybooleanclinvar0starnewgene": false,
+                            "categorybooleanclinvar0star": false,
+                            "categorybooleansvdb": 0,
+                            "svdb_location": "missing",
+                            "svdb_method": "missing",
+                            "categorybooleanalphamissense": false,
+                            "categorybooleanhighimpact": false,
+                            "categorybooleanspliceai": false,
+                            "categorybooleanavi": false,
+                            "categorysampledenovo": [],
+                            "gnomad_ac": 1,
+                            "gnomad_af": 4.999999987376214e-7,
+                            "gnomad_ac_xy": 0,
+                            "gnomad_homalt": 0,
+                            "gene_id": "ENSG00000147168",
+                            "var_link": "X-71109321-G-A",
+                            "categorybooleanpm5": false,
+                            "svdb_doi": [],
+                            "categorysampleexomiser": [],
+                            "exomiser": []
+                        },
+                        "ignored_categories": [
+                            "SpliceVarDB",
+                            "exomiser",
+                            "svdb",
+                            "Exomiser"
+                        ],
+                        "support_categories": [
+                            "ClinVar 0-star",
+                            "clinvar0star",
+                            "AlphaMissense",
+                            "alphamissense"
+                        ],
+                        "transcript_consequences": [
+                            {
+                                "consequence": "missense",
+                                "gene_id": "ENSG00000147168",
+                                "gene": "IL2RG",
+                                "transcript": "ENST00000374202",
+                                "mane_id": "NM_000206",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "71109321G>A",
+                                "amino_acid_change": "p.Arg222Cys",
+                                "codon": "222",
+                                "ensp": "ENSP00000363318",
+                                "am_class": "ambiguous",
+                                "am_pathogenicity": 0.4702
+                            },
+                            {
+                                "consequence": "missense",
+                                "gene_id": "ENSG00000147168",
+                                "gene": "IL2RG",
+                                "transcript": "ENST00000979050",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "71109321G>A",
+                                "amino_acid_change": "p.Arg222Cys",
+                                "codon": "222",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": 0.0
+                            },
+                            {
+                                "consequence": "missense",
+                                "gene_id": "ENSG00000147168",
+                                "gene": "IL2RG",
+                                "transcript": "ENST00001133758",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "71109321G>A",
+                                "amino_acid_change": "p.Arg222Cys",
+                                "codon": "222",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": 0.0
+                            },
+                            {
+                                "consequence": "missense",
+                                "gene_id": "ENSG00000147168",
+                                "gene": "IL2RG",
+                                "transcript": "ENST00000482750",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "71109321G>A",
+                                "amino_acid_change": "p.Arg222Cys",
+                                "codon": "222",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": 0.0
+                            },
+                            {
+                                "consequence": "missense",
+                                "gene_id": "ENSG00000147168",
+                                "gene": "IL2RG",
+                                "transcript": "ENST00000464642",
+                                "mane_id": "",
+                                "mane": "",
+                                "biotype": "protein_coding",
+                                "dna_change": "71109321G>A",
+                                "amino_acid_change": "p.Arg178Cys",
+                                "codon": "178",
+                                "ensp": "",
+                                "am_class": "",
+                                "am_pathogenicity": 0.0
+                            }
+                        ]
+                    },
+                    "categories": {
+                        "ClinVar P/LP": "2026-07-27"
+                    },
+                    "date_of_phenotype_match": null,
+                    "phenotype_labels": [],
+                    "evidence_last_updated": "2026-07-27",
+                    "family": "1",
+                    "first_tagged": "2026-07-27",
+                    "flags": [
+                        "AB Ratio"
+                    ],
+                    "gene": "ENSG00000147168",
+                    "genotypes": {
+                        "proband": "Hemi",
+                        "father": "WT",
+                        "mother": "Het"
+                    },
+                    "labels": [],
+                    "panels": {
+                        "forced": {
+                            "239": "Immunological disorders_SuperPanel"
+                        },
+                        "matched": {
+                            "239": "Immunological disorders_SuperPanel"
+                        }
+                    },
+                    "phenotypes": [],
+                    "reasons": "X_Male",
+                    "support_vars": [],
+                    "clinvar_stars": 3,
+                    "clinvar_increase": false,
+                    "exomiser_results": [],
+                    "found_in_current_run": true
+                }
+            ],
+            "metadata": {
+                "family_id": "1",
+                "members": {
+                    "proband": {
+                        "affected": true,
+                        "sex": "male"
+                    },
+                    "father": {
+                        "affected": false,
+                        "sex": "male"
+                    },
+                    "mother": {
+                        "affected": false,
+                        "sex": "female"
+                    }
+                },
+                "phenotypes": [
+                    {
+                        "id": "HP:0004322",
+                        "label": "Short stature"
+                    },
+                    {
+                        "id": "HP:0009145",
+                        "label": "Abnormal cerebral artery morphology"
+                    },
+                    {
+                        "id": "HP:0002779",
+                        "label": "Tracheomalacia"
+                    }
+                ],
+                "panel_details": {
+                    "3144": {
+                        "id": 3144,
+                        "name": "Cerebral vascular malformations",
+                        "version": "2.0"
+                    },
+                    "137": {
+                        "id": 137,
+                        "name": "Mendeliome",
+                        "version": "2.278"
+                    },
+                    "300": {
+                        "id": 300,
+                        "name": "Vascular Malformations_Germline",
+                        "version": "2.0"
+                    },
+                    "3181": {
+                        "id": 3181,
+                        "name": "Vascular Malformations_Somatic",
+                        "version": "2.0"
+                    },
+                    "239": {
+                        "id": 239,
+                        "name": "Immunological disorders_SuperPanel",
+                        "version": "15.286"
+                    },
+                    "144": {
+                        "id": 144,
+                        "name": "Proteinuria",
+                        "version": "1.0"
+                    },
+                    "3731": {
+                        "id": 3731,
+                        "name": "Vascular Malformations SuperPanel",
+                        "version": "1.97"
+                    }
+                },
+                "solved": false,
+                "present_in_small": true,
+                "present_in_sv": false
+            }
+        }
+    },
+    "metadata": {
+        "version": "11.0.2",
+        "family_breakdown": {
+            "trios": 1,
+            "male": 2,
+            "affected": 1,
+            "female": 1
+        },
+        "input_file": "",
+        "panels": {
+            "137": {
+                "id": 137,
+                "name": "Mendeliome",
+                "version": "2.278"
+            },
+            "3144": {
+                "id": 3144,
+                "name": "Cerebral vascular malformations",
+                "version": "2.0"
+            },
+            "3181": {
+                "id": 3181,
+                "name": "Vascular Malformations_Somatic",
+                "version": "2.0"
+            },
+            "144": {
+                "id": 144,
+                "name": "Proteinuria",
+                "version": "1.0"
+            },
+            "239": {
+                "id": 239,
+                "name": "Immunological disorders_SuperPanel",
+                "version": "15.286"
+            },
+            "300": {
+                "id": 300,
+                "name": "Vascular Malformations_Germline",
+                "version": "2.0"
+            },
+            "3731": {
+                "id": 3731,
+                "name": "Vascular Malformations SuperPanel",
+                "version": "1.97"
+            }
+        },
+        "run_datetime": "2026-07-27",
+        "variant_breakdown": {
+            "any": {
+                "total": 10,
+                "mean": 10.0,
+                "min": 10,
+                "max": 10,
+                "median": 10,
+                "mode": 10,
+                "stddev": 0.0
+            },
+            "ClinVar P/LP": {
+                "total": 9,
+                "mean": 9.0,
+                "min": 9,
+                "max": 9,
+                "median": 9,
+                "mode": 9,
+                "stddev": 0.0
+            },
+            "De Novo": {
+                "total": 6,
+                "mean": 6.0,
+                "min": 6,
+                "max": 6,
+                "median": 6,
+                "mode": 6,
+                "stddev": 0.0
+            },
+            "High Impact": {
+                "total": 3,
+                "mean": 3.0,
+                "min": 3,
+                "max": 3,
+                "median": 3,
+                "mode": 3,
+                "stddev": 0.0
+            },
+            "AlphaMissense": {
+                "total": 3,
+                "mean": 3.0,
+                "min": 3,
+                "max": 3,
+                "median": 3,
+                "mode": 3,
+                "stddev": 0.0
+            },
+            "PM5": {
+                "total": 3,
+                "mean": 3.0,
+                "min": 3,
+                "max": 3,
+                "median": 3,
+                "mode": 3,
+                "stddev": 0.0
+            }
+        },
+        "samples_with_no_variants": [],
+        "unused_ext_labels": []
+    },
+    "version": "2.3.0"
+}
