@@ -1,7 +1,12 @@
 # Session 2 (group hackathon) data
 
 All data for session 2 is located in [`/session-2/data/`](/session-2/data/).
-Individual challenge descriptions are outlined in the `README.md` fiels in each challenge subdirectory.
+Individual challenge descriptions:
+* [Challenge 1 — Talos Case Review](/session-2/challenge-1-case-review.md)
+* [Challenge 2 — Why is this candidate interesting?](/session-2/challenge-2-explanation.md)
+* [Challenge 3 — Natural-language Talos](/session-2/challenge-3-natural-language.md)
+* [Challenge 4 — Reanalysis triage](/session-2/challenge-4-reanalysis-triage.md)
+* [Challenge 5 — Open pitch](/session-2/challenge-5-open-pitch.md)
 
 ## Challenges 1 - 3
 
