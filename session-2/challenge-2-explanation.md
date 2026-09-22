@@ -5,7 +5,6 @@ Build a candidate-explanation component for a Talos result.
 Minimum concept:
 
     Gene / variant
-    Rank or position
     Inheritance/reason
     Talos evidence
     Phenotype evidence if available

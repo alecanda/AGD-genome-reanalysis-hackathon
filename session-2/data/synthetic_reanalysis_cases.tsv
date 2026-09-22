@@ -1,6 +1,301 @@
-case_id	last_analysis	current_analysis	candidate_count	new_candidates	new_gene_evidence	new_clinvar_evidence	phenotype_changes	new_high_priority_candidates	prior_analysis_complete	note
-CASE_001	2024-01-15	2026-09-01	12	1	0	0	0	0	1	routine
-CASE_002	2025-10-01	2026-09-01	4	0	1	1	0	0	1	new_gene_evidence
-CASE_003	2023-02-12	2026-09-01	28	0	0	0	2	1	1	phenotype_updated
-CASE_004	2026-08-20	2026-09-01	2	0	0	0	0	0	1	recent_analysis
-CASE_005	2021-04-05	2026-09-01	17	0	0	1	1	0	0	new_variant_evidence
+case_id	case_status	first_analysis	last_analysis	current_analysis	sequencing_type	family_structure	hpo_term_count	phenotype_changes	candidate_count	new_candidates	new_high_priority_candidates	new_gene_evidence	new_clinvar_evidence	clinvar_upgrades_to_plp	prior_analysis_complete	prior_analysis_flag	note
+CASE_001	unsolved	2024-01-15	2024-01-15	2026-09-01	exome	trio	8	0	12	1	0	0	0	0	1		
+CASE_002	unsolved	2023-08-17	2025-10-01	2026-09-01	genome	trio	8	0	4	0	0	1	1	0	1		
+CASE_003	unsolved	2023-02-12	2023-02-12	2026-09-01	genome	trio	5	2	28	0	1	0	0	0	1		
+CASE_004	unsolved	2026-08-20	2026-08-20	2026-09-01	genome	trio	8	0	2	0	0	0	0	0	1		
+CASE_005	unsolved	2021-04-05	2021-04-05	2026-09-01	exome	singleton	2	1	17	0	0	0	1	0	0	partial_panel	
+CASE_006	unsolved	2020-11-20	2020-11-20	2026-09-01	exome	singleton	NA	0	7	0	1	0	2	1	1		
+CASE_007	unsolved	2024-02-28	2024-02-28	2026-09-01	genome	singleton	10	0	60	0	0	0	0	0	1		
+CASE_008	unsolved	2023-10-18	2023-10-18	2026-09-01	genome	trio	4	0	11	0	0	0	0	0	1		internal cohort
+CASE_009	unsolved	2016-11-20	2020-02-23	2026-09-01	exome	singleton	9	0	16	1	0	0	0	0	1		
+CASE_010	unsolved	2026-06-26	2026-06-26	2026-09-01	genome	trio	7	0	6	0	1	3	1	0	1		routine
+CASE_011	unsolved	2025-09-03	2025-09-03	2026-09-01	genome	trio	9	0	3	0	0	0	0	0	1		
+CASE_012	unsolved	2024-09-15	2024-09-15	2026-09-01	genome	singleton	7	1	23	0	0	0	0	0	1		internal cohort
+CASE_013	unsolved	2019-07-01	2019-07-01	2026-09-01	exome	trio	12	0	6	0	0	0	0	0	0	pipeline_error	consanguineous family
+CASE_014	unsolved	2023-04-16	2023-04-16	2026-09-01	exome	singleton	3	1	29	0	0	2	0	0	NA		
+CASE_015	unsolved	2026-07-04	2026-07-04	2026-09-01	genome	trio	6	0	18	0	0	0	2	0	NA		sample received from external lab
+CASE_016	unsolved	2023-05-29	2025-03-27	2026-09-01	exome	singleton	10	0	8	0	0	NA	3	0	1		parents now consented and sequenced; trio data available
+CASE_017	unsolved	2023-11-13	2026-08-25	2026-09-01	genome	duo	7	0	12	0	0	0	1	0	1		sample received from external lab
+CASE_018	unsolved	2024-10-24	2024-10-24	2026-09-01	genome	trio	11	0	9	2	1	0	1	1	1		
+CASE_019	partially_solved	2025-08-30	2025-08-30	2026-09-01	exome	trio	9	0	2	0	0	1	0	0	1		
+CASE_020	unsolved	2022-10-22	2022-10-22	2026-09-01	exome	singleton	2	0	11	0	0	1	0	0	1		internal cohort
+CASE_021	unsolved	2023-08-20	2023-08-20	2026-09-01	genome	singleton	5	0	35	0	0	0	0	0	1		annual review
+CASE_022	unsolved	2021-01-14	2021-01-14	2026-09-01	exome	singleton	4	1	5	0	0	1	1	0	0	pipeline_error	
+CASE_023	unsolved	2020-12-04	2024-03-28	2026-09-01	exome	singleton	12	0	14	0	0	2	0	0	1		no family history reported
+CASE_024	partially_solved	2024-01-15	2026-06-21	2026-09-01	genome	trio	10	0	13	0	0	0	0	0	0	partial_panel	routine
+CASE_025	unsolved	2022-09-03	2026-03-01	2026-09-01	exome	trio	7	0	4	0	0	0	0	0	1		prenatal history unremarkable
+CASE_026	unsolved	2024-02-19	2024-02-19	2026-09-01	exome	singleton	6	0	8	0	1	3	0	0	1		sample received from external lab
+CASE_027	unsolved	2020-03-14	2020-03-14	2026-09-01	exome	singleton	6	0	9	1	0	0	0	0	0	no_parental_data	annual review
+CASE_028	unsolved	2023-06-07	2024-11-15	2026-09-01	exome	trio	14	2	7	0	0	0	0	0	0	qc_fail	prenatal history unremarkable
+CASE_029	unsolved	2022-12-23	2022-12-23	2026-09-01	exome	trio	6	0	2	0	1	2	4	2	1		annual review
+CASE_030	unsolved	2022-12-17	2022-12-17	2026-09-01	genome	singleton	6	4	52	1	0	0	2	0	1		referred from clinical genetics
+CASE_031	partially_solved	2025-02-02	2025-02-02	2026-09-01	genome	trio	5	0	11	0	0	1	0	0	1		prenatal history unremarkable
+CASE_032	unsolved	2026-06-08	2026-06-08	2026-09-01	genome	duo	13	0	34	0	0	0	0	0	1		sample received from external lab
+CASE_033	unsolved	2025-07-04	2025-07-04	2026-09-01	genome	trio	3	1	10	3	2	0	0	0	1		sample received from external lab
+CASE_034	unsolved	2019-11-17	2021-01-14	2026-09-01	exome	singleton	3	1	8	0	0	0	0	0	1		external referral
+CASE_035	partially_solved	2025-06-04	2025-06-04	2026-09-01	genome	singleton	5	5	28	1	1	0	1	0	1		routine
+CASE_036	unsolved	2023-11-16	2023-11-16	2026-09-01	exome	singleton	7	2	16	0	0	0	0	0	1		sample received from external lab
+CASE_037	unsolved	2023-01-19	2023-01-19	2026-09-01	exome	trio	NA	2	8	1	1	0	0	0	1		no family history reported
+CASE_038	unsolved	2023-07-16	2023-07-16	2026-09-01	genome	trio	2	5	14	1	0	0	0	0	1		annual review
+CASE_039	unsolved	2023-03-06	2023-03-06	2026-09-01	exome	duo	4	NA	10	1	0	0	0	0	1		
+CASE_040	unsolved	2025-02-02	2025-02-02	2026-09-01	exome	trio	10	0	5	0	0	1	0	0	1		no family history reported
+CASE_041	unsolved	2019-08-09	2022-03-28	2026-09-01	exome	trio	7	0	4	0	0	0	0	0	1		prenatal history unremarkable
+CASE_042	unsolved	2021-08-07	2021-08-07	2026-09-01	exome	trio	6	0	4	1	1	NA	0	0	1		reviewed at MDT
+CASE_043	unsolved	2023-01-05	2023-01-05	2026-09-01	exome	trio	NA	0	7	0	0	0	0	0	1		referred from paediatric neurology
+CASE_044	unsolved	2017-07-05	2021-04-08	2026-09-01	exome	singleton	6	0	15	0	0	0	0	0	1		
+CASE_045	unsolved	2025-10-02	2025-10-02	2026-09-01	genome	trio	7	0	9	0	0	0	0	0	1		routine
+CASE_046	unsolved	2026-07-19	2026-07-19	2026-09-01	exome	singleton	11	0	23	0	0	0	0	0	1		
+CASE_047	unsolved	2024-11-29	2024-11-29	2026-09-01	exome	trio	10	0	5	0	0	0	0	0	1		second affected sibling now presenting with overlapping features
+CASE_048	unsolved	2020-08-30	2020-08-30	2026-09-01	exome	trio	9	0	6	1	1	0	2	0	1		
+CASE_049	unsolved	2021-07-02	2024-04-10	2026-09-01	exome	singleton	12	0	17	0	0	0	0	0	1		routine
+CASE_050	unsolved	2024-06-18	2024-06-18	2026-09-01	genome	singleton	6	0	39	0	0	0	0	0	1		prenatal history unremarkable
+CASE_051	partially_solved	2026-08-05	2026-08-05	2026-09-01	genome	trio	9	0	10	0	0	0	0	0	0	partial_panel	internal cohort
+CASE_052	unsolved	2024-10-21	2024-10-21	2026-09-01	genome	duo	10	5	17	4	0	0	0	0	1		routine
+CASE_053	unsolved	2017-08-10	2021-08-29	2026-09-01	exome	singleton	5	0	24	1	1	0	2	0	0	partial_panel	parents now consented and sequenced; trio data available
+CASE_054	unsolved	2025-08-29	2025-08-29	2026-09-01	genome	trio	10	0	8	0	0	0	0	0	1		external referral
+CASE_055	unsolved	2026-07-04	2026-07-04	2026-09-01	genome	duo	9	0	19	0	0	0	0	0	1		deep phenotyping completed at specialist clinic
+CASE_056	unsolved	2025-08-11	2025-08-11	2026-09-01	exome	duo	5	0	20	0	0	0	1	0	1		
+CASE_057	unsolved	2024-05-18	2024-05-18	2026-09-01	exome	trio	7	0	9	0	0	0	0	0	1		
+CASE_058	unsolved	2023-05-12	2026-01-14	2026-09-01	genome	duo	9	0	23	0	1	0	4	1	1		consanguineous family
+CASE_059	unsolved	2026-03-09	2026-03-09	2026-09-01	exome	trio	9	5	6	0	0	2	0	0	1		reviewed at MDT
+CASE_060	unsolved	2023-05-30	2023-05-30	2026-09-01	genome	trio	8	0	6	0	0	0	0	0	1		internal cohort
+CASE_061	unsolved	2026-03-27	2026-03-27	2026-09-01	exome	singleton	9	0	12	0	0	0	0	0	0	qc_fail	muscle biopsy results now available
+CASE_062	unsolved	2024-03-18	2024-03-18	2026-09-01	exome	singleton	4	0	11	0	1	1	2	0	1		
+CASE_063	unsolved	2020-03-09	2024-01-14	2026-09-01	genome	singleton	8	1	45	0	0	0	1	0	1		part of research cohort
+CASE_064	unsolved	2020-04-14	2022-06-15	2026-09-01	exome	singleton	1	0	38	4	2	0	0	0	1		consanguineous family
+CASE_065	unsolved	2025-05-25	2025-05-25	2026-09-01	genome	trio	12	2	21	0	0	0	0	0	1		referred from clinical genetics
+CASE_066	unsolved	2025-09-10	2025-09-10	2026-09-01	genome	trio	5	0	21	0	0	0	0	0	1		referred from paediatric neurology
+CASE_067	unsolved	2021-01-10	2023-10-12	2026-09-01	genome	singleton	7	0	53	3	0	0	0	0	1		annual review
+CASE_068	unsolved	2022-09-21	2025-07-05	2026-09-01	exome	trio	6	0	4	0	0	0	0	0	1		
+CASE_069	unsolved	2024-09-20	2024-09-20	2026-09-01	genome	singleton	2	0	26	0	0	0	0	0	1		
+CASE_070	unsolved	2023-01-08	2023-01-08	2026-09-01	exome	singleton	4	2	14	0	0	0	0	0	1		sample received from external lab
+CASE_071	unsolved	2020-01-23	2020-01-23	2026-09-01	exome	duo	1	2	4	1	1	0	0	0	1		
+CASE_072	unsolved	2022-12-07	2024-02-09	2026-09-01	genome	singleton	8	0	42	0	0	1	0	0	1		deep phenotyping completed at specialist clinic
+CASE_073	unsolved	2026-05-26	2026-05-26	2026-09-01	genome	trio	7	2	2	0	0	0	0	0	1		referred from paediatric neurology
+CASE_074	unsolved	2025-08-02	2025-08-02	2026-09-01	exome	singleton	5	0	27	0	0	0	0	0	1		
+CASE_075	solved	2019-03-01	2019-03-01	2026-09-01	exome	singleton	1	0	5	0	0	3	1	0	1		reviewed at MDT
+CASE_076	unsolved	2022-05-24	2026-04-06	2026-09-01	exome	trio	8	1	6	0	0	0	0	0	1		routine
+CASE_077	unsolved	2025-01-28	2025-01-28	2026-09-01	genome	singleton	6	4	57	0	0	0	0	0	1		routine
+CASE_078	unsolved	2024-09-14	2024-09-14	2026-09-01	exome	singleton	1	2	21	0	0	0	0	0	1		consanguineous family
+CASE_079	unsolved	2024-04-25	2024-04-25	2026-09-01	genome	trio	3	0	10	1	0	0	0	0	1		internal cohort
+CASE_080	solved	2020-07-28	2020-07-28	2026-09-01	exome	duo	4	0	8	0	0	1	0	0	1		
+CASE_081	unsolved	2022-01-18	2024-09-28	2026-09-01	genome	duo	4	0	11	0	0	0	0	0	0	pipeline_error	referred from paediatric neurology
+CASE_082	unsolved	2026-01-31	2026-01-31	2026-09-01	genome	singleton	9	0	15	0	0	0	0	0	1		consanguineous family
+CASE_083	unsolved	2020-03-30	2020-03-30	2026-09-01	genome	trio	7	1	10	2	0	2	0	0	1		referred from paediatric neurology
+CASE_084	unsolved	2020-07-16	2022-07-14	2026-09-01	exome	trio	7	0	6	0	0	0	2	0	1		external referral
+CASE_085	unsolved	2020-12-22	2022-07-08	2026-09-01	exome	singleton	7	4	9	0	0	0	0	0	1		internal cohort
+CASE_086	unsolved	2019-08-22	2019-08-22	2026-09-01	exome	singleton	3	3	15	0	0	2	2	1	1		consanguineous family
+CASE_087	unsolved	2021-04-17	2023-10-24	2026-09-01	exome	singleton	6	0	7	0	0	0	0	0	1		sample received from external lab
+CASE_088	unsolved	2024-03-20	2025-08-19	2026-09-01	genome	duo	1	2	18	0	0	0	0	0	1		consanguineous family
+CASE_089	unsolved	2022-02-21	2022-02-21	2026-09-01	exome	singleton	5	5	21	1	0	0	0	0	1		routine
+CASE_090	unsolved	2021-09-30	2023-05-08	2026-09-01	exome	singleton	7	2	11	0	0	0	0	0	1		
+CASE_091	unsolved	2025-01-20	2025-01-20	2026-09-01	genome	singleton	6	0	47	0	0	0	0	0	1		sample received from external lab
+CASE_092	unsolved	2022-07-26	2022-07-26	2026-09-01	genome	trio	8	0	4	0	0	0	2	1	1		annual review
+CASE_093	unsolved	2020-02-17	2021-11-04	2026-09-01	genome	singleton	1	NA	40	0	0	0	0	0	1		no family history reported
+CASE_094	partially_solved	2019-08-14	2023-07-30	2026-09-01	genome	singleton	7	1	0	0	0	0	0	0	1		sample received from external lab
+CASE_095	unsolved	2024-03-06	2024-03-06	2026-09-01	genome	trio	8	0	11	0	0	0	1	0	NA		
+CASE_096	unsolved	2025-01-18	2025-01-18	2026-09-01	genome	singleton	6	0	15	4	1	0	0	0	1		part of research cohort
+CASE_097	unsolved	2022-11-19	2026-05-31	2026-09-01	exome	singleton	12	0	6	0	0	0	0	0	1		
+CASE_098	unsolved	2023-07-28	2026-03-20	2026-09-01	genome	trio	10	NA	16	2	0	0	0	0	1		sample received from external lab
+CASE_099	unsolved	2025-09-12	2025-09-12	2026-09-01	genome	trio	3	0	16	0	0	0	0	0	1		
+CASE_100	unsolved	2024-12-24	2024-12-24	2026-09-01	exome	singleton	4	4	29	0	0	3	0	0	1		internal cohort
+CASE_101	partially_solved	2026-04-05	2026-04-05	2026-09-01	genome	trio	10	0	10	0	0	0	0	0	1		reviewed at MDT
+CASE_102	unsolved	2026-06-23	2026-06-23	2026-09-01	genome	duo	11	0	26	2	0	0	0	0	1		
+CASE_103	unsolved	2024-10-15	2026-07-15	2026-09-01	genome	singleton	14	0	48	0	0	0	0	0	1		reviewed at MDT
+CASE_104	unsolved	2022-11-20	2022-11-20	2026-09-01	genome	singleton	6	5	47	1	0	0	0	0	1		routine
+CASE_105	unsolved	2025-10-09	2025-10-09	2026-09-01	genome	trio	9	0	8	0	0	0	0	0	1		part of research cohort
+CASE_106	unsolved	2026-08-19	2026-08-19	2026-09-01	genome	trio	7	4	9	1	1	0	1	0	1		second affected sibling now presenting with overlapping features
+CASE_107	unsolved	2020-02-09	2020-02-09	2026-09-01	exome	trio	5	0	6	0	0	0	0	0	1		
+CASE_108	unsolved	2026-01-23	2026-01-23	2026-09-01	genome	trio	10	0	9	3	0	0	0	0	0	pipeline_error	
+CASE_109	unsolved	2022-03-04	2024-09-15	2026-09-01	exome	trio	10	0	7	0	0	0	0	0	1		clinician requested review following new MRI findings
+CASE_110	unsolved	2024-05-11	2024-05-11	2026-09-01	genome	singleton	3	0	48	0	0	0	0	0	1		
+CASE_111	unsolved	2025-05-19	2025-05-19	2026-09-01	genome	singleton	7	0	36	0	0	3	0	0	1		research collaboration reported a second family with a variant in the same gene
+CASE_112	unsolved	2025-12-11	2025-12-11	2026-09-01	genome	trio	4	1	8	0	0	0	0	0	1		routine
+CASE_113	unsolved	2020-04-28	2020-04-28	2026-09-01	exome	singleton	8	3	20	0	0	0	0	0	1		referred from clinical genetics
+CASE_114	unsolved	2017-04-15	2021-03-25	2026-09-01	exome	singleton	3	0	21	0	0	3	0	0	1		
+CASE_115	unsolved	2022-11-01	2025-08-01	2026-09-01	genome	trio	9	0	20	0	0	3	0	0	1		
+CASE_116	unsolved	2021-09-22	2021-09-22	2026-09-01	exome	singleton	5	0	27	1	0	1	4	0	1		part of research cohort
+CASE_117	unsolved	2023-09-03	2023-09-03	2026-09-01	genome	duo	5	0	21	0	0	0	3	0	1		clinician requested review ahead of family planning
+CASE_118	unsolved	2026-07-10	2026-07-10	2026-09-01	genome	trio	5	4	9	0	0	0	0	0	1		annual review
+CASE_119	unsolved	2021-01-08	2024-04-20	2026-09-01	genome	singleton	8	4	64	0	0	1	0	0	1		
+CASE_120	unsolved	2019-03-25	2019-03-25	2026-09-01	exome	singleton	3	0	18	0	1	1	0	0	1		referred from clinical genetics
+CASE_121	partially_solved	2023-06-25	2025-07-31	2026-09-01	genome	singleton	4	0	43	2	1	0	0	0	1		matchmaker exchange match reported by external centre
+CASE_122	unsolved	2023-05-28	2025-10-22	2026-09-01	genome	singleton	NA	0	26	0	0	2	1	0	1		sample received from external lab
+CASE_123	unsolved	2026-07-20	2026-07-20	2026-09-01	exome	singleton	7	0	21	0	0	0	0	0	1		internal cohort
+CASE_124	unsolved	2019-07-13	2019-07-13	2026-09-01	exome	singleton	5	1	12	0	0	0	0	0	1		
+CASE_125	unsolved	2023-08-18	2025-10-09	2026-09-01	genome	singleton	8	2	36	0	0	0	0	0	1		routine
+CASE_126	solved	2022-08-11	2025-05-25	2026-09-01	exome	trio	3	3	8	0	0	0	2	0	1		consanguineous family
+CASE_127	unsolved	2022-06-28	2022-06-28	2026-09-01	genome	trio	5	2	13	0	0	0	0	0	1		
+CASE_128	unsolved	2024-07-22	2024-07-22	2026-09-01	genome	trio	6	0	13	0	0	0	0	0	1		internal cohort
+CASE_129	unsolved	2020-12-11	2020-12-11	2026-09-01	genome	singleton	5	0	22	1	0	0	1	0	1		external referral
+CASE_130	unsolved	2021-11-22	2024-05-13	2026-09-01	genome	singleton	9	0	37	0	0	0	0	0	1		external referral
+CASE_131	unsolved	2026-02-04	2026-02-04	2026-09-01	genome	singleton	6	0	28	0	0	0	0	0	1		sample received from external lab
+CASE_132	unsolved	2023-09-07	2023-09-07	2026-09-01	exome	trio	6	0	7	1	0	0	1	0	1		no family history reported
+CASE_133	unsolved	2024-08-24	2024-08-24	2026-09-01	genome	trio	3	0	16	1	0	0	0	0	1		
+CASE_134	unsolved	2020-06-16	2020-06-16	2026-09-01	exome	duo	8	0	16	4	0	0	2	1	1		
+CASE_135	unsolved	2025-07-13	2025-07-13	2026-09-01	exome	trio	10	0	4	0	0	0	0	0	1		internal cohort
+CASE_136	unsolved	2025-07-10	2025-07-10	2026-09-01	genome	duo	6	3	19	0	0	1	0	0	1		reviewed at MDT
+CASE_137	unsolved	2026-07-15	2026-07-15	2026-09-01	genome	trio	3	0	7	0	0	1	0	0	1		external referral
+CASE_138	unsolved	2024-08-02	2024-08-02	2026-09-01	exome	singleton	4	1	20	4	0	0	0	0	1		external referral
+CASE_139	unsolved	2023-10-06	2023-10-06	2026-09-01	genome	singleton	4	0	40	0	0	0	1	0	1		prenatal history unremarkable
+CASE_140	unsolved	2026-05-21	2026-05-21	2026-09-01	genome	duo	9	4	32	0	0	0	0	0	1		
+CASE_141	partially_solved	2017-03-26	2021-01-13	2026-09-01	genome	singleton	7	5	26	1	1	0	0	0	1		prenatal history unremarkable
+CASE_142	unsolved	2021-08-01	2025-02-17	2026-09-01	genome	trio	5	0	7	0	0	0	0	0	1		
+CASE_143	partially_solved	2024-01-15	2025-11-06	2026-09-01	exome	singleton	2	NA	10	0	0	0	0	0	1		parents now consented and sequenced; trio data available
+CASE_144	unsolved	2025-09-02	2025-09-02	2026-09-01	genome	trio	6	0	11	0	0	0	0	0	1		routine
+CASE_145	partially_solved	2026-01-08	2026-01-08	2026-09-01	genome	trio	5	0	16	0	0	0	0	0	1		routine
+CASE_146	unsolved	2024-12-26	2024-12-26	2026-09-01	exome	singleton	5	0	17	0	0	0	0	0	1		
+CASE_147	unsolved	2019-03-10	2022-08-13	2026-09-01	genome	trio	7	0	10	3	0	0	0	0	1		routine
+CASE_148	unsolved	2023-04-20	2023-04-20	2026-09-01	exome	singleton	7	0	30	0	0	0	0	0	1		consanguineous family
+CASE_149	unsolved	2022-07-18	2022-07-18	2026-09-01	genome	duo	1	0	26	0	1	1	0	0	1		referred from clinical genetics
+CASE_150	unsolved	2020-10-22	2021-12-09	2026-09-01	exome	singleton	5	1	17	0	0	0	0	0	1		referred from paediatric neurology
+CASE_151	unsolved	2025-10-07	2025-10-07	2026-09-01	genome	singleton	6	0	30	0	0	0	0	0	0	no_parental_data	referred from paediatric neurology
+CASE_152	unsolved	2025-02-24	2025-02-24	2026-09-01	genome	trio	9	0	9	1	0	0	0	0	1		consanguineous family
+CASE_153	unsolved	2025-01-28	2025-01-28	2026-09-01	genome	singleton	11	0	51	0	0	0	0	0	1		internal cohort
+CASE_154	unsolved	2022-03-27	2025-05-24	2026-09-01	exome	singleton	4	5	10	0	0	0	0	0	1		parents now consented and sequenced; trio data available
+CASE_155	unsolved	2022-05-17	2026-02-28	2026-09-01	genome	trio	9	2	3	0	0	0	0	0	1		clinician requested review ahead of family planning
+CASE_156	unsolved	2023-02-15	2026-06-16	2026-09-01	genome	singleton	9	0	53	0	0	0	0	0	1		consanguineous family
+CASE_157	unsolved	2022-03-04	2025-02-07	2026-09-01	genome	singleton	5	0	55	0	0	0	0	0	1		prenatal history unremarkable
+CASE_158	partially_solved	2020-09-21	2024-05-17	2026-09-01	genome	trio	8	0	5	0	1	2	0	0	1		prenatal history unremarkable
+CASE_159	unsolved	2024-08-19	2024-08-19	2026-09-01	genome	trio	8	0	21	1	0	0	0	0	1		
+CASE_160	unsolved	2018-04-15	2021-07-08	2026-09-01	genome	singleton	5	0	48	0	0	1	0	0	1		routine
+CASE_161	unsolved	2021-11-22	2024-09-24	2026-09-01	genome	singleton	7	0	24	0	1	1	0	0	1		prenatal history unremarkable
+CASE_162	unsolved	2019-06-23	2022-09-05	2026-09-01	exome	trio	3	0	4	0	1	0	4	1	1		routine
+CASE_163	unsolved	2025-03-29	2026-07-12	2026-09-01	genome	trio	6	0	0	0	0	0	0	0	1		referred from clinical genetics
+CASE_164	partially_solved	2020-05-30	2023-09-22	2026-09-01	genome	trio	7	0	14	0	0	1	4	0	1		internal cohort
+CASE_165	unsolved	2020-10-27	2023-03-14	2026-09-01	genome	trio	10	0	7	0	0	2	0	0	NA		
+CASE_166	solved	2026-07-22	2026-07-22	2026-09-01	genome	singleton	7	0	35	0	0	0	0	0	1		
+CASE_167	unsolved	2018-09-03	2022-01-19	2026-09-01	exome	trio	6	0	2	0	0	2	0	0	1		routine
+CASE_168	unsolved	2026-08-06	2026-08-06	2026-09-01	genome	trio	8	0	10	0	1	2	0	0	1		consanguineous family
+CASE_169	unsolved	2024-10-30	2026-03-05	2026-09-01	genome	trio	5	0	13	0	0	0	1	0	1		external referral
+CASE_170	unsolved	2024-07-06	2024-07-06	2026-09-01	exome	singleton	6	0	14	1	0	0	0	0	1		external referral
+CASE_171	unsolved	2019-04-09	2019-04-09	2026-09-01	exome	singleton	1	4	27	3	0	1	1	1	1		
+CASE_172	unsolved	2025-02-24	2025-02-24	2026-09-01	exome	trio	7	0	10	0	0	0	2	0	1		internal cohort
+CASE_173	unsolved	2019-01-06	2022-12-12	2026-09-01	exome	singleton	5	2	22	0	0	0	0	0	1		referred from clinical genetics
+CASE_174	unsolved	2022-03-09	2022-03-09	2026-09-01	genome	singleton	9	0	45	0	0	0	0	0	1		internal cohort
+CASE_175	unsolved	2019-07-10	2019-07-10	2026-09-01	genome	duo	7	0	25	1	1	0	1	0	0	partial_panel	routine
+CASE_176	unsolved	2018-09-18	2021-06-22	2026-09-01	exome	trio	2	0	8	0	0	0	0	0	1		part of research cohort
+CASE_177	partially_solved	2026-03-19	2026-03-19	2026-09-01	exome	trio	1	0	9	0	0	0	0	0	1		annual review
+CASE_178	unsolved	2018-08-22	2020-11-28	2026-09-01	exome	singleton	6	0	23	0	0	0	1	0	1		
+CASE_179	unsolved	2024-04-13	2024-04-13	2026-09-01	exome	trio	9	0	9	0	0	0	0	0	1		
+CASE_180	unsolved	2021-12-20	2024-11-23	2026-09-01	exome	trio	NA	0	8	0	0	1	1	1	1		referred from paediatric neurology
+CASE_181	partially_solved	2025-11-06	2025-11-06	2026-09-01	genome	trio	8	2	18	0	0	0	0	0	1		annual review
+CASE_182	unsolved	2025-11-20	2025-11-20	2026-09-01	exome	singleton	8	0	0	0	0	0	0	0	1		reviewed at MDT
+CASE_183	unsolved	2025-04-16	2025-04-16	2026-09-01	exome	duo	8	0	8	0	0	0	0	0	1		second affected sibling now presenting with overlapping features
+CASE_184	unsolved	2019-04-05	2019-04-05	2026-09-01	exome	duo	6	0	6	0	0	0	3	0	1		no family history reported
+CASE_185	unsolved	2022-07-15	2022-07-15	2026-09-01	genome	singleton	8	NA	13	4	1	0	4	1	0	qc_fail	internal cohort
+CASE_186	unsolved	2026-07-18	2026-07-18	2026-09-01	exome	trio	3	0	6	0	0	0	0	0	1		
+CASE_187	unsolved	2024-01-23	2026-05-07	2026-09-01	exome	trio	8	0	4	0	0	0	0	0	1		prenatal history unremarkable
+CASE_188	unsolved	2020-07-25	2022-01-22	2026-09-01	exome	singleton	5	0	15	3	2	1	0	0	1		routine
+CASE_189	solved	2021-07-31	2024-01-14	2026-09-01	genome	trio	7	0	11	2	0	1	0	0	1		routine
+CASE_190	unsolved	2019-02-14	2021-12-12	2026-09-01	exome	trio	4	0	5	0	0	2	0	0	1		
+CASE_191	unsolved	2024-05-18	2024-05-18	2026-09-01	genome	singleton	9	0	43	0	0	0	0	0	1		routine
+CASE_192	unsolved	2022-06-14	2022-06-14	2026-09-01	genome	duo	2	1	34	2	1	0	0	0	1		reviewed at MDT
+CASE_193	unsolved	2020-12-06	2020-12-06	2026-09-01	exome	trio	8	0	1	0	0	0	3	0	1		reviewed at MDT
+CASE_194	unsolved	2026-04-04	2026-04-04	2026-09-01	exome	singleton	12	0	21	0	0	0	0	0	1		
+CASE_195	unsolved	2023-02-16	2023-02-16	2026-09-01	exome	trio	9	0	4	0	0	0	1	1	1		referred from paediatric neurology
+CASE_196	unsolved	2026-07-16	2026-07-16	2026-09-01	genome	trio	5	3	15	0	0	0	0	0	1		referred from paediatric neurology
+CASE_197	partially_solved	2019-01-24	2020-06-30	2026-09-01	exome	trio	3	2	5	0	0	0	0	0	1		sample received from external lab
+CASE_198	unsolved	2024-04-21	2024-04-21	2026-09-01	genome	trio	7	NA	19	0	0	0	0	0	1		
+CASE_199	unsolved	2021-07-08	2023-07-27	2026-09-01	genome	trio	4	0	10	0	0	1	0	0	1		
+CASE_200	unsolved	2025-12-02	2025-12-02	2026-09-01	genome	duo	10	0	16	0	1	1	2	0	1		no family history reported
+CASE_201	unsolved	2024-06-03	2024-06-03	2026-09-01	exome	trio	11	0	4	0	0	0	0	0	1		annual review
+CASE_202	unsolved	2022-03-18	2022-03-18	2026-09-01	exome	singleton	11	0	21	0	0	1	2	0	1		sample received from external lab
+CASE_203	unsolved	2020-02-05	2023-05-12	2026-09-01	genome	duo	8	0	6	0	0	0	0	0	1		internal cohort
+CASE_204	partially_solved	2022-05-26	2025-06-30	2026-09-01	genome	singleton	7	0	33	0	0	0	0	0	1		internal cohort
+CASE_205	unsolved	2021-04-18	2022-11-29	2026-09-01	exome	singleton	5	2	30	0	0	0	0	0	1		routine
+CASE_206	unsolved	2023-08-27	2023-08-27	2026-09-01	exome	duo	2	1	6	0	0	0	0	0	1		internal cohort
+CASE_207	solved	2026-07-12	2026-07-12	2026-09-01	genome	trio	9	0	12	4	1	0	0	0	1		external referral
+CASE_208	unsolved	2022-05-09	2022-05-09	2026-09-01	genome	trio	7	5	8	2	0	0	0	0	1		
+CASE_209	unsolved	2023-12-24	2023-12-24	2026-09-01	exome	singleton	8	0	19	0	0	0	0	0	1		
+CASE_210	unsolved	2022-05-16	2025-06-20	2026-09-01	genome	singleton	11	0	39	1	1	0	0	0	1		part of research cohort
+CASE_211	solved	2019-12-01	2022-02-05	2026-09-01	exome	duo	7	3	8	4	0	0	0	0	1		skin fibroblast RNA study completed
+CASE_212	unsolved	2023-12-16	2023-12-16	2026-09-01	genome	trio	3	0	13	0	0	0	0	0	1		
+CASE_213	unsolved	2021-12-25	2021-12-25	2026-09-01	exome	singleton	2	5	14	0	0	2	1	0	1		
+CASE_214	unsolved	2020-01-15	2023-10-28	2026-09-01	exome	duo	3	0	10	0	0	0	0	0	1		
+CASE_215	unsolved	2020-04-10	2020-04-10	2026-09-01	exome	trio	9	1	4	1	1	0	4	1	1		consanguineous family
+CASE_216	unsolved	2024-02-26	2025-05-12	2026-09-01	genome	singleton	1	0	42	0	0	0	0	0	1		sample received from external lab
+CASE_217	unsolved	2021-11-12	2021-11-12	2026-09-01	genome	singleton	1	3	37	0	0	0	2	0	1		
+CASE_218	unsolved	2020-10-31	2022-07-08	2026-09-01	genome	trio	10	0	15	0	0	0	0	0	1		referred from clinical genetics
+CASE_219	unsolved	2021-01-24	2023-12-28	2026-09-01	genome	singleton	1	4	26	0	0	0	0	0	1		external referral
+CASE_220	solved	2019-06-04	2019-06-04	2026-09-01	exome	singleton	6	2	12	2	0	0	0	0	1		
+CASE_221	unsolved	2026-04-26	2026-04-26	2026-09-01	genome	trio	8	2	15	0	0	0	0	0	1		prenatal history unremarkable
+CASE_222	unsolved	2023-07-18	2023-07-18	2026-09-01	genome	duo	12	NA	40	1	1	0	1	0	1		no family history reported
+CASE_223	unsolved	2026-05-14	2026-05-14	2026-09-01	genome	trio	12	0	23	0	0	0	0	0	1		external referral
+CASE_224	unsolved	2022-08-09	2025-02-09	2026-09-01	genome	trio	7	5	19	0	0	0	0	0	1		referred from clinical genetics
+CASE_225	unsolved	2026-06-25	2026-06-25	2026-09-01	exome	trio	7	0	8	4	0	0	0	0	1		
+CASE_226	unsolved	2024-01-07	2024-01-07	2026-09-01	genome	singleton	7	0	58	0	0	0	0	0	1		
+CASE_227	unsolved	2021-01-28	2021-01-28	2026-09-01	exome	singleton	5	5	15	0	0	2	1	0	1		internal cohort
+CASE_228	partially_solved	2019-06-22	2022-09-07	2026-09-01	exome	trio	7	1	4	0	0	0	0	0	1		no family history reported
+CASE_229	unsolved	2026-06-20	2026-06-20	2026-09-01	genome	singleton	12	0	53	0	0	1	0	0	1		no family history reported
+CASE_230	unsolved	2021-05-06	2021-05-06	2026-09-01	genome	singleton	6	2	65	1	1	0	0	0	1		
+CASE_231	unsolved	2023-10-20	2023-10-20	2026-09-01	exome	singleton	10	0	16	0	0	0	0	0	1		reviewed at MDT
+CASE_232	unsolved	2019-04-18	2021-10-17	2026-09-01	genome	trio	5	0	6	0	0	0	0	0	1		consanguineous family
+CASE_233	partially_solved	2024-06-13	2024-06-13	2026-09-01	exome	trio	4	0	2	0	0	0	0	0	1		
+CASE_234	unsolved	2021-12-08	2021-12-08	2026-09-01	genome	singleton	6	3	60	1	1	0	1	1	1		
+CASE_235	unsolved	2026-05-05	2026-05-05	2026-09-01	exome	singleton	1	0	5	0	0	0	0	0	1		
+CASE_236	unsolved	2025-02-13	2025-02-13	2026-09-01	exome	trio	6	0	6	1	0	0	0	0	1		
+CASE_237	unsolved	2023-08-07	2025-08-24	2026-09-01	exome	trio	12	0	5	0	0	2	0	0	1		sample received from external lab
+CASE_238	solved	2020-06-09	2022-02-09	2026-09-01	genome	singleton	7	0	39	2	1	0	2	0	1		no family history reported
+CASE_239	unsolved	2021-03-20	2021-03-20	2026-09-01	genome	singleton	2	0	65	1	1	2	1	0	1		routine
+CASE_240	unsolved	2019-12-04	2021-02-03	2026-09-01	exome	singleton	7	3	23	0	0	0	0	0	1		part of research cohort
+CASE_241	unsolved	2020-01-04	2020-01-04	2026-09-01	exome	trio	8	0	10	0	0	0	0	0	1		prenatal history unremarkable
+CASE_242	unsolved	2021-06-01	2025-02-07	2026-09-01	genome	trio	9	0	18	0	0	0	1	1	1		part of research cohort
+CASE_243	unsolved	2024-12-05	2024-12-05	2026-09-01	genome	trio	1	1	0	0	0	0	0	0	1		no family history reported
+CASE_244	unsolved	2023-08-08	2025-03-07	2026-09-01	exome	singleton	7	1	12	0	0	0	0	0	1		
+CASE_245	unsolved	2021-06-03	2025-01-11	2026-09-01	genome	trio	5	0	10	0	0	0	0	0	1		internal cohort
+CASE_246	unsolved	2023-05-29	2025-03-16	2026-09-01	exome	trio	10	0	6	0	0	0	3	0	1		routine
+CASE_247	unsolved	2025-09-28	2025-09-28	2026-09-01	genome	singleton	6	0	14	0	0	0	0	0	1		part of research cohort
+CASE_248	unsolved	2021-10-22	2023-05-23	2026-09-01	exome	singleton	6	0	18	1	0	0	0	0	1		
+CASE_249	unsolved	2019-11-15	2019-11-15	2026-09-01	genome	singleton	6	0	88	0	0	1	0	0	1		referred from paediatric neurology
+CASE_250	unsolved	2020-10-02	2024-01-13	2026-09-01	genome	duo	8	0	16	0	0	0	0	0	1		reviewed at MDT
+CASE_251	partially_solved	2016-07-25	2019-09-23	2026-09-01	exome	duo	5	0	10	2	1	3	0	0	1		routine
+CASE_252	partially_solved	2023-04-26	2023-04-26	2026-09-01	exome	trio	5	0	11	3	1	1	0	0	1		
+CASE_253	unsolved	2020-10-11	2020-10-11	2026-09-01	exome	singleton	1	3	17	0	0	0	0	0	1		external referral
+CASE_254	solved	2024-04-23	2024-04-23	2026-09-01	exome	trio	6	0	7	0	0	0	0	0	1		new consanguinity information provided by family
+CASE_255	unsolved	2023-04-27	2025-05-17	2026-09-01	genome	trio	10	2	8	0	0	0	0	0	1		internal cohort
+CASE_256	unsolved	2021-04-03	2021-04-03	2026-09-01	genome	duo	10	5	10	1	0	2	1	0	1		
+CASE_257	partially_solved	2023-02-18	2023-02-18	2026-09-01	genome	singleton	7	0	10	0	0	0	0	0	1		internal cohort
+CASE_258	unsolved	2026-06-19	2026-06-19	2026-09-01	genome	singleton	6	0	54	0	0	0	0	0	1		prenatal history unremarkable
+CASE_259	unsolved	2021-06-04	2021-06-04	2026-09-01	exome	singleton	4	0	17	0	0	2	0	0	1		referred from clinical genetics
+CASE_260	unsolved	2019-07-23	2022-11-07	2026-09-01	exome	singleton	2	0	11	0	0	0	0	0	1		part of research cohort
+CASE_261	unsolved	2025-04-27	2025-04-27	2026-09-01	genome	trio	10	0	14	0	0	0	0	0	1		routine
+CASE_262	unsolved	2024-09-09	2024-09-09	2026-09-01	exome	singleton	6	0	16	1	1	0	0	0	1		
+CASE_263	unsolved	2023-05-26	2023-05-26	2026-09-01	exome	trio	6	1	6	1	0	0	0	0	1		referred from clinical genetics
+CASE_264	unsolved	2024-01-20	2024-01-20	2026-09-01	exome	singleton	5	0	18	0	0	2	0	0	1		sample received from external lab
+CASE_265	unsolved	2019-06-05	2019-06-05	2026-09-01	exome	singleton	1	0	19	0	0	0	0	0	1		matchmaker exchange match reported by external centre
+CASE_266	solved	2024-10-14	2024-10-14	2026-09-01	exome	singleton	6	0	3	0	0	2	0	0	1		reviewed at MDT
+CASE_267	unsolved	2022-11-16	2022-11-16	2026-09-01	exome	singleton	5	0	7	0	0	3	0	0	1		prenatal history unremarkable
+CASE_268	unsolved	2021-08-17	2024-04-15	2026-09-01	exome	trio	6	1	2	1	0	0	1	0	1		
+CASE_269	unsolved	2024-07-08	2025-08-15	2026-09-01	exome	singleton	2	0	17	0	0	0	0	0	1		routine
+CASE_270	unsolved	2018-03-20	2021-03-04	2026-09-01	exome	singleton	4	0	26	0	0	0	0	0	1		external referral
+CASE_271	unsolved	2026-02-07	2026-02-07	2026-09-01	exome	trio	6	0	7	0	0	0	0	0	1		referred from paediatric neurology
+CASE_272	unsolved	2022-08-10	2023-12-06	2026-09-01	genome	singleton	11	0	38	0	0	0	0	0	1		part of research cohort
+CASE_273	unsolved	2024-04-03	2024-04-03	2026-09-01	exome	singleton	5	0	3	3	0	0	0	0	1		
+CASE_274	unsolved	2024-09-20	2024-09-20	2026-09-01	genome	singleton	5	0	49	0	0	0	0	0	1		part of research cohort
+CASE_275	unsolved	2026-03-14	2026-03-14	2026-09-01	genome	singleton	6	0	48	0	0	0	0	0	1		part of research cohort
+CASE_276	unsolved	2026-03-09	2026-03-09	2026-09-01	genome	trio	11	0	13	0	1	0	2	1	1		referred from paediatric neurology
+CASE_277	unsolved	2020-04-19	2020-04-19	2026-09-01	exome	duo	1	4	4	1	0	2	0	0	1		external referral
+CASE_278	solved	2018-03-09	2022-03-19	2026-09-01	genome	trio	7	1	8	0	0	0	0	0	1		external referral
+CASE_279	unsolved	2023-05-21	2023-05-21	2026-09-01	genome	singleton	1	1	40	0	0	0	0	0	1		reviewed at MDT
+CASE_280	unsolved	2020-02-06	2022-06-25	2026-09-01	genome	duo	8	0	43	0	0	0	1	0	1		reviewed at MDT
+CASE_281	partially_solved	2023-01-02	2023-01-02	2026-09-01	exome	singleton	12	0	22	0	0	0	0	0	1		
+CASE_282	unsolved	2023-12-03	2023-12-03	2026-09-01	genome	trio	8	2	21	0	0	0	0	0	1		part of research cohort
+CASE_283	unsolved	2025-06-05	2025-06-05	2026-09-01	exome	duo	4	0	12	0	0	0	2	0	1		sample received from external lab
+CASE_284	unsolved	2025-12-14	2025-12-14	2026-09-01	genome	trio	4	0	10	0	0	0	0	0	1		
+CASE_285	unsolved	2024-10-14	2024-10-14	2026-09-01	exome	trio	6	2	6	0	0	1	0	0	1		sample received from external lab
+CASE_286	solved	2022-02-16	2022-02-16	2026-09-01	exome	singleton	1	0	12	0	1	3	0	0	1		reviewed at MDT
+CASE_287	unsolved	2024-07-30	2024-07-30	2026-09-01	exome	singleton	9	3	10	0	0	0	0	0	1		external referral
+CASE_288	unsolved	2020-03-28	2020-03-28	2026-09-01	exome	singleton	5	0	5	1	0	0	0	0	1		referred from paediatric neurology
+CASE_289	unsolved	2019-08-07	2019-08-07	2026-09-01	exome	singleton	6	0	14	1	0	0	0	0	1		research collaboration reported a second family with a variant in the same gene
+CASE_290	partially_solved	2026-03-04	2026-03-04	2026-09-01	genome	trio	9	0	11	0	0	0	0	0	1		clinician requested review following new MRI findings
+CASE_291	solved	2021-04-24	2025-05-18	2026-09-01	genome	trio	10	1	5	3	0	0	0	0	0	partial_panel	consanguineous family
+CASE_292	unsolved	2021-09-20	2023-06-10	2026-09-01	genome	trio	6	0	9	0	0	0	0	0	1		part of research cohort
+CASE_293	unsolved	2020-03-11	2020-03-11	2026-09-01	exome	trio	4	2	1	0	0	3	2	1	1		no family history reported
+CASE_294	unsolved	2021-11-02	2021-11-02	2026-09-01	exome	singleton	7	0	31	3	0	0	0	0	1		annual review
+CASE_295	unsolved	2019-12-16	2019-12-16	2026-09-01	exome	trio	9	1	2	0	0	1	0	0	1		consanguineous family
+CASE_296	unsolved	2019-04-24	2021-12-28	2026-09-01	genome	trio	12	1	19	2	0	0	0	0	1		
+CASE_297	unsolved	2025-04-22	2025-04-22	2026-09-01	genome	singleton	8	0	15	0	0	0	0	0	1		sample received from external lab
+CASE_298	unsolved	2021-06-26	2022-09-01	2026-09-01	exome	singleton	2	2	23	1	1	1	2	0	1		sample received from external lab
+CASE_299	partially_solved	2020-07-04	2023-10-20	2026-09-01	genome	singleton	6	0	24	0	0	0	0	0	1		referred from paediatric neurology
+CASE_300	unsolved	2023-08-18	2025-12-27	2026-09-01	exome	trio	11	4	3	0	0	0	2	0	1		referred from clinical genetics

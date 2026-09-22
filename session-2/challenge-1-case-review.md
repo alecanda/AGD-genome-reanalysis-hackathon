@@ -12,8 +12,7 @@ Possible directions:
 - candidate table
 - evidence panels
 - filters
-- ranking/reason explanations
-- external links
+- reason explanations
 - visualisation
 - export
 
