@@ -6,20 +6,16 @@ Anthropic provides several ways to work with Claude, and several models for diff
 
 Each participant has **$100 in credits** for this workshop. More capable models can use those credits surprisingly quickly, especially with large files, long conversations, repeated retries, or agent tasks that make many tool calls. A complex model is also often overengineered for a simple task.
 See the [Anthropic guide](https://platform.claude.com/docs/en/about-claude/models/choosing-a-model) to selecting a model.
-For the tasks in the hackathon, Opus should be a sufficient balance between capability and cost. By default the effort is set to "High" - this can also be adjusted to balance the amount of time an instruction takes, and the level of effort the model puts in to producing the result. If your simple instructions are taking too long to return results, try stopping the request and lowering the effort.
+For the tasks in the hackathon, Opus should be a sufficient balance between capability and cost.
+
+In Claude Code, the model additionally has an **effort level** (default "high"), which balances how long an instruction takes against how much reasoning the model puts into the result. If simple instructions take too long, stop the request and lower the effort with `/effort` (or via the slider in `/model`).
 
 ### Choosing the right tool: A quick decision rule
 
 - Choose **[Claude chat](https://claude.ai/)** for one-off questions, explanations, document work, or small file tasks without coding.
-- Choose **Claude Code** for local files, repositories, terminal commands, tests, and edits. It can run in your IDE, terminal, or [GitHub Codespaces](https://github.com/features/codespaces).
+- Choose **Claude Code** for inspecting and changing repositories, running commands and tests, and working with local data. It can run in your IDE, terminal, or [GitHub Codespaces](https://github.com/features/codespaces).
 
 **Note:** the workshop credits are API credits and do not cover Claude chat Pro/Max subscriptions. However, your free daily quota should be enough for the applicable parts of the challenges.
-
-
-| Tool | Best for |
-| --- | --- |
-| **Claude chat** | One-off questions, writing, explanations, summaries, and small file transformations |
-| **Claude Code** | Inspecting and changing repositories, running commands and tests, and working with local data. Use it in an IDE, terminal, or GitHub Codespaces. |
 
 Claude chat does not automatically have access to your computer. Claude Code can access the files and tools available in its workspace, but you still need to specify what you want changed.
 
