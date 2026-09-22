@@ -21,10 +21,12 @@ Anthropic provides **$100 of API credit per participant**.
 ![image](/img/skip_credits.png)
 5. Fill in the application page for "AGD 2026 Rare-Disease Reanalysis Hackathon (Uni Bonn / TUM) Credits"
 ![image](/img/agd_credits.png)
-6. Wait for you $100 credit to appear in you dashboard (usually within 5 minutes, but can take up to 2 hours)
+6. Wait for your $100 credit to appear in your dashboard (usually within 5 minutes, but can take up to 2 hours)
 ![image](/img/credits_in_profile.png)
 
 The credit is valid for **90 days from the moment it is claimed**.
+
+If you belong to several Console organisations, the credit is added to the one that was active when you claimed it.
 
 ---
 
@@ -36,7 +38,7 @@ The credit is valid for **90 days from the moment it is claimed**.
 
 You can participate using [Claude Chat](https://claude.ai/) (recommended) and the [Claude Console](https://platform.claude.com/) (more complex, for testing prompts and building repeatable AI workflows). You do not need to install Claude Code, VS Code, Git, or a terminal environment for the introductory exercises.
 
-**Note:** Claude Chat (https://claude.ai/) is a separate system to Claude Console. The Claude credits supplied for the hackathon (details below) are for Console, given as API credit.
+**Note:** Claude Chat (https://claude.ai/) is a separate system to Claude Console. The event credit (details above) is API credit for the Console only — Claude Chat runs on your free daily quota, so for Path A the credit is optional and only used if you try the Console.
 
 ## Path B — Users with programming and Claude Code experience
 
@@ -44,7 +46,7 @@ You can participate using [Claude Chat](https://claude.ai/) (recommended) and th
 
 ### Option 1: use GitHub Codespaces
 
-Requirements: Github account
+Requirements: a GitHub account and a fork of the workshop repository (see [Shared project workspace](#shared-project-workspace) below — fork first, then come back here).
 
 Instead of installing Claude Code and the other tools locally, you can open a cloud-based development environment from [your forked workshop repository](#shared-project-workspace) using [GitHub Codespaces](https://github.com/features/codespaces). Codespaces provides a browser-based editor and terminal connected directly to your fork, and the organisers will configure it with Claude Code and the other tools needed for the challenges.
 
@@ -55,16 +57,16 @@ This means you do not need to clone the repository, install VS Code, or set up t
 2. Click the "Codespaces" tab.
 3. Click "Create codespace on main"
 ![image](/img/make_codespace.png)
-4. VS Code opens in your browser in the existing repository, the automatic installation process can take up to 5 minutes. At the end of the setup, click "Trust Folder & Continue"
-5. Once it is done, you see a terminal on the bottom. If it doesn't seem to function properly, open up a fresh one by clicking on the + on the top right corner of the terminal.
+1. VS Code opens in your browser in the existing repository, the automatic installation process can take up to 5 minutes. At the end of the setup, click "Trust Folder & Continue"
+2. Once it is done, you see a terminal on the bottom. If it doesn't seem to function properly, open up a fresh one by clicking on the + on the top right corner of the terminal.
 For the next steps, you can either work in terminal, or alternatively use the pre-installed Claude extension for VS Code. We show the terminal path:
-6. Type "claude" in, choose the display mode you like, and choose "Anthropic console account" as login method
+1. Type "claude" in, choose the display mode you like, and choose "Anthropic console account" as login method
 ![image](/img/claude_login_codespaces.png)
-7. Then "sign in with your console account" and *press cancel on "Do you want Code to open the external website?"**
+1. Then "sign in with your console account" and **press cancel** on "Do you want Code to open the external website?"
 ![image](/img/claude_cancel.png)
-8. Instead, copy-paste the long link that appeared in the terminal in your browser, choose "Default" workspace, authenticate, and copy-paste the long code appearing on screen back into the VS code terminal
+1. Instead, copy-paste the long link that appeared in the terminal in your browser, choose "Default" workspace, authenticate, and copy-paste the long code appearing on screen back into the VS code terminal
 ![image](/img/claude_long_url.png) ![image](/img/claude_authentication_code.png)
-9. After successful login, choose default terminal settings, trust the folder, and you are ready to go!
+1. After successful login, Claude Code asks a few first-run questions (terminal setup and whether you trust the files in this folder). Accept the defaults, confirm, and you are ready to go!
 
 You can now work directly in this space on the workshop files using AI Chat and Claude Code. 
 
@@ -75,6 +77,8 @@ Recommended software:
 - Git
 - Claude Code
 - GitHub account
+
+Ideally, you install Claude Code **before the event** — either the terminal tool, the VS Code extension, the desktop app, or any combination. Follow the installation instructions for your system here: https://code.claude.com/docs/en/overview
 
 #### ⚠️ Claude Code users: make sure you use the hackathon credits and not personal credits
 
@@ -95,9 +99,10 @@ After the hackathon, run `/logout`, then `/login` again to switch back to your n
 #### via VS Code
 1. Click the Claude Code icon in the top right tool bar, or type `/login` in the already open Claude Code side panel.
 ![image](/img/vs_login.png)
-2. Choose **Anthropic Console**.
+2. Choose **Anthropic Console**. **Do NOT select:** “Claude account with subscription”
 3. Allow opening of the external link.
 4. Follow prompts for login and authorisation.
+5. Type `/status` in the Claude Code panel to check which account/billing method is active.
 
 ---
 
@@ -115,14 +120,12 @@ The workshop GitHub repository is the main shared workspace for team projects.
 1. Please fork the repo (button near the top right)
 ![image](/img/fork_repo.png)
 2. Keep the suggested name, leave "Copy the main branch only" checked, and click "Create fork".
-You find a copy of the repository in your own Github account, which you can either edit in the browser, or clone on your local machine, edit, and push changes with git.
-4. Create a subdirectory for your team with a creative (and unlikely to be duplicated) name under `session-2/projects`. Please push your work here, including your final presentation and working prototype.
+   You find a copy of the repository in your own GitHub account, which you can either edit in the browser, or clone on your local machine, edit, and push changes with git.
+3. Create a subdirectory for your team with a creative (and unlikely to be duplicated) name under `session-2/projects`. Please push your work here, including your final presentation and working prototype.
 
 ---
 
 ## Talos setup
-
-**TOOO: refine instructions. Are they both for Path A and B? We should provide some more setup instructions using Claude Console**
 
 The hackathon uses a **pinned Talos 11.0.1 environment**.
 
@@ -130,7 +133,7 @@ The organisers will provide prepared Talos 11.0.1 outputs and workshop data so p
 
 More technically experienced participants who want to work directly with Talos source code can use the following Talos 11.0.1 release: https://github.com/populationgenomics/talos/releases/tag/v11.0.1. This can be done using the following command, for example:
 ```
-git clone git@github.com:populationgenomics/talos.git --branch v11.0.1
+git clone https://github.com/populationgenomics/talos.git --branch v11.0.1
 ```
 However, for Talos to work as a complete pipeline, many dependencies and large annotation datasets are required. We therefore recommend using the supplied output files as the basis for all challenges rather than running the pipeline during the hackathon.
 
@@ -157,7 +160,7 @@ For the hackathon itself, do not build infrastructure from scratch. Start with t
 - [ ] Email verification completed before the event
 - [ ] Event claim link used when released
 - [ ] $100 Console API credit claimed
-- [ ] Correct Console organisation checked
+- [ ] Correct Console organisation checked (the one the credit was added to)
 - [ ] GitHub account available
 - [ ] Workshop GitHub repository accessible
 
