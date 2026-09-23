@@ -3,16 +3,13 @@
 ### Before the event
 
 Please create or sign in to your Claude Console (https://platform.claude.com/) account **before the hackathon starts** so email verification does not delay you at the start of the workshop. You can also use an existing account.
-
-Here is a tutorial for getting the necessary Claude Credits. Note that the credit will be added to the active account/organisation.
+You do not need to buy credits as Anthropic will provide **$100 of API credit per participant** (only redeemable on the day of the workshop).
 
 ### Claude event credits
 
-Anthropic provides **$100 of API credit per participant**.
+Here is a tutorial for getting the Claude Credits. Note that the credits will be added to the active account/organisation.
 
-#### Claiming the event credit on Sep 23
-
-1. Follow the claim link. It will be distributed at the registration desk on-site.
+1. Follow the claim link that will be distributed at the registration desk on-site.
 2. Sign in to/create your Anthropic account (same as in "Before the event").
 ![image](/img/console_signin.png)
 3. Select "Individual" on the screen "How will you use the Claude API?"
@@ -28,7 +25,7 @@ The credit is valid for **90 days from the moment it is claimed**.
 
 If you belong to several Console organisations, the credit is added to the one that was active when you claimed it.
 
----
+### During the event
 
 **Please choose the path that matches your experience:**
 
