@@ -1,28 +1,30 @@
 # AI × Genomics Hackathon
 
-A workshop package for an AI-assisted coding hackathon centred on Talos, rare-disease variant prioritisation and genome reanalysis.
+A workshop package for an AI-assisted coding hackathon centred on [Talos](https://www.nature.com/articles/s41591-026-04477-5), rare-disease variant prioritisation, genome reanalysis, and phenotype parsing.
 
 ## Core idea
 
-The workshop is not primarily about teaching people to code.
+This workshop does not teach people to code.
 
-It is about demonstrating that an AI coding agent can let clinical scientists and bioinformaticians build useful software in a short time that they would previously not have attempted.
+Instead, it shows clinical scientists and bioinformaticians how an AI coding agent (in this case, Claude) lets them build useful software in a short time frame, tackling projects they would previously not have attempted without a software engineering background.
+
+The workshop runs as two sessions: an individual session, followed by a group session.
 
 ## Setup and cheatsheet documentation
-Please follow the guidelines in the [participant setup](/setup/participant_setup.md) **before** the event to get set up. This will ensure that no time is wasted on technical problems during the hackathon.
+Please complete the [participant setup](/setup/participant_setup.md) **before** the event. This will ensure that no time is wasted on technical problems during the hackathon.
 
-Additionally, have a read through the [Claude cheatsheet](/setup/claude_cheatsheet.md) for useful tips on working with Claude chat and Code.
+Additionally, read the [Claude cheatsheet](/setup/claude_cheatsheet.md) for tips on working with Claude Chat and Claude Code.
 
 ## Session 1 — Individual onboarding
 
-In Session 1, you will get a short, contained experience of using an AI coding agent. Both tracks use synthetic or public Talos-derived material, so you can focus on the workflow rather than on handling patient data.
+In Session 1, you get a short, contained experience of using an AI coding agent. Both tracks use synthetic or public Talos-derived material, so you can focus on the workflow rather than on handling patient data.
 
-- **Track A: Tidy the Talos data** — inspect a messy candidate table and turn it into a concise, clinician-readable summary. You will practise understanding unfamiliar data, choosing useful fields, and iterating on a practical output rather than trying to write perfect code.
-- **Track B: Reskin the Talos report** — work with the real Talos output and make one useful presentation change to its HTML report. You will practise using Claude to analyse a file, identify areas fit for improvement, and testing a small change without altering the underlying variant interpretation.
+- **Track A: Tidy the Talos data**: inspect a messy variants table and turn it into a concise, clinician-readable summary. You will practise understanding unfamiliar data, choosing useful fields, and iterating on a practical output rather than writing code.
+- **Track B: Reskin the Talos report**: work with the real Talos output and make one useful presentation change to its HTML report. You will practise using Claude to analyse a file, identify areas fit for improvement, and test a small change without altering the underlying variant interpretation.
 
-Choose the track that suits your starting point: Track A begins with a data transformation task, while Track B takes you into modifying and extending the HTML, JavaScript and CSS code of the output of Talos.
+Track A is a good starting point if you'd rather work with data than code; Track B is a good starting point if you're comfortable diving into HTML, JavaScript and CSS.
 
-## Session 2 — Team hackathon
+## Session 2 — Team Hackathon
 
 In Session 2, work with your team on a small, working prototype that could make Talos or genome reanalysis more useful. Choose one of the challenges below, decide what a useful result would look like, and use Claude to help you build and demonstrate it. You do not need to build a complete product.
 
@@ -42,7 +44,7 @@ Please fork the repo, make a subdirectory for your team with a creative (and unl
 
 ## Source material
 
-The workshop deliberately uses the public Talos project and its test fixtures as the foundation. The upstream repository contains small VCF/pedigree/test JSON fixtures and the HTML report is assembled by Python/Jinja code.
+The workshop deliberately uses the public Talos project and its test fixtures as the foundation. The upstream repository contains small VCF/pedigree/test JSON fixtures, and the HTML report is assembled by Python/Jinja code.
 
 Other source data not directly related to Talos, including the PhenoTips phenopacket exports for challenges 8 and 9, have been synthetically generated for the purposes of this workshop.
 
