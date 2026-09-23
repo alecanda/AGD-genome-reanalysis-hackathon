@@ -54,7 +54,7 @@ About development acceleration and oversight, not whether the product contains a
 ## Probe question, per challenge
 
 1. **Case Review** — Did they do 2–3 improvements properly rather than reskinning everything? Did presentation changes stay presentation changes?
-2. **Candidate explanation** — Does every line trace to a field? Do they distinguish assigned `categories` from run-level `support_categories`?
+2. **Candidate explanation** — Does the explanation add anything valuable beyond the data in the report? Will this speed up clinical evaluation? 
 3. **Natural-language Talos** — Show the query the question produced. Then ask something unanswerable: does it decline, or guess?
 4. **Reanalysis triage** — Is the weighting inspectable or arbitrary? What happens to a case with no new evidence?
 5. **Open pitch** — Does it genuinely touch Talos output? Same four criteria as everyone else, no handicap or bonus.
