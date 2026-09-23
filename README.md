@@ -33,6 +33,9 @@ In Session 2, work with your team on a small, working prototype that could make 
 5. **[Open pitch](/session-2/challenge-5-open-pitch.md)** — propose and prototype another improvement to Talos, rare-disease diagnostics, or genome reanalysis. Start with a real user problem, make sure your idea meaningfully interacts with Talos or its outputs, and demonstrate a working proof of concept. It does not need to contain AI.
 6. **[HPO annotation tool](/session-2/challenge-6-hpo-annotation.md)** — build a graphical annotation tool for tagging inputs such as hand radiographs or free-text diagnosis descriptions with HPO terms. Focus on making annotation fast and consistent, and export the collected annotations in a form that could later train a model to predict or suggest HPO terms.
 7. **[Explore computational facial phenotypes](/session-2/challenge-7-facial-phenotyping.md)** — build an interactive research tool to explore rare-disease facial images together with GestaltMatcher embeddings, known syndrome labels, and diagnostic predictions. Possible directions include interactive t-SNE/UMAP visualisation, image exploration by syndrome, nearest-neighbour analysis, patient-level prediction review, and investigation of clustering or prediction errors.
+8. **[Find patients matching trial criteria](/session-2/challenge-8-cohort-finder.md)** — search 100 synthetic PhenoTips phenopacket exports for patients meeting inclusion criteria such as a family history of breast cancer, a particular diagnosis or a positive gene finding. Family history has to come from the pedigree, and every match should show the fields that qualified it.
+9. **[Undiagnosed patient investigation](/session-2/challenge-9-undiagnosed-investigation.md)** — filter the same dataset to patients without a diagnosis and use PubCaseFinder's public API to build a differential diagnosis with links to case reports. Show scores and matched terms rather than a single answer.
+
 ### Working with your team
 **Workshop GitHub repository:**  
 Please fork the repo, make a subdirectory for your team with a creative (and unlikely to be duplicated) name under `session-2/projects`. Please push your work here, including your final presentation and working prototype.
@@ -41,7 +44,7 @@ Please fork the repo, make a subdirectory for your team with a creative (and unl
 
 The workshop deliberately uses the public Talos project and its test fixtures as the foundation. The upstream repository contains small VCF/pedigree/test JSON fixtures and the HTML report is assembled by Python/Jinja code.
 
-Other source data not directly related to Talos have been synthetically generated for the purposed of this workshop.
+Other source data not directly related to Talos, including the PhenoTips phenopacket exports for challenges 8 and 9, have been synthetically generated for the purposes of this workshop.
 
 ## Data policy
 
