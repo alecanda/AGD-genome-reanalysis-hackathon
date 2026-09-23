@@ -8,6 +8,7 @@ Individual challenge descriptions:
 * [Challenge 4 — Reanalysis triage](/session-2/challenge-4-reanalysis-triage.md)
 * [Challenge 5 — Open pitch](/session-2/challenge-5-open-pitch.md)
 * [Challenge 6 — HPO annotation tool](/session-2/challenge-6-hpo-annotation.md)
+* [Challenge 7 — Interactive exploration of computational facial phenotyping results](/session-2/challenge-7-facial-phenotyping.md)
 
 ## Challenges 1 - 3
 
@@ -61,6 +62,34 @@ No data is supplied for this challenge. Download the HPO annotation files yourse
 * `genes_to_phenotype.txt` / `phenotype_to_genes.txt` — the same annotations viewed per gene.
 
 These files map diseases and genes to HPO term IDs. They do not contain the ontology itself, so they carry no term labels, synonyms or parent/child relationships. For term search and hierarchy, download `hp.json` or `hp.obo` from https://hpo.jax.org/data/ontology.
+
+## Challenge 7 — Interactive exploration of computational facial phenotyping results
+
+Build an interactive tool to explore computational facial phenotyping results. Participants receive:
+* 125 aligned facial images covering 5 rare disorders, with 25 images per disorder
+* Image metadata
+* One GestaltMatcher embedding per image
+* One GestaltMatcher prediction JSON file per image
+
+Download the dataset from [Sciebo](https://uni-bonn.sciebo.de/s/z9c26aWQBqxDb9Q).
+
+The dataset is password-protected. Please request the password from the workshop organizers.
+
+The extracted dataset structure is approximately:
+
+```text
+demo_data/
+├── demo_align/
+│   ├── 1_aligned.jpg
+│   ├── 2_aligned.jpg
+│   └── ...
+├── image_metadata_demo.tsv
+├── demo_embeddings_v115.tsv
+└── demo_output_v115/
+    ├── 1_aligned.json
+    ├── 2_aligned.json
+    └── ...
+```
 
 ## Important data policy
 
