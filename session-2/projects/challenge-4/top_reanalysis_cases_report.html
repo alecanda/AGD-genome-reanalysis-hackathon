@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Reanalysis triage &mdash; scoring report</title>
+<style>
+  body { font-family: -apple-system, Segoe UI, Helvetica, Arial, sans-serif; margin: 2rem auto; max-width: 960px; line-height: 1.5; color: #1a1a1a; }
+  h1 { font-size: 1.6rem; }
+  h2 { font-size: 1.25rem; margin-top: 2rem; border-bottom: 1px solid #ddd; padding-bottom: 0.25rem; }
+  h3 { font-size: 1.05rem; margin-top: 1.5rem; }
+  table { border-collapse: collapse; width: 100%; margin: 0.75rem 0 1.25rem; font-size: 0.9rem; }
+  th, td { border: 1px solid #ddd; padding: 0.4rem 0.6rem; text-align: left; vertical-align: top; }
+  th { background: #f4f4f4; }
+  table.results tbody tr:nth-child(-n+3) { background: #fff8e1; }
+  code { background: #f0f0f0; padding: 0.1rem 0.3rem; border-radius: 3px; font-size: 0.85em; }
+  pre { background: #f4f4f4; padding: 0.6rem 1rem; border-radius: 4px; overflow-x: auto; }
+  .flag { color: #b45309; font-size: 0.85em; }
+  .caveat { background: #fff3cd; border: 1px solid #f0d58c; padding: 0.75rem 1rem; border-radius: 4px; margin: 1rem 0; }
+</style>
+</head>
+<body>
+  <h1>Reanalysis triage &mdash; scoring report</h1>
+  <p class="caveat">Synthetic data, generated for a hackathon exercise. Not clinical evidence. Weights below are judgment calls, not derived from outcomes data.</p>
+  
+    <section>
+      <h2>How this score is built</h2>
+      <p>Every non-<code>solved</code> case gets a <strong>final_score</strong> computed as:</p>
+      <pre>final_score = (Tier A + Tier B + Tier C + age tiebreaker) &times; case_status_multiplier</pre>
+      <p><code>solved</code> cases are excluded from ranking entirely, not scored low.</p>
+
+      <h3>Tier A &mdash; direct evidence of new molecular findings</h3>
+      <table>
+        <tr><th>Signal</th><th>Points per unit</th><th>Capped at</th></tr>
+        <tr><td>ClinVar upgrades to Pathogenic/Likely Pathogenic</td><td>10</td><td>3</td></tr>
+        <tr><td>Other ClinVar reclassifications</td><td>4</td><td>3</td></tr>
+        <tr><td>New gene&ndash;disease evidence</td><td>6</td><td>3</td></tr>
+        <tr><td>New high-priority candidates</td><td>6</td><td>3</td></tr>
+        <tr><td>New candidates (weak signal)</td><td>1</td><td>5</td></tr>
+      </table>
+
+      <h3>Tier B &mdash; analytic headroom</h3>
+      <p><strong>B1. Prior analysis completeness</strong> &mdash; points awarded once, based on <code>prior_analysis_flag</code>:</p>
+      <table>
+        <tr><th>Flag</th><th>Points</th></tr>
+        <tr><td><code>pipeline_error</code></td><td>10</td></tr><tr><td><code>qc_fail</code></td><td>10</td></tr><tr><td><code>partial_panel</code></td><td>7</td></tr><tr><td><code>no_parental_data</code></td><td>6</td></tr>
+      </table>
+      <p><strong>B2. Phenotype expansion</strong> &mdash; 2 points per new HPO term, capped at 3 terms.</p>
+
+      <h3>Tier C &mdash; free-text note classification</h3>
+      <p>The <code>note</code> field is matched (case-insensitive substring) against fixed phrase lists. If several signal phrases match, the highest-scoring one wins &mdash; points are not summed.</p>
+      <table>
+        <tr><th>Signal phrase</th><th>Points</th></tr>
+        <tr><td>parents now consented and sequenced</td><td>8</td></tr><tr><td>second affected sibling now presenting</td><td>8</td></tr><tr><td>research collaboration reported a second family</td><td>8</td></tr><tr><td>matchmaker exchange match reported</td><td>8</td></tr><tr><td>new consanguinity information</td><td>6</td></tr><tr><td>muscle biopsy results now available</td><td>6</td></tr><tr><td>clinician requested review following new mri findings</td><td>6</td></tr><tr><td>skin fibroblast rna study completed</td><td>6</td></tr><tr><td>deep phenotyping completed at specialist clinic</td><td>5</td></tr><tr><td>clinician requested review ahead of family planning</td><td>4</td></tr>
+      </table>
+      <p><strong>Administrative / no-signal phrases (0 points):</strong> <code>routine</code>, <code>annual review</code>, <code>internal cohort</code>, <code>reviewed at mdt</code>, <code>part of research cohort</code>, <code>external referral</code>, <code>referred from clinical genetics</code>, <code>referred from paediatric neurology</code>, <code>no family history reported</code>, <code>prenatal history unremarkable</code>, <code>sample received from external lab</code>, <code>consanguineous family</code>.</p>
+      <p>Notes matching neither list are flagged <code>unclassified_note</code> for manual review rather than silently scored 0.</p>
+
+      <h3>Tiebreaker &mdash; time since last analysis</h3>
+      <p>0.5 points per year since <code>last_analysis</code>, capped at 5 points. Small on purpose &mdash; it only matters among otherwise-similar scores.</p>
+
+      <h3>Case-status multiplier</h3>
+      <table>
+        <tr><th>case_status</th><th>Multiplier</th></tr>
+        <tr><td><code>unsolved</code></td><td>1.0</td></tr>
+        <tr><td><code>partially_solved</code></td><td>0.85</td></tr>
+        <tr><td><code>solved</code></td><td>excluded from ranking</td></tr>
+      </table>
+
+      <h3>Missing data</h3>
+      <p>No case is dropped for having <code>NA</code> values. Any scoring-relevant field that was <code>NA</code> is treated as 0 for that component and listed in <strong>data_completeness_flags</strong> so a reviewer can see which scores rest on incomplete data.</p>
+
+      <p><em>Full rationale: <code>challenge-4-scoring-spec.md</code>. All weights above come from the loaded config file, not hardcoded text &mdash; if you change the config, this explanation reflects the run that produced the table below.</em></p>
+    </section>
+    
+  
+    <section>
+      <h2>Top 30 cases by final score</h2>
+      <table class="results">
+        <thead><tr><th>Rank</th><th>Case ID</th><th>Final score</th><th>Tier A</th><th>Tier B</th><th>Tier C</th><th>Age bonus</th><th>Status</th><th>Matched note signal</th><th>Data flags</th><th>Last analysis</th><th>Note</th></tr></thead>
+        <tbody><tr><td>1</td><td><code>CASE_029</code></td><td><strong>47.85</strong></td><td>46.0</td><td>0.0</td><td>0.0</td><td>1.85</td><td>unsolved</td><td>&mdash;</td><td></td><td>2022-12-23</td><td>annual review</td></tr><tr><td>2</td><td><code>CASE_185</code></td><td><strong>44.07</strong></td><td>32.0</td><td>10.0</td><td>0.0</td><td>2.07</td><td>unsolved</td><td>&mdash;</td><td><span class="flag">phenotype_changes</span></td><td>2022-07-15</td><td>internal cohort</td></tr><tr><td>3</td><td><code>CASE_293</code></td><td><strong>39.24</strong></td><td>32.0</td><td>4.0</td><td>0.0</td><td>3.24</td><td>unsolved</td><td>&mdash;</td><td></td><td>2020-03-11</td><td>no family history reported</td></tr><tr><td>4</td><td><code>CASE_086</code></td><td><strong>35.51</strong></td><td>26.0</td><td>6.0</td><td>0.0</td><td>3.51</td><td>unsolved</td><td>&mdash;</td><td></td><td>2019-08-22</td><td>consanguineous family</td></tr><tr><td>5</td><td><code>CASE_215</code></td><td><strong>34.2</strong></td><td>29.0</td><td>2.0</td><td>0.0</td><td>3.2</td><td>unsolved</td><td>&mdash;</td><td></td><td>2020-04-10</td><td>consanguineous family</td></tr><tr><td>6</td><td><code>CASE_053</code></td><td><strong>32.5</strong></td><td>15.0</td><td>7.0</td><td>8</td><td>2.5</td><td>unsolved</td><td>parents now consented and sequenced</td><td></td><td>2021-08-29</td><td>parents now consented and sequenced; trio data available</td></tr><tr><td>7</td><td><code>CASE_162</code></td><td><strong>29.99</strong></td><td>28.0</td><td>0.0</td><td>0.0</td><td>1.99</td><td>unsolved</td><td>&mdash;</td><td></td><td>2022-09-05</td><td>routine</td></tr><tr><td>8</td><td><code>CASE_171</code></td><td><strong>28.7</strong></td><td>19.0</td><td>6.0</td><td>0.0</td><td>3.7</td><td>unsolved</td><td>&mdash;</td><td></td><td>2019-04-09</td><td></td></tr><tr><td>9</td><td><code>CASE_058</code></td><td><strong>28.31</strong></td><td>28.0</td><td>0.0</td><td>0.0</td><td>0.31</td><td>unsolved</td><td>&mdash;</td><td></td><td>2026-01-14</td><td>consanguineous family</td></tr><tr><td>10</td><td><code>CASE_010</code></td><td><strong>28.09</strong></td><td>28.0</td><td>0.0</td><td>0.0</td><td>0.09</td><td>unsolved</td><td>&mdash;</td><td></td><td>2026-06-26</td><td>routine</td></tr><tr><td>11</td><td><code>CASE_298</code></td><td><strong>27.0</strong></td><td>21.0</td><td>4.0</td><td>0.0</td><td>2.0</td><td>unsolved</td><td>&mdash;</td><td></td><td>2022-09-01</td><td>sample received from external lab</td></tr><tr><td>12</td><td><code>CASE_111</code></td><td><strong>26.64</strong></td><td>18.0</td><td>0.0</td><td>8</td><td>0.64</td><td>unsolved</td><td>research collaboration reported a second family</td><td></td><td>2025-05-19</td><td>research collaboration reported a second family with a variant in the same gene</td></tr><tr><td>13</td><td><code>CASE_239</code></td><td><strong>25.73</strong></td><td>23.0</td><td>0.0</td><td>0.0</td><td>2.73</td><td>unsolved</td><td>&mdash;</td><td></td><td>2021-03-20</td><td>routine</td></tr><tr><td>14</td><td><code>CASE_256</code></td><td><strong>25.71</strong></td><td>17.0</td><td>6.0</td><td>0.0</td><td>2.71</td><td>unsolved</td><td>&mdash;</td><td></td><td>2021-04-03</td><td></td></tr><tr><td>15</td><td><code>CASE_234</code></td><td><strong>25.37</strong></td><td>17.0</td><td>6.0</td><td>0.0</td><td>2.37</td><td>unsolved</td><td>&mdash;</td><td></td><td>2021-12-08</td><td></td></tr><tr><td>16</td><td><code>CASE_026</code></td><td><strong>25.27</strong></td><td>24.0</td><td>0.0</td><td>0.0</td><td>1.27</td><td>unsolved</td><td>&mdash;</td><td></td><td>2024-02-19</td><td>sample received from external lab</td></tr><tr><td>17</td><td><code>CASE_251</code></td><td><strong>25.05</strong></td><td>26.0</td><td>0.0</td><td>0.0</td><td>3.47</td><td>partially_solved</td><td>&mdash;</td><td></td><td>2019-09-23</td><td>routine</td></tr><tr><td>18</td><td><code>CASE_106</code></td><td><strong>25.02</strong></td><td>11.0</td><td>6.0</td><td>8</td><td>0.02</td><td>unsolved</td><td>second affected sibling now presenting</td><td></td><td>2026-08-19</td><td>second affected sibling now presenting with overlapping features</td></tr><tr><td>19</td><td><code>CASE_100</code></td><td><strong>24.84</strong></td><td>18.0</td><td>6.0</td><td>0.0</td><td>0.84</td><td>unsolved</td><td>&mdash;</td><td></td><td>2024-12-24</td><td>internal cohort</td></tr><tr><td>20</td><td><code>CASE_022</code></td><td><strong>24.81</strong></td><td>10.0</td><td>12.0</td><td>0.0</td><td>2.81</td><td>unsolved</td><td>&mdash;</td><td></td><td>2021-01-14</td><td></td></tr><tr><td>21</td><td><code>CASE_227</code></td><td><strong>24.8</strong></td><td>16.0</td><td>6.0</td><td>0.0</td><td>2.8</td><td>unsolved</td><td>&mdash;</td><td></td><td>2021-01-28</td><td>internal cohort</td></tr><tr><td>22</td><td><code>CASE_213</code></td><td><strong>24.34</strong></td><td>16.0</td><td>6.0</td><td>0.0</td><td>2.34</td><td>unsolved</td><td>&mdash;</td><td></td><td>2021-12-25</td><td></td></tr><tr><td>23</td><td><code>CASE_188</code></td><td><strong>23.3</strong></td><td>21.0</td><td>0.0</td><td>0.0</td><td>2.3</td><td>unsolved</td><td>&mdash;</td><td></td><td>2022-01-22</td><td>routine</td></tr><tr><td>24</td><td><code>CASE_006</code></td><td><strong>22.89</strong></td><td>20.0</td><td>0.0</td><td>0.0</td><td>2.89</td><td>unsolved</td><td>&mdash;</td><td><span class="flag">hpo_term_count(unused)</span></td><td>2020-11-20</td><td></td></tr><tr><td>25</td><td><code>CASE_277</code></td><td><strong>22.18</strong></td><td>13.0</td><td>6.0</td><td>0.0</td><td>3.18</td><td>unsolved</td><td>&mdash;</td><td></td><td>2020-04-19</td><td>external referral</td></tr><tr><td>26</td><td><code>CASE_175</code></td><td><strong>21.57</strong></td><td>11.0</td><td>7.0</td><td>0.0</td><td>3.57</td><td>unsolved</td><td>&mdash;</td><td></td><td>2019-07-10</td><td>routine</td></tr><tr><td>27</td><td><code>CASE_116</code></td><td><strong>21.47</strong></td><td>19.0</td><td>0.0</td><td>0.0</td><td>2.47</td><td>unsolved</td><td>&mdash;</td><td></td><td>2021-09-22</td><td>part of research cohort</td></tr><tr><td>28</td><td><code>CASE_062</code></td><td><strong>21.23</strong></td><td>20.0</td><td>0.0</td><td>0.0</td><td>1.23</td><td>unsolved</td><td>&mdash;</td><td></td><td>2024-03-18</td><td></td></tr><tr><td>29</td><td><code>CASE_134</code></td><td><strong>21.1</strong></td><td>18.0</td><td>0.0</td><td>0.0</td><td>3.1</td><td>unsolved</td><td>&mdash;</td><td></td><td>2020-06-16</td><td></td></tr><tr><td>30</td><td><code>CASE_114</code></td><td><strong>20.72</strong></td><td>18.0</td><td>0.0</td><td>0.0</td><td>2.72</td><td>unsolved</td><td>&mdash;</td><td></td><td>2021-03-25</td><td></td></tr></tbody>
+      </table>
+    </section>
+    
+</body>
+</html>

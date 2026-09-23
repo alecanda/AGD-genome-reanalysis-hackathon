@@ -1,0 +1,61 @@
+{
+  "top_n": 30,
+  "tier_a": {
+    "clinvar_upgrade_points": 10,
+    "clinvar_upgrade_cap_count": 3,
+    "clinvar_other_points": 4,
+    "clinvar_other_cap_count": 3,
+    "gene_evidence_points": 6,
+    "gene_evidence_cap_count": 3,
+    "high_priority_points": 6,
+    "high_priority_cap_count": 3,
+    "new_candidates_points": 1,
+    "new_candidates_cap_count": 5
+  },
+  "tier_b": {
+    "prior_flag_points": {
+      "pipeline_error": 10,
+      "qc_fail": 10,
+      "partial_panel": 7,
+      "no_parental_data": 6
+    },
+    "phenotype_change_points": 2,
+    "phenotype_change_cap_count": 3
+  },
+  "tier_c": {
+    "signal_phrases": {
+      "parents now consented and sequenced": 8,
+      "second affected sibling now presenting": 8,
+      "research collaboration reported a second family": 8,
+      "matchmaker exchange match reported": 8,
+      "new consanguinity information": 6,
+      "muscle biopsy results now available": 6,
+      "clinician requested review following new mri findings": 6,
+      "skin fibroblast rna study completed": 6,
+      "deep phenotyping completed at specialist clinic": 5,
+      "clinician requested review ahead of family planning": 4
+    },
+    "administrative_phrases": [
+      "routine",
+      "annual review",
+      "internal cohort",
+      "reviewed at mdt",
+      "part of research cohort",
+      "external referral",
+      "referred from clinical genetics",
+      "referred from paediatric neurology",
+      "no family history reported",
+      "prenatal history unremarkable",
+      "sample received from external lab",
+      "consanguineous family"
+    ]
+  },
+  "tiebreaker": {
+    "points_per_year": 0.5,
+    "cap": 5
+  },
+  "case_status_multiplier": {
+    "unsolved": 1.0,
+    "partially_solved": 0.85
+  }
+}
